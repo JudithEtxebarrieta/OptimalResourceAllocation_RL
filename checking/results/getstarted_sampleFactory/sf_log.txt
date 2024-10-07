@@ -1,0 +1,138 @@
+[2024-10-01 11:09:38,863][17370] Saving configuration to checking/results/getstarted_sampleFactory/config.json...
+[2024-10-01 11:09:38,864][17370] Rollout worker 0 uses device cpu
+[2024-10-01 11:09:38,864][17370] In synchronous mode, we only accumulate one batch. Setting num_batches_to_accumulate to 1
+[2024-10-01 11:09:38,892][17370] InferenceWorker_p0-w0: min num requests: 1
+[2024-10-01 11:09:38,893][17370] Setting fixed seed 1
+[2024-10-01 11:09:38,895][17370] Initializing actor-critic model on device cpu
+[2024-10-01 11:09:38,896][17370] RunningMeanStd input shape: (27,)
+[2024-10-01 11:09:38,896][17370] RunningMeanStd input shape: (1,)
+[2024-10-01 11:09:38,952][17370] Created Actor Critic model with architecture:
+[2024-10-01 11:09:38,952][17370] ActorCriticSharedWeights(
+  (obs_normalizer): ObservationNormalizer(
+    (running_mean_std): RunningMeanStdDictInPlace(
+      (running_mean_std): ModuleDict(
+        (obs): RunningMeanStdInPlace()
+      )
+    )
+  )
+  (returns_normalizer): RecursiveScriptModule(original_name=RunningMeanStdInPlace)
+  (encoder): MultiInputEncoder(
+    (encoders): ModuleDict(
+      (obs): MlpEncoder(
+        (mlp_head): RecursiveScriptModule(
+          original_name=Sequential
+          (0): RecursiveScriptModule(original_name=Linear)
+          (1): RecursiveScriptModule(original_name=Tanh)
+          (2): RecursiveScriptModule(original_name=Linear)
+          (3): RecursiveScriptModule(original_name=Tanh)
+        )
+      )
+    )
+  )
+  (core): ModelCoreIdentity()
+  (decoder): MlpDecoder(
+    (mlp): Identity()
+  )
+  (critic_linear): Linear(in_features=64, out_features=1, bias=True)
+  (action_parameterization): ActionParameterizationContinuousNonAdaptiveStddev(
+    (distribution_linear): Linear(in_features=64, out_features=8, bias=True)
+  )
+)
+[2024-10-01 11:09:39,178][17370] Using optimizer <class 'torch.optim.adam.Adam'>
+[2024-10-01 11:09:39,576][17370] No checkpoints found
+[2024-10-01 11:09:39,576][17370] Did not load from checkpoint, starting from scratch!
+[2024-10-01 11:09:39,576][17370] Initialized policy 0 weights for model version 0
+[2024-10-01 11:09:39,576][17370] LearnerWorker_p0 finished initialization!
+[2024-10-01 11:09:39,577][17370] Inference worker 0-0 is ready!
+[2024-10-01 11:09:39,577][17370] All inference workers are ready! Signal rollout workers to start!
+[2024-10-01 11:09:39,584][17370] Decorrelating experience for 0 frames...
+[2024-10-01 11:09:42,314][17370] Fps is (10 sec: nan, 60 sec: nan, 300 sec: nan). Total num frames: 0. Throughput: 0: nan. Samples: 0. Policy #0 lag: (min: -1.0, avg: -1.0, max: -1.0)
+[2024-10-01 11:09:42,314][17370] Avg episode reward: [(0, '-455.894')]
+[2024-10-01 11:09:47,314][17370] Fps is (10 sec: 1638.4, 60 sec: 1638.4, 300 sec: 1638.4). Total num frames: 8192. Throughput: 0: 1251.4. Samples: 6257. Policy #0 lag: (min: 5.0, avg: 5.0, max: 5.0)
+[2024-10-01 11:09:47,314][17370] Avg episode reward: [(0, '-367.873')]
+[2024-10-01 11:09:52,314][17370] Fps is (10 sec: 1228.8, 60 sec: 1228.8, 300 sec: 1228.8). Total num frames: 12288. Throughput: 0: 1317.6. Samples: 13176. Policy #0 lag: (min: 1.0, avg: 1.0, max: 1.0)
+[2024-10-01 11:09:52,314][17370] Avg episode reward: [(0, '-404.873')]
+[2024-10-01 11:09:52,317][17370] Saving checking/results/getstarted_sampleFactory/checkpoint_p0/checkpoint_000000024_12288.pth...
+[2024-10-01 11:09:57,314][17370] Fps is (10 sec: 819.2, 60 sec: 1092.3, 300 sec: 1092.3). Total num frames: 16384. Throughput: 0: 1081.9. Samples: 16229. Policy #0 lag: (min: 4.0, avg: 4.0, max: 4.0)
+[2024-10-01 11:09:57,314][17370] Avg episode reward: [(0, '-316.267')]
+[2024-10-01 11:09:58,893][17370] Heartbeat connected on Batcher_0
+[2024-10-01 11:09:58,893][17370] Heartbeat connected on LearnerWorker_p0
+[2024-10-01 11:09:58,895][17370] Heartbeat connected on InferenceWorker_p0-w0
+[2024-10-01 11:09:58,895][17370] Heartbeat connected on RolloutWorker_w0
+[2024-10-01 11:10:02,314][17370] Fps is (10 sec: 1228.8, 60 sec: 1228.8, 300 sec: 1228.8). Total num frames: 24576. Throughput: 0: 1151.9. Samples: 23038. Policy #0 lag: (min: 0.0, avg: 0.0, max: 0.0)
+[2024-10-01 11:10:02,314][17370] Avg episode reward: [(0, '-324.036')]
+[2024-10-01 11:10:07,314][17370] Fps is (10 sec: 1228.8, 60 sec: 1146.9, 300 sec: 1146.9). Total num frames: 28672. Throughput: 0: 1198.5. Samples: 29962. Policy #0 lag: (min: 0.0, avg: 0.0, max: 0.0)
+[2024-10-01 11:10:07,314][17370] Avg episode reward: [(0, '-348.895')]
+[2024-10-01 11:10:07,319][17370] Saving checking/results/getstarted_sampleFactory/checkpoint_p0/checkpoint_000000056_28672.pth...
+[2024-10-01 11:10:12,315][17370] Fps is (10 sec: 819.1, 60 sec: 1092.2, 300 sec: 1092.2). Total num frames: 32768. Throughput: 0: 1103.5. Samples: 33107. Policy #0 lag: (min: 0.0, avg: 0.0, max: 0.0)
+[2024-10-01 11:10:12,315][17370] Avg episode reward: [(0, '-242.846')]
+[2024-10-01 11:10:17,314][17370] Fps is (10 sec: 1228.8, 60 sec: 1170.3, 300 sec: 1170.3). Total num frames: 40960. Throughput: 0: 1142.6. Samples: 39989. Policy #0 lag: (min: 2.0, avg: 2.0, max: 2.0)
+[2024-10-01 11:10:17,314][17370] Avg episode reward: [(0, '-194.838')]
+[2024-10-01 11:10:22,314][17370] Fps is (10 sec: 1228.9, 60 sec: 1126.4, 300 sec: 1126.4). Total num frames: 45056. Throughput: 0: 1170.8. Samples: 46831. Policy #0 lag: (min: 7.0, avg: 7.0, max: 7.0)
+[2024-10-01 11:10:22,314][17370] Avg episode reward: [(0, '-277.643')]
+[2024-10-01 11:10:22,319][17370] Saving checking/results/getstarted_sampleFactory/checkpoint_p0/checkpoint_000000088_45056.pth...
+[2024-10-01 11:10:22,321][17370] Removing checking/results/getstarted_sampleFactory/checkpoint_p0/checkpoint_000000024_12288.pth
+[2024-10-01 11:10:27,314][17370] Fps is (10 sec: 1228.8, 60 sec: 1183.3, 300 sec: 1183.3). Total num frames: 53248. Throughput: 0: 1116.0. Samples: 50220. Policy #0 lag: (min: 1.0, avg: 1.0, max: 1.0)
+[2024-10-01 11:10:27,314][17370] Avg episode reward: [(0, '-285.606')]
+[2024-10-01 11:10:32,314][17370] Fps is (10 sec: 1228.8, 60 sec: 1146.9, 300 sec: 1146.9). Total num frames: 57344. Throughput: 0: 1129.7. Samples: 57094. Policy #0 lag: (min: 7.0, avg: 7.0, max: 7.0)
+[2024-10-01 11:10:32,314][17370] Avg episode reward: [(0, '-157.983')]
+[2024-10-01 11:10:37,314][17370] Fps is (10 sec: 819.2, 60 sec: 1117.1, 300 sec: 1117.1). Total num frames: 61440. Throughput: 0: 1128.0. Samples: 63935. Policy #0 lag: (min: 7.0, avg: 7.0, max: 7.0)
+[2024-10-01 11:10:37,314][17370] Avg episode reward: [(0, '-191.493')]
+[2024-10-01 11:10:37,319][17370] Saving checking/results/getstarted_sampleFactory/checkpoint_p0/checkpoint_000000120_61440.pth...
+[2024-10-01 11:10:37,321][17370] Removing checking/results/getstarted_sampleFactory/checkpoint_p0/checkpoint_000000056_28672.pth
+[2024-10-01 11:10:42,314][17370] Fps is (10 sec: 1228.8, 60 sec: 1160.5, 300 sec: 1160.5). Total num frames: 69632. Throughput: 0: 1136.5. Samples: 67372. Policy #0 lag: (min: 4.0, avg: 4.0, max: 4.0)
+[2024-10-01 11:10:42,314][17370] Avg episode reward: [(0, '-137.204')]
+[2024-10-01 11:10:47,314][17370] Fps is (10 sec: 1228.8, 60 sec: 1092.3, 300 sec: 1134.3). Total num frames: 73728. Throughput: 0: 1111.9. Samples: 73073. Policy #0 lag: (min: 6.0, avg: 6.0, max: 6.0)
+[2024-10-01 11:10:47,314][17370] Avg episode reward: [(0, '-136.593')]
+[2024-10-01 11:10:52,314][17370] Fps is (10 sec: 819.2, 60 sec: 1092.3, 300 sec: 1111.8). Total num frames: 77824. Throughput: 0: 1110.6. Samples: 79939. Policy #0 lag: (min: 7.0, avg: 7.0, max: 7.0)
+[2024-10-01 11:10:52,314][17370] Avg episode reward: [(0, '-137.245')]
+[2024-10-01 11:10:52,318][17370] Saving checking/results/getstarted_sampleFactory/checkpoint_p0/checkpoint_000000152_77824.pth...
+[2024-10-01 11:10:52,320][17370] Removing checking/results/getstarted_sampleFactory/checkpoint_p0/checkpoint_000000088_45056.pth
+[2024-10-01 11:10:57,314][17370] Fps is (10 sec: 1228.8, 60 sec: 1160.5, 300 sec: 1146.9). Total num frames: 86016. Throughput: 0: 1116.5. Samples: 83349. Policy #0 lag: (min: 7.0, avg: 7.0, max: 7.0)
+[2024-10-01 11:10:57,314][17370] Avg episode reward: [(0, '-178.251')]
+[2024-10-01 11:11:02,314][17370] Fps is (10 sec: 1228.8, 60 sec: 1092.3, 300 sec: 1126.4). Total num frames: 90112. Throughput: 0: 1116.2. Samples: 90217. Policy #0 lag: (min: 2.0, avg: 2.0, max: 2.0)
+[2024-10-01 11:11:02,314][17370] Avg episode reward: [(0, '-146.445')]
+[2024-10-01 11:11:07,314][17370] Fps is (10 sec: 819.2, 60 sec: 1092.3, 300 sec: 1108.3). Total num frames: 94208. Throughput: 0: 1118.7. Samples: 97173. Policy #0 lag: (min: 7.0, avg: 7.0, max: 7.0)
+[2024-10-01 11:11:07,314][17370] Avg episode reward: [(0, '-193.290')]
+[2024-10-01 11:11:07,320][17370] Saving checking/results/getstarted_sampleFactory/checkpoint_p0/checkpoint_000000184_94208.pth...
+[2024-10-01 11:11:07,322][17370] Removing checking/results/getstarted_sampleFactory/checkpoint_p0/checkpoint_000000120_61440.pth
+[2024-10-01 11:11:12,314][17370] Fps is (10 sec: 1228.9, 60 sec: 1160.6, 300 sec: 1137.8). Total num frames: 102400. Throughput: 0: 1119.4. Samples: 100591. Policy #0 lag: (min: 7.0, avg: 7.0, max: 7.0)
+[2024-10-01 11:11:12,314][17370] Avg episode reward: [(0, '-208.714')]
+[2024-10-01 11:11:12,317][17370] Saving new best policy, reward=-208.714!
+[2024-10-01 11:11:14,817][17370] Early stopping after 2 epochs (8 sgd steps), loss delta 0.0000000
+[2024-10-01 11:11:14,824][17370] Saving checking/results/getstarted_sampleFactory/checkpoint_p0/checkpoint_000000208_106496.pth...
+[2024-10-01 11:11:14,827][17370] Removing checking/results/getstarted_sampleFactory/checkpoint_p0/checkpoint_000000152_77824.pth
+[2024-10-01 11:11:14,827][17370] Stopping RolloutWorker_w0...
+[2024-10-01 11:11:14,827][17370] Stopping InferenceWorker_p0-w0...
+[2024-10-01 11:11:14,827][17370] Stopping Batcher_0...
+[2024-10-01 11:11:14,827][17370] Component RolloutWorker_w0 stopped!
+[2024-10-01 11:11:14,827][17370] Component InferenceWorker_p0-w0 stopped!
+[2024-10-01 11:11:14,828][17370] Saving checking/results/getstarted_sampleFactory/checkpoint_p0/checkpoint_000000208_106496.pth...
+[2024-10-01 11:11:14,830][17370] Stopping LearnerWorker_p0...
+[2024-10-01 11:11:14,830][17370] Component Batcher_0 stopped!
+[2024-10-01 11:11:14,830][17370] Component LearnerWorker_p0 stopped!
+[2024-10-01 11:11:14,830][17370] Batcher 0 profile tree view:
+batching: 0.0409, releasing_batches: 0.0030
+[2024-10-01 11:11:14,830][17370] InferenceWorker_p0-w0 profile tree view:
+update_model: 1.1973
+one_step: 0.0004
+  handle_policy_step: 47.8355
+    deserialize: 1.5373, stack: 0.5708, obs_to_device_normalize: 9.7135, forward: 26.3992, send_messages: 0.9728
+    prepare_outputs: 4.8950
+      to_cpu: 0.6883
+[2024-10-01 11:11:14,830][17370] Learner 0 profile tree view:
+misc: 0.0001, prepare_batch: 0.1034
+train: 0.6433
+  epoch_init: 0.0003, minibatch_init: 0.0098, losses_postprocess: 0.0107, kl_divergence: 0.0035, after_optimizer: 0.0220
+  calculate_losses: 0.2084
+    losses_init: 0.0003, forward_head: 0.0406, bptt_initial: 0.0010, bptt: 0.0012, tail: 0.0745, advantages_returns: 0.0084, losses: 0.0714
+  update: 0.3739
+    clip: 0.0396
+[2024-10-01 11:11:14,831][17370] RolloutWorker_w0 profile tree view:
+wait_for_trajectories: 0.0286, enqueue_policy_requests: 1.4000, env_step: 26.2180, overhead: 2.8934, complete_rollouts: 0.0672
+save_policy_outputs: 3.1728
+  split_output_tensors: 1.5751
+[2024-10-01 11:11:14,831][17370] Loop Runner_EvtLoop terminating...
+[2024-10-01 11:11:14,831][17370] Runner profile tree view:
+main_loop: 95.9380
+[2024-10-01 11:11:14,831][17370] Collected {0: 106496}, FPS: 1110.1
