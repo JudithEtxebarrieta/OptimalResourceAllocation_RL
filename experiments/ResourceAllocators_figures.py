@@ -114,7 +114,7 @@ def plot_method_comparison(list_total_policies,path,comp_type='scores',reward_th
     n_plot=1
     for i in list_total_policies:
 
-        ax=plt.subplot(2,len(list_total_policies)/2,n_plot)
+        ax=plt.subplot(2,int(len(list_total_policies)/2),n_plot)
         ax.grid(True, which='both',linestyle='--', linewidth=0.8,alpha=0.2)
 
         #SH
@@ -458,7 +458,7 @@ t_max=500000
 total_policies=t_max//t_r
 list_total_policies=[240,170,127,95,45,24]
 env_name='InvertedDoublePendulum'
-df=concat_df(list(range(1,41)),env_name, data_path)
+df=concat_df(list(range(1,41)),env_name, data_path+env_name+'/')
 
 plot_tradeoff_curves(list_total_policies,'random_search','Trade-off curves with RS','results/ResourceAllocators/'+str(env_name)+'RS.pdf',9350,10)
 plot_tradeoff_curves(list_total_policies,'successive_halving','Trade-off curves with SH','results/ResourceAllocators/'+str(env_name)+'SH.pdf',9350)
@@ -472,7 +472,7 @@ t_max=200000
 total_policies=t_max//t_r
 list_total_policies=[95,45,30,24,15,10]
 env_name='InvertedPendulum'
-df=concat_df(list(range(1,41)),env_name, data_path)
+df=concat_df(list(range(1,41)),env_name, data_path+env_name+'/')
 
 plot_tradeoff_curves(list_total_policies,'random_search','Trade-off curves with RS','results/ResourceAllocators/'+str(env_name)+'RS.pdf',1000,10)
 plot_tradeoff_curves(list_total_policies,'successive_halving','Trade-off curves with SH','results/ResourceAllocators/'+str(env_name)+'SH.pdf',1000)

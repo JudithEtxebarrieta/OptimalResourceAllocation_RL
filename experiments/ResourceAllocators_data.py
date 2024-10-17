@@ -17,7 +17,7 @@ for seed in list_seeds:
                                     seed=seed,
                                     total_timesteps=200000,
                                     n_test_episodes=100, 
-                                    path='results/ResourceAllocators/',
+                                    path='results/ResourceAllocators/InvertedPendulum/',
                                     csv_name='InvertedPendulum_seed'+str(seed)+'.csv')
     
 for seed in list_seeds:
@@ -25,7 +25,7 @@ for seed in list_seeds:
                                     seed=seed,
                                     total_timesteps=500000,
                                     n_test_episodes=100, 
-                                    path='results/ResourceAllocators/',
+                                    path='results/ResourceAllocators/InvertedDoublePendulum/',
                                     csv_name='InvertedDaublePendulum_seed'+str(seed)+'.csv')
 
     
