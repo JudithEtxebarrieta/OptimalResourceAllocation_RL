@@ -104,8 +104,8 @@ def plot_environment_processes(list_seeds,env_name,reward_threshold):
 
 # Dibujar graficas por environment y guardar datos relevantes.
 envs_seeds=[["InvertedDoublePendulum-v4",[3,6,7,8,10,11,12,13,14,15,16,17,18,19,20,21,22,23]],
-            ["Ant-v4",[1,2,3,4]],
-            ["Humanoid-v4",[1,2,3,4]]]
+            ["Ant-v4",list(range(1,21))],
+            ["Humanoid-v4",list(range(1,21))]]
 info_table=[]
 for env_name, list_seeds in envs_seeds:
     print(env_name)
