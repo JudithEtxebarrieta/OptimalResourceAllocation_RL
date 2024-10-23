@@ -14,6 +14,19 @@ model.learn(total_timesteps=2048*5)
 print('Elapsed time with gymnasium: '+str(time.time()-start_time))
 
 #--------------------------------------------------------------------------------------------------
+# Con pybullet (tarda parecido pero el environment no es exactamente el mismo, e.g. diferente
+# reward_threshold)
+#--------------------------------------------------------------------------------------------------
+import pybullet_envs_gymnasium
+
+env=gym.make("AntBulletEnv-v0")
+model = PPO('MlpPolicy', env,verbose=1,seed=1)
+
+start_time=time.time()
+model.learn(total_timesteps=2048*5)
+print('Elapsed time with pybullet: '+str(time.time()-start_time))
+
+#--------------------------------------------------------------------------------------------------
 # Con brax (usando CPUs parece que tarda mas que gym)
 
 # Ejecutar desde entorno vitual:
