@@ -272,6 +272,10 @@ def validation_ep_selection(ep_test,n_test_ep,test_type='reward'):
 #==================================================================================================
 # GRAFICA 1: validar todas las politicas durante el entrenamiento con numero de episodios test constante
 #==================================================================================================
+'''
+Hay que eliminar ciertos comentarios de esta funcion, ya que es codigo comentado de versiones anteriores.
+
+'''
 def learning_curves_test_reward(x,list_n_test_ep,env_name,seed,list_eval_freq=[1]):
 
     # Para guardar los resultados
@@ -564,7 +568,11 @@ def learning_curves_train_reward(x,env_name,seed):
 #==================================================================================================
 # GRAFICA 3: entendiendo relacion entre train y test reward usando rankings
 #==================================================================================================
-# Funcion principal
+'''
+esta funcion solo esta ejecutada para InvertedDoublePendulum. tengo que generalizarla para environments
+cuyo tiempo de convergencia sea mayor, y por tanto necesitemos hacer mas de una grafica por batches.
+Tengo que usar el codigo de "comparison_test_train_rewards" para la adaptacion.
+'''
 def comparison_test_train_rewards_rankings(list_window_sizes,env_name,seed,max_train_timesteps):
 
     fig=plt.figure(figsize=[10,3])
