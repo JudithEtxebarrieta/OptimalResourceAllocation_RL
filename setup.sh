@@ -8,9 +8,16 @@ pip install stable-baselines3[extra]
 # PPO with Gymnasium-Robotics environments
 pip install gymnasium-robotics[mujoco-py]
 
-# highway-env (does not work)
-sudo apt-get update -y
-sudo apt-get install -y python-dev libsdl-image1.2-dev libsdl-mixer1.2-dev
-    libsdl-ttf2.0-dev libsdl1.2-dev libsmpeg-dev python-numpy subversion libportmidi-dev
-    ffmpeg libswscale-dev libavformat-dev libavcodec-dev libfreetype6-dev gcc
-pip install highway-env
+# PPO with pybullet environments with gymnasium
+pip install pybullet_envs_gymnasium
+
+# virtual environment for brax (https://github.com/google/brax)
+python3 -m venv venv/venv
+source venv/venv/bin/activate
+pip install --upgrade pip
+pip install brax
+pip install stable-baselines3[extra]
+
+# conda virtual environment for arlbench (https://github.com/automl/arlbench/tree/main)
+conda create -n arlbench python=3.10
+conda activate arlbench

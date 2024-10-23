@@ -1,0 +1,4 @@
+venv
+experiments/__pycache__
+results/EnvironmentProcesses/Ant/*
+results/EnvironmentProcesses/Humanoid/*

@@ -20,6 +20,8 @@ import base64
 import os
 
 
+
+
 def evaluate(policy,env,n_eval_episodes,seed=0):
     '''
     The current policy is evaluated using the episodes of the validation environment.
@@ -67,21 +69,39 @@ def evaluate(policy,env,n_eval_episodes,seed=0):
     
     return np.mean(all_episode_reward), np.std(all_episode_reward), [float(i) for i in all_episode_reward], [int(i)for i in all_episode_len]
 
+class UtilsFigure:
+    def bootstrap_mean_and_confidence_interval(data,bootstrap_iterations=1000):
+        '''
+        The 95% confidence interval of a given data sample is calculated.
 
+        Parameters
+        ==========
+        data (list): Data on which the range between percentiles will be calculated.
+        bootstrap_iterations (int): Number of subsamples of data to be considered to calculate the percentiles of their means. 
+
+        Return
+        ======
+        The mean of the original data together with the percentiles of the means obtained from the subsampling of the data. 
+        '''
+        mean_list=[]
+        for i in range(bootstrap_iterations):
+            sample = np.random.choice(data, len(data), replace=True) 
+            mean_list.append(np.mean(sample))
+        return np.mean(data),np.quantile(mean_list, 0.05),np.quantile(mean_list, 0.95)
     
 class UtilsDataFrame:
 
-    def join_csv_and_save_parquet(list_csv_name,path,joined_name):
+    def join_csv_and_save_parquet(list_csv_name,read_path,save_path,joined_name):
 
-        df=pd.read_csv(path+list_csv_name[0],index_col=0)
-        os.remove(path+list_csv_name[0])
+        df=pd.read_csv(read_path+list_csv_name[0],index_col=0)
+        os.remove(read_path+list_csv_name[0])
 
         for i in range(1,len(list_csv_name)):
-            df_new=pd.read_csv(path+list_csv_name[i],index_col=0)
+            df_new=pd.read_csv(read_path+list_csv_name[i],index_col=0)
             df = pd.concat([df, df_new], ignore_index=False)
-            os.remove(path+list_csv_name[i])
+            os.remove(read_path+list_csv_name[i])
 
-        df.to_parquet(path+joined_name+'.parquet', engine='pyarrow', compression='gzip',index=False)
+        df.to_parquet(save_path+joined_name+'.parquet', engine='pyarrow', compression='gzip',index=False)
 
     def compress_decompress_list(my_list,compress=True):
         if compress:
@@ -137,7 +157,6 @@ class FromStableBaselines3:
         policy_train_rewards=[]
         policy_train_ep_end=[]
         #########################
-
 
 
         assert self._last_obs is not None, "No previous observation was provided"
@@ -317,6 +336,8 @@ class FromStableBaselines3:
 
 
                 ########################
+
+
                 
                 self.train()
 
@@ -422,6 +443,8 @@ class PPOLearner:
         
         model = PPO(policy, env, seed=seed,verbose=verbose)
         model.set_random_seed(seed)
+        
+
 
         # Define evaluation environment
         eval_env=gym.make(env.spec.id)
