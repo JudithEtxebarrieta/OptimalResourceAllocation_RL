@@ -10,7 +10,7 @@ Concretamente, se analiza el numero de episodios necesarios para diferentes tipo
 - Deterministic: politica visitada con minima varianza en los rewards de los 100 episodios registrados.
 - Sthocastic: politica visitada con maxima varianza en los rewards de los 100 episodios registrados.
 
-Para que 100 sea suficiente, las curvas y el rango del intervalos de confianza deben converger antes de 100.
+Para que 100 sea suficiente, las curvas deben estabilizarse y el rango del intervalos de confianza debe ser pequeño antes de 100.
 
 Nota.- realmente el numero de episodios de validacion que deberiamos guardar tiene que ser mayor que el numero de episodios 
 necesarios para maxima precision, ya que los episodios que usemos para identificar la mejor politica tienen que se diferentes
@@ -85,7 +85,7 @@ plot_per_policy_type('InvertedDoublePendulum',11)
 plot_per_policy_type('Ant',1)
 plot_per_policy_type('Ant',2)
 plot_per_policy_type('Humanoid',1)
-plot_per_policy_type('Ant',2)
+plot_per_policy_type('Humanoid',2)
 
 
 

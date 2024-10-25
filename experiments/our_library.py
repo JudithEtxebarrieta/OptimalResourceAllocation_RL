@@ -275,7 +275,7 @@ class FromStableBaselines3:
         '''
 
         ##########################MODIFICACION
-        global df_test,df_train,global_path,global_csv_name, global_partial_save,global_also_train,n_policy, n_eval_episodes, eval_env, test_timesteps 
+        global env_name,df_test,df_train,global_path,global_csv_name, global_partial_save,global_also_train,global_also_models,n_policy, n_eval_episodes, eval_env, test_timesteps 
         n_appended=0
         appended=0
         ##########################
@@ -333,7 +333,9 @@ class FromStableBaselines3:
                             df_train.to_csv(global_path+'df_train_'+str(n_appended)+'_'+global_csv_name, index=False)
                             df_train=[]
                     
-
+                # Guardar tambien los modelos
+                if global_also_models:
+                    self.save(global_path+'policies_'+env_name+'_seed'+str(self.seed)+'/policy'+str(n_policy)+'.zip')
 
                 ########################
 
@@ -407,6 +409,7 @@ class FromStableBaselines3:
                         df_train=pd.DataFrame(df_train,columns=['seed','n_policy','n_train_timesteps','train_rewards','train_ep_end'])
                         df_train.to_csv(global_path+'df_train_'+str(n_appended)+'_'+global_csv_name, index=False)
                         df_train=[]
+
             ########################
 
             self.train()
@@ -418,17 +421,23 @@ class FromStableBaselines3:
 class PPOLearner:
        
 
-    def start_learn_process(env,seed,total_timesteps,n_test_episodes, path, csv_name,also_train=False,verbose=0,partial_save=False):
+    def start_learn_process(env,seed,total_timesteps,n_test_episodes, path, csv_name,also_train=False,also_models=False,verbose=0,partial_save=False):
 
-        global df_train,df_test, n_policy, eval_env, n_eval_episodes, test_timesteps,global_path,global_csv_name,global_partial_save,global_also_train
+        global env_name,df_train,df_test, n_policy, eval_env, n_eval_episodes, test_timesteps,global_path,global_csv_name,global_partial_save,global_also_train,global_also_models
+        env_name=env.spec.name
         global_path=path
         global_csv_name=csv_name
         global_partial_save=partial_save
         global_also_train=also_train
+        global_also_models=also_models
         n_policy=0
         test_timesteps=0
         df_train=[]
         df_test=[]
+
+        # Crear nuevos directorios.
+        if global_also_models:
+            os.makedirs(global_path+'policies_'+env_name+'_seed'+str(seed))
 
         # Modificar funciones de librerias existentes
         OnPolicyAlgorithm.learn=FromStableBaselines3.learn
@@ -508,6 +517,12 @@ class PPOLearner:
 
 
         return model, callback, n_policy,test_timesteps, random_seed_state
+    
+
+    def load_policy(path):
+        loaded_policy=PPO.load(path)
+        return loaded_policy
+
     
 
 
