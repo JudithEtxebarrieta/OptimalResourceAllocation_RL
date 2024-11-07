@@ -18,56 +18,94 @@ import json
 import bz2
 import base64
 import os
+from joblib import Parallel, delayed
 
+class PolicyValidation:
+    def evaluate_single_episode(args):
 
+        env_name,policy,episode=args
+    
+        env=gym.make(env_name)
+        if not isinstance(env, VecEnv):
+            env = DummyVecEnv([lambda: env])
+        env.seed(0)
 
+        obs=[env.reset() for _ in range(2*(episode-1)+1)][-1]# La lista de estados iniciales con interaccion coincide con los estados iniciales impares sin interaccion.
 
-def evaluate(policy,env,n_eval_episodes,seed=0):
-    '''
-    The current policy is evaluated using the episodes of the validation environment.
+        episode_rewards = 0
+        episode_len=0
+        done = False # Parameter that indicates after each action if the episode continues (False) or is finished (True).
 
-    Parameters
-    ==========
-    policy: Policy to be evaluated.
-    env : Validation environment.
-    n_eval_episodes (int): Number of episodes (evaluations) in which the model will be evaluated.
-    seed (int): Seed of the validation environment (by default 0).
-
-    Returns
-    =======
-    Average and standard deviation of the rewards obtained in the n_eval_episodes episodes.
-    '''
-    # To save the reward per episode.
-    all_episode_reward=[]
-    all_episode_len=[]
-
-    # To ensure that the same episodes are used in each call to the function.
-    if not isinstance(env, VecEnv):
-        env = DummyVecEnv([lambda: env])
-    env.seed(seed)
-    obs=env.reset()
-
-    with th.no_grad():# Para que los datos obtenidos durante la validacion no se usen a la hora de actualizar la politica posteriormente.
-
-        for _ in range(n_eval_episodes):
-            episode_rewards = 0
-            episode_len=0
-            done = False # Parameter that indicates after each action if the episode continues (False) or is finished (True).
+        with th.no_grad():
             while not done:
-                action, _states = policy.predict(obs, deterministic=True) # The action to be taken with the model is predicted.         
+                action, _states = policy.predict(obs, deterministic=True) # The action to be taken with the model is predicted.       
                 obs, reward, done, info = env.step(action) # Action is applied in the environment.
                 episode_rewards+=reward # The reward is saved.
                 episode_len+=1
 
-            # Save total episode reward.
-            all_episode_reward.append(episode_rewards)
-            all_episode_len.append(episode_len)
-        
-            # Reset the episode.
-            obs = env.reset() 
+        return episode_rewards, episode_len
 
-    
-    return np.mean(all_episode_reward), np.std(all_episode_reward), [float(i) for i in all_episode_reward], [int(i)for i in all_episode_len]
+
+    def parallel_evaluate(policy,env_name,n_eval_episodes,n_processes):
+
+        # Set up the parallel processing pool
+        results=Parallel(n_jobs=n_processes, backend="loky")(
+                delayed(PolicyValidation.evaluate_single_episode)([env_name,policy,episode]) for episode in tqdm(range(1,n_eval_episodes+1)))
+            
+        # Split the results into rewards and episode lengths
+        all_episode_reward, all_episode_len = zip(*results)
+
+        return np.mean(all_episode_reward), np.std(all_episode_reward), [float(i) for i in all_episode_reward], [int(i)for i in all_episode_len]
+
+
+
+    def evaluate(policy,env,n_eval_episodes,seed=0):
+        '''
+        The current policy is evaluated using the episodes of the validation environment.
+
+        Parameters
+        ==========
+        policy: Policy to be evaluated.
+        env : Validation environment.
+        n_eval_episodes (int): Number of episodes (evaluations) in which the model will be evaluated.
+        seed (int): Seed of the validation environment (by default 0).
+
+        Returns
+        =======
+        Average and standard deviation of the rewards obtained in the n_eval_episodes episodes.
+        '''
+        # To save the reward per episode.
+        all_episode_reward=[]
+        all_episode_len=[]
+
+        # To ensure that the same episodes are used in each call to the function.
+        if not isinstance(env, VecEnv):
+            env = DummyVecEnv([lambda: env])
+        env.seed(seed)
+        obs=env.reset()
+        
+        with th.no_grad():# Para que los datos obtenidos durante la validacion no se usen a la hora de actualizar la politica posteriormente.
+
+            for _ in range(n_eval_episodes):
+
+                episode_rewards = 0
+                episode_len=0
+                done = False # Parameter that indicates after each action if the episode continues (False) or is finished (True).
+                while not done:
+                    action, _states = policy.predict(obs, deterministic=True) # The action to be taken with the model is predicted.         
+                    obs, reward, done, info = env.step(action) # Action is applied in the environment.
+                    episode_rewards+=reward # The reward is saved.
+                    episode_len+=1
+
+                # Save total episode reward.
+                all_episode_reward.append(episode_rewards)
+                all_episode_len.append(episode_len)
+            
+                # Reset the episode.
+                obs = env.reset() 
+
+        
+        return np.mean(all_episode_reward), np.std(all_episode_reward), [float(i) for i in all_episode_reward], [int(i)for i in all_episode_len]
 
 class UtilsFigure:
     def bootstrap_mean_and_confidence_interval(data,bootstrap_iterations=1000):
@@ -316,7 +354,7 @@ class FromStableBaselines3:
 
                 ########################MODIFICACION
                 n_policy+=1
-                mean_reward, std_reward, ep_test_rewards,ep_test_len = evaluate(self.policy, eval_env, n_eval_episodes)
+                mean_reward, std_reward, ep_test_rewards,ep_test_len = PolicyValidation.evaluate(self.policy, eval_env, n_eval_episodes)
                 test_timesteps+=sum(ep_test_len)
                 df_test.append([self.seed,n_policy,test_timesteps,mean_reward,UtilsDataFrame.compress_decompress_list(ep_test_len),UtilsDataFrame.compress_decompress_list(ep_test_rewards)])
                 appended+=1
@@ -392,7 +430,7 @@ class FromStableBaselines3:
 
             ########################MODIFICACION
             n_policy+=1
-            mean_reward, std_reward, ep_test_rewards,ep_test_len = evaluate(self.policy, eval_env, n_eval_episodes)
+            mean_reward, std_reward, ep_test_rewards,ep_test_len = PolicyValidation.evaluate(self.policy, eval_env, n_eval_episodes)
             test_timesteps+=sum(ep_test_len)
             df_test.append([self.seed,n_policy,test_timesteps,mean_reward,UtilsDataFrame.compress_decompress_list(ep_test_len),UtilsDataFrame.compress_decompress_list(ep_test_rewards)])
 
