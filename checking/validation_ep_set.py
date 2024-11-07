@@ -14,13 +14,15 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from experiments.our_library import UtilsDataFrame, UtilsFigure, PPOLearner, evaluate
+from experiments.our_library import UtilsDataFrame, UtilsFigure, PPOLearner, PolicyValidation
 import pandas as pd
 import numpy as np
 import subprocess
 import gymnasium as gym
 import matplotlib.pyplot as plt
 from tqdm import tqdm
+import seaborn as sns
+import matplotlib.colors as mcolors
 
 
 # Cargar csv-s de cluster y juntarlos para formar el df_test
@@ -40,17 +42,26 @@ def load_from_cluster_interesting_policies(env_name,seed):
 
     # Leer bases de datos.
     df_test=pd.read_parquet('checking/results/validation_ep_set/'+str(env_name)+'/df_test_'+str(env_name)+'_seed'+str(seed)+'.parquet')
-    df_test['std_rewards']=[np.std(UtilsDataFrame.compress_decompress_list(i,compress=False)) for i in list(df_test['ep_test_rewards'])]
+    df_test['std_reward']=[np.std(UtilsDataFrame.compress_decompress_list(i,compress=False)) for i in list(df_test['ep_test_rewards'])]
 
-    # Encontrar posiciones de politicas de los 5 tipos: mala, regular, buena, determinista y estocastica.
+    # Encontrar y guardar posiciones de politicas de los 5 tipos: mala, regular, buena, determinista y estocastica.
     indx_good=df_test['mean_reward'].idxmax()
     indx_mean=np.argmin(abs(np.array(df_test['mean_reward'])- df_test['mean_reward'].mean()))
     indx_bad=df_test['mean_reward'].idxmin()
-    indx_det=df_test['std_rewards'].idxmin()
-    indx_stoc=df_test['std_rewards'].idxmax()
+    indx_det=df_test['std_reward'].idxmin()
+    indx_stoc=df_test['std_reward'].idxmax()
 
     os.makedirs('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed))
-    id_policies={'policy_type':['Good','Mean','Bad','Deterministic','Stochastic'],'id_policy':[indx_good+1,indx_mean+1,indx_bad+1,indx_det+1,indx_stoc+1]}
+    id_policies=pd.DataFrame({'policy_type':['Good','Mean','Bad','Deterministic','Stochastic'],'id_policy':[indx_good+1,indx_mean+1,indx_bad+1,indx_det+1,indx_stoc+1],'ep_test_rewards':[None]*5})
+
+    # Encontrar y guardar posiciones de politicas mas cercanas a los 5 cuartiles de los vectores mean_reward y std_reward
+    mean_perc=[np.quantile(list(df_test['mean_reward']),i) for i in [0,.25,.5,.75,1]]
+    std_perc=[np.quantile(list(df_test['std_reward']),i) for i in [0,.25,.5,.75,1]]
+
+    for i in range(5):
+        id_policies.loc[len(id_policies)]=['Quality'+str(i),np.argmin(abs(np.array(df_test['mean_reward'])- mean_perc[i]))+1,None]
+        id_policies.loc[len(id_policies)]=['Stochasticity'+str(i),np.argmin(abs(np.array(df_test['std_reward'])- std_perc[i]))+1,None]
+
     pd.DataFrame(id_policies).to_csv('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/id_policies.csv')
 
     # Cargar del cluster unicamente las politicas de interes.
@@ -61,7 +72,7 @@ def load_from_cluster_interesting_policies(env_name,seed):
         subprocess.run(command)
 
 # Conseguir conjunto de validacion de las politicas de interes.
-def validate_policies(env_name,seed,n_eval_episodes):
+def validate_policies(env_name,seed,n_eval_episodes,n_processes):
 
     '''
     Para ejecutar esta funcion hay que hacerlo desde el entorno vistual py39venv, porque al guardar la politica en el cluster 
@@ -70,26 +81,76 @@ def validate_policies(env_name,seed,n_eval_episodes):
     '''
 
     id_policies=pd.read_csv('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/id_policies.csv')
-    new_column=[]
 
-    for i in range(id_policies.shape[0]):
+    for i in [1]:#id_policies.shape[0]
         id_policy=id_policies['id_policy'][i]
 
         # Cargar politica actual
         policy=PPOLearner.load_policy('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/policy'+str(id_policy)+'.zip')
 
         # Lista de rewards por episodio (considerar un maximo de episodios)
-        _,_,all_ep_reward,_=evaluate(policy,gym.make(env_name+"-v4"),n_eval_episodes)
+        _,_,all_ep_reward,_=PolicyValidation.parallel_evaluate(policy,env_name+"-v4",n_eval_episodes,n_processes)
 
-        new_column.append(UtilsDataFrame.compress_decompress_list(all_ep_reward))
+        id_policies['ep_test_rewards'][i]=UtilsDataFrame.compress_decompress_list(all_ep_reward)
     
-    id_policies['ep_test_rewards']=new_column
     id_policies.to_csv('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/id_policies.csv')
 
-# Repetir experimento de la semana pasada: dibujar intervalo de confianza de reward de validacion usando boostrap.
-def boostrap_test_reward(ep_test_rewards,policy_type,pos,sample_sizes):
+# Grafica 1: anaizando numero de episodios necesarios para maxima precison de validacion.
+def boostrap_validation_accuracy(ep_test_rewards,policy_type,pos,sample_sizes):
 
-    # Boostrap para cada tamaño de consjunto de validacion.
+    # Boostrap para cada tamaño de conjunto de validacion.
+    all_mean=[]
+    all_q05=[]
+    all_q95=[]
+
+    for i in sample_sizes:
+
+        mean,q05,q95=UtilsFigure.bootstrap_mean_and_confidence_interval(ep_test_rewards[:i])
+
+        all_mean.append(mean)
+        all_q05.append(q05)
+        all_q95.append(q95)
+    
+    # Grafica 1: intervalos de confianza.
+    ax=plt.subplot(2,5,pos)
+    ax.grid(True, which='both',linestyle='--', linewidth=0.8,alpha=0.2)
+
+    ax.fill_between(sample_sizes,all_q05,all_q95, alpha=.2, linewidth=0)
+    plt.plot(sample_sizes, all_mean, linewidth=1)
+
+    ax.set_title(policy_type+' policy')
+    if pos==1:
+        ax.set_ylabel('Reward confidence interval with boostrap')
+
+    # Grafica 2: rangos de intervalos de confianza. 
+    ax=plt.subplot(2,5,5+pos)
+    ax.grid(True, which='both',linestyle='--', linewidth=0.8,alpha=0.2)
+
+    plt.plot(sample_sizes, abs(np.array(all_q95)-np.array(all_q05)), linewidth=1)
+
+    ax.set_xlabel('Sample size (number of episodes)')
+    if pos==1:
+        ax.set_ylabel('Boostrap confidence interval range')
+
+def plot_validation_accuracy(env_name,seed,list_n_eval_ep):
+
+    # Leer datos necesarios para dibujar las graficas.
+    id_policies=pd.read_csv('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/id_policies.csv')
+
+    fig=plt.figure(figsize=[20,8])
+    plt.subplots_adjust(left=0.06,bottom=0.11,right=0.98,top=0.88,wspace=0.33,hspace=0.2)
+
+    for i in tqdm(range(0,5)):
+        ep_test_rewards=UtilsDataFrame.compress_decompress_list(id_policies['ep_test_rewards'][i],compress=False)
+        boostrap_validation_accuracy(ep_test_rewards,id_policies['policy_type'][i],i+1,list_n_eval_ep)
+
+    plt.savefig('checking/results/validation_ep_set/'+str(env_name)+str(seed)+'_validation.pdf')
+    plt.show()
+
+# Grafica 2: anaizando numero de episodios necesarios para maxima precison de comparacion.
+def boostrap_comparison_accuracy(ep_test_rewards,sample_sizes):
+
+    # Boostrap para cada tamaño de conjunto de validacion.
     all_mean=[]
     all_q05=[]
     all_q95=[]
@@ -102,39 +163,93 @@ def boostrap_test_reward(ep_test_rewards,policy_type,pos,sample_sizes):
         all_q05.append(q05)
         all_q95.append(q95)
 
-    # Grafica 1: intervalos de confianza.
-    ax=plt.subplot(2,5,pos)
-    ax.grid(True, which='both',linestyle='--', linewidth=0.8,alpha=0.2)
+    return all_mean, all_q05, all_q95
 
-    ax.fill_between(sample_sizes,all_q05,all_q95, alpha=.2, linewidth=0)
-    plt.plot(sample_sizes, all_mean, linewidth=1)
-
-    ax.set_title(policy_type+' policy')
-    if pos==1:
-        ax.set_ylabel('Reward confidence interval with boostrap')
-    # Grafica 2: rangos de intervalos de confianza. 
-    ax=plt.subplot(2,5,5+pos)
-    ax.grid(True, which='both',linestyle='--', linewidth=0.8,alpha=0.2)
-
-    plt.plot(sample_sizes, abs(np.array(all_q95)-np.array(all_q05)), linewidth=1)
-
-    ax.set_xlabel('Sample size (number of episodes)')
-    if pos==1:
-        ax.set_ylabel('Boostrap confidence interval range')
-
-def plot_per_policy_type(env_name,seed,list_n_eval_ep):
-
-    fig=plt.figure(figsize=[20,8])
-    plt.subplots_adjust(left=0.06,bottom=0.11,right=0.98,top=0.88,wspace=0.33,hspace=0.2)
-
+def extract_data(env_name,seed,list_n_eval_ep):
+    # Leer datos necesarios para dibujar las graficas.
     id_policies=pd.read_csv('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/id_policies.csv')
 
-    for i in tqdm(range(id_policies.shape[0])):
-        policy_type=id_policies['policy_type'][i]
+    labels=[]
+    list_all_mean=[]
+    list_all_q05=[]
+    list_all_q95=[]
+    for i in tqdm(range(5,15)):
         ep_test_rewards=UtilsDataFrame.compress_decompress_list(id_policies['ep_test_rewards'][i],compress=False)
-        boostrap_test_reward(ep_test_rewards,policy_type,i+1,list_n_eval_ep)
+        all_mean,all_q05,all_q95=boostrap_comparison_accuracy(ep_test_rewards,list_n_eval_ep)
+        labels.append(id_policies['policy_type'][i])
+        list_all_mean.append(UtilsDataFrame.compress_decompress_list(all_mean))
+        list_all_q05.append(UtilsDataFrame.compress_decompress_list(all_q05))
+        list_all_q95.append(UtilsDataFrame.compress_decompress_list(all_q95))
 
-    plt.savefig('checking/results/validation_ep_set/'+str(env_name)+str(seed)+'.pdf')
+    data_plot={'labels':labels,'all_mean':list_all_mean,'all_q05':list_all_q05,'all_q95':list_all_q95}
+    data_plot=pd.DataFrame(data_plot)
+    data_plot=data_plot.sort_values(by='labels', ascending=True)
+    data_plot.to_csv('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/data_plot.csv')
+
+
+def plot_comparison_accuracy(env_name,seed,list_n_eval_ep):
+
+    default_colors=list(mcolors.TABLEAU_COLORS.keys())
+    data_plot=pd.read_csv('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/data_plot.csv')
+    
+    fig=plt.figure(figsize=[10,7])
+    plt.subplots_adjust(left=0.07,bottom=0.09,right=0.96,top=0.97,wspace=0.43,hspace=0.2)
+
+    mean_matrix=[]
+    colors=[]
+    labels=[]
+    for i in range(len(data_plot)):
+
+        all_q05=UtilsDataFrame.compress_decompress_list(data_plot['all_q05'][i],compress=False)
+        all_q95=UtilsDataFrame.compress_decompress_list(data_plot['all_q95'][i],compress=False)
+        all_mean=UtilsDataFrame.compress_decompress_list(data_plot['all_mean'][i],compress=False)
+        label=data_plot['labels'][i]
+
+        mean_matrix.append(all_mean)
+        colors.append(default_colors[i])
+        labels.append(label)
+
+        ax=plt.subplot(221)
+        ax.grid(True, which='both',linestyle='--', linewidth=0.8,alpha=0.2)
+        ax.fill_between(list_n_eval_ep,all_q05,all_q95, alpha=.2, linewidth=0,color=default_colors[i])
+        plt.plot(list_n_eval_ep, all_mean, linewidth=1,color=default_colors[i])
+        ax.set_xlabel('Sample size (number of episodes)')
+        ax.set_ylabel('Boostrap confidence interval range')
+
+        ax=plt.subplot(223)
+        ax.grid(True, which='both',linestyle='--', linewidth=0.8,alpha=0.2)
+        plt.plot(list_n_eval_ep, abs(np.array(all_q95)-np.array(all_q05)), linewidth=1,label=label,color=default_colors[i])
+        ax.set_xlabel('Sample size (number of episodes)')
+        ax.set_ylabel('Boostrap confidence interval range')
+        ax.legend(title="Policy",fontsize=8,bbox_to_anchor=(1.5, 1, 0, 0))
+
+
+
+    ax=plt.subplot(222)
+    mean_matrix=np.array(mean_matrix).T
+    ranking_matrix=np.zeros(mean_matrix.shape, dtype='<U100')
+    for i in range(len(mean_matrix)):
+        argsort=np.argsort(mean_matrix[i],)[::-1]
+        for j in range(len(argsort)):
+            ranking_matrix[i][j]=labels[argsort[j]]
+
+
+    ranking_matrix=ranking_matrix.T
+
+    # Convertir los valores categóricos a números para visualización
+    category_map = {k: v for v, k in enumerate(labels)}
+    numerical_data = np.vectorize(category_map.get)(ranking_matrix)
+
+    # Dibujar el mapa de calor con color bar discreta
+    sns.heatmap(numerical_data, cmap=colors, cbar=False, linewidths=0.5, cbar_kws={"ticks": range(len(labels))})
+
+    ax.set_xlabel('Sample size')
+    ax.set_ylabel('From best (top) to worts (bottom)')
+    ax.set_title('')
+    ax.set_xticks([1,21,41,61,81])
+    ax.set_xticklabels([100,2100,4100,6100,8100],rotation=0)
+
+    plt.savefig('checking/results/validation_ep_set/'+str(env_name)+str(seed)+'_comparison.pdf')
     plt.show()
 
 
@@ -142,39 +257,51 @@ def plot_per_policy_type(env_name,seed,list_n_eval_ep):
 # Programa principal
 #==================================================================================================
 
-# Humanoid
-#--------------------------------------------------------------------------------------------------
-form_cluster_to_df_test('Humanoid',1,30)
-load_from_cluster_interesting_policies('Humanoid',1)
-validate_policies('Humanoid',1,10000) # tiempos 12:20;13:48;3:24;3:18;13:42
-plot_per_policy_type('Humanoid',1,list(range(10,10100,100)))
-
-form_cluster_to_df_test('Humanoid',2,30)
-load_from_cluster_interesting_policies('Humanoid',2)
-validate_policies('Humanoid',2,10000)
-plot_per_policy_type('Humanoid',2,list(range(10,10100,100)))
-
 # InvertedDoublePendulum
 #--------------------------------------------------------------------------------------------------
-form_cluster_to_df_test('InvertedDoublePendulum',1,1)
-load_from_cluster_interesting_policies('InvertedDoublePendulum',1)
-validate_policies('InvertedDoublePendulum',1,10000) 
-plot_per_policy_type('InvertedDoublePendulum',1,list(range(100,10100,100)))
+# form_cluster_to_df_test('InvertedDoublePendulum',1,1)
+# load_from_cluster_interesting_policies('InvertedDoublePendulum',1)
+# validate_policies('InvertedDoublePendulum',1,10000,6) 
 
-form_cluster_to_df_test('InvertedDoublePendulum',2,1)
-load_from_cluster_interesting_policies('InvertedDoublePendulum',2)
-validate_policies('InvertedDoublePendulum',2,10000)#times 39:47;32:47;0:27;39:48;25:21
-plot_per_policy_type('InvertedDoublePendulum',2,list(range(10,10100,100)))
+# plot_validation_accuracy('InvertedDoublePendulum',1,list(range(100,10100,100)))
+# extract_data('InvertedDoublePendulum',1,list(range(100,10100,100)))
+# plot_comparison_accuracy('InvertedDoublePendulum',1,list(range(100,10100,100)))
 
 # Ant
 #--------------------------------------------------------------------------------------------------
-form_cluster_to_df_test('Ant',1,4)
-load_from_cluster_interesting_policies('Ant',1)
-validate_policies('Ant',1,10000) 
-plot_per_policy_type('Ant',1,list(range(100,10100,100)))
+# form_cluster_to_df_test('Ant',1,4)
+# load_from_cluster_interesting_policies('Ant',1)
+# validate_policies('Ant',1,10000,6) 
 
-form_cluster_to_df_test('Ant',2,4)
-load_from_cluster_interesting_policies('Ant',2)
-validate_policies('Ant',2,10000)
-plot_per_policy_type('Ant',2,list(range(10,10100,100)))
+plot_validation_accuracy('Ant',1,list(range(100,10100,100)))
+extract_data('Ant',1,list(range(100,10100,100)))
+plot_comparison_accuracy('Ant',1,list(range(100,10100,100)))
+
+# Humanoid
+#--------------------------------------------------------------------------------------------------
+# form_cluster_to_df_test('Humanoid',1,30)
+# load_from_cluster_interesting_policies('Humanoid',1)
+# validate_policies('Humanoid',1,10000,6) # Esta linea la ejecucto en el cluster 
+
+# plot_validation_accuracy('Humanoid',1,list(range(100,10100,100)))
+# extract_data('Humanoid',1,list(range(100,10100,100)))
+# plot_comparison_accuracy('Humanoid',1,list(range(100,10100,100)))
+
+
+
+'''
+- Leer sample factory (que hay sobre checkpointing)
+- Ejecutar codigo cluster Hipatia, datos de validacion de politicas seleccionadas
+- Modigicar codigo de graficas, para dibujar las curvas de las 10 politicas juntas
+
+NUEVO EXPERIMENTO
+Que politicas escoger?
+- Voy a dibujar 10 curvas/politicas en una grafica.
+- 5 curvas con mean_reward variados en 100 ep (usar percentiles), y 5 mas igual pero con la varianza en lugar del mean_reward
+- Modifico "load_from_cluster_interesting_policies" para identificar ademas de las 5 politicas de antes, las 10 nuevas.
+- Validar en 10000 episodios cada politica identificada en id_policies2 usando el cluster
+'''
+
+
+
 
