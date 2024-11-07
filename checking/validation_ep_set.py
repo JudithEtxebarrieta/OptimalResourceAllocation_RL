@@ -1,13 +1,30 @@
 '''
-Encontrando el tamaño del conjunto de validacion que representa la "validacion ideal" (proporciona la validacion de maxima precision)
-para los diferentes environments: InvertedDoublePendulum, Ant y Humanoid.
+Encontrando el tamaño del conjunto de validacion que representa la "situacion ideal" o "ground truth" (proporciona la validacion de 
+maxima precision) para los diferentes environments: InvertedDoublePendulum, Ant y Humanoid.
 
 Observaciones en ejecucion del cluster:
 - El proceso de guardar las politicas parece que lleva mas tiempo que guardar la validacion de la politica.
 - La politica ocupa mas espacio (memoria) que la validacion (al menos el vector encriptado de 100 episodios).
-- Como la carpeta de todas las politcas ocupa mucho espacio, para copiarla de Hipatia lleva mucho tiempo. Por eso, primero solo copio los df_test,
-luego identifico con df_test las politicas que me interesan (good, mean, bad, deterministic and stochastic) usando los 100 datos de validacion que 
+- Como la carpeta de todas las politicas ocupa mucho espacio, para copiarla de Hipatia lleva mucho tiempo. Por eso, primero solo copio los df_test,
+luego identifico con df_test las politicas que me interesan (e.g., good, mean, bad, deterministic and stochastic) usando los 100 datos de validacion que 
 he guardado para cada una, y finalmente solo copio de Hipatia esas politicas identificadas.
+
+Experimentos realizados:
+- Precision de estimacion de reward: al principio hablamos de encontrar el numero de episodios necesarios para estimar de manera precisa la
+calidad de cada politica, i.e. mean rewards realista. Por eso, como dependiendo de la politica este numero de episodios puede variar, primero
+seleccionamos un conjunto de 5 politicas por proceso (good, mena, bad, deterministic y stochastic) basandonos en los 100 ep de validacion
+almacenados, y luego unicamente validamos esas politicas en 10000 ep para estimar los intervalos de confianza de los reward medios 
+aplicando boostrap a diferentes tamaños de muestra.
+- Precision de comparacion: despues nos dimos cuenta que realmente para representar el "ground truth" no nos interesa tanto conocer el mean_reward
+real de cada politica, sino que es suficiente con dar con el numero de episodios que nos permite ordenar correctamente la secuencia de politicas
+que visitamos en un proceso. Por ello, seria mas interesante comparar la estabilidad de los ranking de multiples curvas boostrap como las de arriba.
+Para escoger las politicas que representaremos en esa grafica, tiene que ser un conjunto que represente apropiadamente toda la secuencia de politicas
+del proceso. Ahora las escojo con 5 calidades diferentes y 5 estocasticidades diferentes, pero es un conjunto muy variado, y no representa correctamente
+la secuencia, por eso son tan faciles de distinguir las politicas y tan estables los rankings. Para mejorar esto, deberiamos probar escogiendo:
+    1) 10 politicas "equidistantes" (en cuanto a orden de visita) en la secuencia de politicas visitadas.
+    2) 10 politicas o todas de la subsecuencia formada por la mejor observada hasta ahora.
+Despues, en lugar de dibujar las curvas de diferente color solo para distinguirlas, dibujarlas en color degradado para distinguir de la curva 
+asociada a la politica "mas reciente" (oscuro) a la "mas antigua" (claro).
 
 '''
 import sys
@@ -259,19 +276,19 @@ def plot_comparison_accuracy(env_name,seed,list_n_eval_ep):
 
 # InvertedDoublePendulum
 #--------------------------------------------------------------------------------------------------
-# form_cluster_to_df_test('InvertedDoublePendulum',1,1)
-# load_from_cluster_interesting_policies('InvertedDoublePendulum',1)
-# validate_policies('InvertedDoublePendulum',1,10000,6) 
+form_cluster_to_df_test('InvertedDoublePendulum',1,1)
+load_from_cluster_interesting_policies('InvertedDoublePendulum',1)
+validate_policies('InvertedDoublePendulum',1,10000,6) 
 
-# plot_validation_accuracy('InvertedDoublePendulum',1,list(range(100,10100,100)))
-# extract_data('InvertedDoublePendulum',1,list(range(100,10100,100)))
-# plot_comparison_accuracy('InvertedDoublePendulum',1,list(range(100,10100,100)))
+plot_validation_accuracy('InvertedDoublePendulum',1,list(range(100,10100,100)))
+extract_data('InvertedDoublePendulum',1,list(range(100,10100,100)))
+plot_comparison_accuracy('InvertedDoublePendulum',1,list(range(100,10100,100)))
 
 # Ant
 #--------------------------------------------------------------------------------------------------
-# form_cluster_to_df_test('Ant',1,4)
-# load_from_cluster_interesting_policies('Ant',1)
-# validate_policies('Ant',1,10000,6) 
+form_cluster_to_df_test('Ant',1,4)
+load_from_cluster_interesting_policies('Ant',1)
+validate_policies('Ant',1,10000,6) 
 
 plot_validation_accuracy('Ant',1,list(range(100,10100,100)))
 extract_data('Ant',1,list(range(100,10100,100)))
@@ -279,28 +296,17 @@ plot_comparison_accuracy('Ant',1,list(range(100,10100,100)))
 
 # Humanoid
 #--------------------------------------------------------------------------------------------------
-# form_cluster_to_df_test('Humanoid',1,30)
-# load_from_cluster_interesting_policies('Humanoid',1)
-# validate_policies('Humanoid',1,10000,6) # Esta linea la ejecucto en el cluster 
+form_cluster_to_df_test('Humanoid',1,30)
+load_from_cluster_interesting_policies('Humanoid',1)
+validate_policies('Humanoid',1,10000,6) # Esta linea la ejecucto en el cluster 
 
-# plot_validation_accuracy('Humanoid',1,list(range(100,10100,100)))
-# extract_data('Humanoid',1,list(range(100,10100,100)))
-# plot_comparison_accuracy('Humanoid',1,list(range(100,10100,100)))
+plot_validation_accuracy('Humanoid',1,list(range(100,10100,100)))
+extract_data('Humanoid',1,list(range(100,10100,100)))
+plot_comparison_accuracy('Humanoid',1,list(range(100,10100,100)))
 
 
 
-'''
-- Leer sample factory (que hay sobre checkpointing)
-- Ejecutar codigo cluster Hipatia, datos de validacion de politicas seleccionadas
-- Modigicar codigo de graficas, para dibujar las curvas de las 10 politicas juntas
 
-NUEVO EXPERIMENTO
-Que politicas escoger?
-- Voy a dibujar 10 curvas/politicas en una grafica.
-- 5 curvas con mean_reward variados en 100 ep (usar percentiles), y 5 mas igual pero con la varianza en lugar del mean_reward
-- Modifico "load_from_cluster_interesting_policies" para identificar ademas de las 5 politicas de antes, las 10 nuevas.
-- Validar en 10000 episodios cada politica identificada en id_policies2 usando el cluster
-'''
 
 
 

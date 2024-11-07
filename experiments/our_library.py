@@ -21,6 +21,12 @@ import os
 from joblib import Parallel, delayed
 
 class PolicyValidation:
+    '''
+    La ultima modificacion hecha en este fichero our_library.py es la construccion de esta clase, en donde he metido todas las funciones asociadas
+    con la validacion de politicas. Antes solo consideraba la validacion secuencial, es decir la evaluacion de la politica en un conjunto de
+    episodios, evaluando uno tras otro (funcion evaluate). Ahora he añadido las funciones necesarias para poder evaluar los episodios en paralelo.
+    Por eso, ciertos scripts de experimentos puede que necesiten importar esta nueva clase para que el evaluate antiguo se reconozca.
+    '''
     def evaluate_single_episode(args):
 
         env_name,policy,episode=args
