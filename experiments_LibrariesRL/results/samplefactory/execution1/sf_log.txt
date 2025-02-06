@@ -1,0 +1,918 @@
+[2025-02-05 10:08:17,793][09941] Saving configuration to experiments_LibrariesRL/results/samplefactory/execution1/config.json...
+[2025-02-05 10:08:18,799][09941] Rollout worker 0 uses device cpu
+[2025-02-05 10:08:18,799][09941] Rollout worker 1 uses device cpu
+[2025-02-05 10:08:18,799][09941] Rollout worker 2 uses device cpu
+[2025-02-05 10:08:18,800][09941] Rollout worker 3 uses device cpu
+[2025-02-05 10:08:18,800][09941] Rollout worker 4 uses device cpu
+[2025-02-05 10:08:18,800][09941] Rollout worker 5 uses device cpu
+[2025-02-05 10:08:18,800][09941] Rollout worker 6 uses device cpu
+[2025-02-05 10:08:18,800][09941] Rollout worker 7 uses device cpu
+[2025-02-05 10:08:18,800][09941] In synchronous mode, we only accumulate one batch. Setting num_batches_to_accumulate to 1
+[2025-02-05 10:08:18,814][09941] InferenceWorker_p0-w0: min num requests: 2
+[2025-02-05 10:08:18,829][09941] Starting all processes...
+[2025-02-05 10:08:18,829][09941] Starting process learner_proc0
+[2025-02-05 10:08:18,880][09941] Starting all processes...
+[2025-02-05 10:08:18,885][09941] Starting process inference_proc0-0
+[2025-02-05 10:08:18,887][09941] Starting process rollout_proc0
+[2025-02-05 10:08:18,887][09941] Starting process rollout_proc1
+[2025-02-05 10:08:18,888][09941] Starting process rollout_proc2
+[2025-02-05 10:08:18,889][09941] Starting process rollout_proc3
+[2025-02-05 10:08:18,889][09941] Starting process rollout_proc4
+[2025-02-05 10:08:18,889][09941] Starting process rollout_proc5
+[2025-02-05 10:08:18,889][09941] Starting process rollout_proc6
+[2025-02-05 10:08:18,889][09941] Starting process rollout_proc7
+[2025-02-05 10:08:20,859][10027] Worker 3 uses CPU cores [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[2025-02-05 10:08:21,168][10026] Worker 1 uses CPU cores [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[2025-02-05 10:08:21,455][10024] Worker 0 uses CPU cores [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[2025-02-05 10:08:21,534][10025] Worker 2 uses CPU cores [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[2025-02-05 10:08:21,621][10030] Worker 7 uses CPU cores [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[2025-02-05 10:08:21,634][10028] Worker 4 uses CPU cores [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[2025-02-05 10:08:21,645][09999] Setting fixed seed 1
+[2025-02-05 10:08:21,646][09999] Initializing actor-critic model on device cpu
+[2025-02-05 10:08:21,647][09999] RunningMeanStd input shape: (27,)
+[2025-02-05 10:08:21,647][09999] RunningMeanStd input shape: (1,)
+[2025-02-05 10:08:21,702][09999] Created Actor Critic model with architecture:
+[2025-02-05 10:08:21,702][09999] ActorCriticSharedWeights(
+  (obs_normalizer): ObservationNormalizer(
+    (running_mean_std): RunningMeanStdDictInPlace(
+      (running_mean_std): ModuleDict(
+        (obs): RunningMeanStdInPlace()
+      )
+    )
+  )
+  (returns_normalizer): RecursiveScriptModule(original_name=RunningMeanStdInPlace)
+  (encoder): MultiInputEncoder(
+    (encoders): ModuleDict(
+      (obs): MlpEncoder(
+        (mlp_head): RecursiveScriptModule(
+          original_name=Sequential
+          (0): RecursiveScriptModule(original_name=Linear)
+          (1): RecursiveScriptModule(original_name=Tanh)
+          (2): RecursiveScriptModule(original_name=Linear)
+          (3): RecursiveScriptModule(original_name=Tanh)
+        )
+      )
+    )
+  )
+  (core): ModelCoreIdentity()
+  (decoder): MlpDecoder(
+    (mlp): Identity()
+  )
+  (critic_linear): Linear(in_features=64, out_features=1, bias=True)
+  (action_parameterization): ActionParameterizationContinuousNonAdaptiveStddev(
+    (distribution_linear): Linear(in_features=64, out_features=8, bias=True)
+  )
+)
+[2025-02-05 10:08:21,729][10031] Worker 5 uses CPU cores [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[2025-02-05 10:08:21,729][10029] Worker 6 uses CPU cores [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[2025-02-05 10:08:21,891][09999] Using optimizer <class 'torch.optim.adam.Adam'>
+[2025-02-05 10:08:22,405][09999] No checkpoints found
+[2025-02-05 10:08:22,405][09999] Did not load from checkpoint, starting from scratch!
+[2025-02-05 10:08:22,405][09999] Initialized policy 0 weights for model version 0
+[2025-02-05 10:08:22,406][09999] LearnerWorker_p0 finished initialization!
+[2025-02-05 10:08:22,408][10023] RunningMeanStd input shape: (27,)
+[2025-02-05 10:08:22,408][10023] RunningMeanStd input shape: (1,)
+[2025-02-05 10:08:22,450][09941] Inference worker 0-0 is ready!
+[2025-02-05 10:08:22,450][09941] All inference workers are ready! Signal rollout workers to start!
+[2025-02-05 10:08:22,535][10028] Decorrelating experience for 0 frames...
+[2025-02-05 10:08:22,535][10028] Decorrelating experience for 64 frames...
+[2025-02-05 10:08:22,546][10030] Decorrelating experience for 0 frames...
+[2025-02-05 10:08:22,547][10030] Decorrelating experience for 64 frames...
+[2025-02-05 10:08:22,548][10031] Decorrelating experience for 0 frames...
+[2025-02-05 10:08:22,549][10031] Decorrelating experience for 64 frames...
+[2025-02-05 10:08:22,553][10028] Decorrelating experience for 128 frames...
+[2025-02-05 10:08:22,565][10026] Decorrelating experience for 0 frames...
+[2025-02-05 10:08:22,565][10026] Decorrelating experience for 64 frames...
+[2025-02-05 10:08:22,569][10027] Decorrelating experience for 0 frames...
+[2025-02-05 10:08:22,570][10025] Decorrelating experience for 0 frames...
+[2025-02-05 10:08:22,570][10027] Decorrelating experience for 64 frames...
+[2025-02-05 10:08:22,570][10025] Decorrelating experience for 64 frames...
+[2025-02-05 10:08:22,570][10024] Decorrelating experience for 0 frames...
+[2025-02-05 10:08:22,570][10029] Decorrelating experience for 0 frames...
+[2025-02-05 10:08:22,571][10024] Decorrelating experience for 64 frames...
+[2025-02-05 10:08:22,571][10029] Decorrelating experience for 64 frames...
+[2025-02-05 10:08:22,579][10030] Decorrelating experience for 128 frames...
+[2025-02-05 10:08:22,580][10031] Decorrelating experience for 128 frames...
+[2025-02-05 10:08:22,583][10028] Decorrelating experience for 192 frames...
+[2025-02-05 10:08:22,594][10026] Decorrelating experience for 128 frames...
+[2025-02-05 10:08:22,594][10027] Decorrelating experience for 128 frames...
+[2025-02-05 10:08:22,599][10025] Decorrelating experience for 128 frames...
+[2025-02-05 10:08:22,600][10029] Decorrelating experience for 128 frames...
+[2025-02-05 10:08:22,600][10024] Decorrelating experience for 128 frames...
+[2025-02-05 10:08:22,624][10027] Decorrelating experience for 192 frames...
+[2025-02-05 10:08:22,633][10028] Decorrelating experience for 256 frames...
+[2025-02-05 10:08:22,634][10031] Decorrelating experience for 192 frames...
+[2025-02-05 10:08:22,635][10030] Decorrelating experience for 192 frames...
+[2025-02-05 10:08:22,649][10026] Decorrelating experience for 192 frames...
+[2025-02-05 10:08:22,653][10025] Decorrelating experience for 192 frames...
+[2025-02-05 10:08:22,654][10029] Decorrelating experience for 192 frames...
+[2025-02-05 10:08:22,655][10024] Decorrelating experience for 192 frames...
+[2025-02-05 10:08:22,683][10027] Decorrelating experience for 256 frames...
+[2025-02-05 10:08:22,689][10028] Decorrelating experience for 320 frames...
+[2025-02-05 10:08:22,733][10031] Decorrelating experience for 256 frames...
+[2025-02-05 10:08:22,735][10030] Decorrelating experience for 256 frames...
+[2025-02-05 10:08:22,743][10027] Decorrelating experience for 320 frames...
+[2025-02-05 10:08:22,748][10026] Decorrelating experience for 256 frames...
+[2025-02-05 10:08:22,752][10025] Decorrelating experience for 256 frames...
+[2025-02-05 10:08:22,752][10029] Decorrelating experience for 256 frames...
+[2025-02-05 10:08:22,754][10024] Decorrelating experience for 256 frames...
+[2025-02-05 10:08:22,762][10028] Decorrelating experience for 384 frames...
+[2025-02-05 10:08:22,823][10027] Decorrelating experience for 384 frames...
+[2025-02-05 10:08:22,842][10031] Decorrelating experience for 320 frames...
+[2025-02-05 10:08:22,844][10028] Decorrelating experience for 448 frames...
+[2025-02-05 10:08:22,844][10030] Decorrelating experience for 320 frames...
+[2025-02-05 10:08:22,858][10026] Decorrelating experience for 320 frames...
+[2025-02-05 10:08:22,860][10029] Decorrelating experience for 320 frames...
+[2025-02-05 10:08:22,866][10025] Decorrelating experience for 320 frames...
+[2025-02-05 10:08:22,867][10024] Decorrelating experience for 320 frames...
+[2025-02-05 10:08:22,930][10027] Decorrelating experience for 448 frames...
+[2025-02-05 10:08:22,969][10024] Decorrelating experience for 384 frames...
+[2025-02-05 10:08:22,976][10031] Decorrelating experience for 384 frames...
+[2025-02-05 10:08:22,981][10030] Decorrelating experience for 384 frames...
+[2025-02-05 10:08:22,989][10026] Decorrelating experience for 384 frames...
+[2025-02-05 10:08:22,990][10029] Decorrelating experience for 384 frames...
+[2025-02-05 10:08:22,999][10025] Decorrelating experience for 384 frames...
+[2025-02-05 10:08:23,126][10024] Decorrelating experience for 448 frames...
+[2025-02-05 10:08:23,135][10031] Decorrelating experience for 448 frames...
+[2025-02-05 10:08:23,142][10030] Decorrelating experience for 448 frames...
+[2025-02-05 10:08:23,148][10026] Decorrelating experience for 448 frames...
+[2025-02-05 10:08:23,150][10029] Decorrelating experience for 448 frames...
+[2025-02-05 10:08:23,164][10025] Decorrelating experience for 448 frames...
+[2025-02-05 10:08:26,258][09941] Fps is (10 sec: nan, 60 sec: nan, 300 sec: nan). Total num frames: 32768. Throughput: 0: nan. Samples: 25600. Policy #0 lag: (min: 6.0, avg: 6.0, max: 6.0)
+[2025-02-05 10:08:26,258][09941] Avg episode reward: [(0, '-146.951')]
+[2025-02-05 10:08:27,410][09999] Early stopping after 2 epochs (16 sgd steps), loss delta 0.0000000
+[2025-02-05 10:08:28,058][09999] Early stopping after 2 epochs (16 sgd steps), loss delta 0.0000000
+[2025-02-05 10:08:28,059][10031] Stopping RolloutWorker_w5...
+[2025-02-05 10:08:28,059][09941] Component RolloutWorker_w5 stopped!
+[2025-02-05 10:08:28,059][10025] Stopping RolloutWorker_w2...
+[2025-02-05 10:08:28,059][10024] Stopping RolloutWorker_w0...
+[2025-02-05 10:08:28,059][10027] Stopping RolloutWorker_w3...
+[2025-02-05 10:08:28,059][10029] Stopping RolloutWorker_w6...
+[2025-02-05 10:08:28,059][10028] Stopping RolloutWorker_w4...
+[2025-02-05 10:08:28,059][10031] Loop rollout_proc5_evt_loop terminating...
+[2025-02-05 10:08:28,059][10030] Stopping RolloutWorker_w7...
+[2025-02-05 10:08:28,059][10025] Loop rollout_proc2_evt_loop terminating...
+[2025-02-05 10:08:28,059][10024] Loop rollout_proc0_evt_loop terminating...
+[2025-02-05 10:08:28,059][10029] Loop rollout_proc6_evt_loop terminating...
+[2025-02-05 10:08:28,059][10027] Loop rollout_proc3_evt_loop terminating...
+[2025-02-05 10:08:28,059][10026] Stopping RolloutWorker_w1...
+[2025-02-05 10:08:28,059][10028] Loop rollout_proc4_evt_loop terminating...
+[2025-02-05 10:08:28,059][10030] Loop rollout_proc7_evt_loop terminating...
+[2025-02-05 10:08:28,059][10026] Loop rollout_proc1_evt_loop terminating...
+[2025-02-05 10:08:28,059][09941] Component RolloutWorker_w2 stopped!
+[2025-02-05 10:08:28,060][09941] Component RolloutWorker_w0 stopped!
+[2025-02-05 10:08:28,060][09941] Component RolloutWorker_w3 stopped!
+[2025-02-05 10:08:28,060][09941] Component RolloutWorker_w6 stopped!
+[2025-02-05 10:08:28,060][09941] Component RolloutWorker_w1 stopped!
+[2025-02-05 10:08:28,060][09941] Component RolloutWorker_w4 stopped!
+[2025-02-05 10:08:28,061][09941] Component RolloutWorker_w7 stopped!
+[2025-02-05 10:08:28,060][09999] Stopping Batcher_0...
+[2025-02-05 10:08:28,061][09941] Component Batcher_0 stopped!
+[2025-02-05 10:08:28,061][09999] Loop batcher_evt_loop terminating...
+[2025-02-05 10:08:28,061][09999] Saving experiments_LibrariesRL/results/samplefactory/execution1/checkpoint_p0/checkpoint_000000152_57344.pth...
+[2025-02-05 10:08:28,065][09999] Saving experiments_LibrariesRL/results/samplefactory/execution1/checkpoint_p0/checkpoint_000000152_57344.pth...
+[2025-02-05 10:08:28,069][09999] Stopping LearnerWorker_p0...
+[2025-02-05 10:08:28,069][09999] Loop learner_proc0_evt_loop terminating...
+[2025-02-05 10:08:28,069][09941] Component LearnerWorker_p0 stopped!
+[2025-02-05 10:08:28,122][10023] Weights refcount: 2 0
+[2025-02-05 10:08:28,123][10023] Stopping InferenceWorker_p0-w0...
+[2025-02-05 10:08:28,123][09941] Component InferenceWorker_p0-w0 stopped!
+[2025-02-05 10:08:28,124][10023] Loop inference_proc0-0_evt_loop terminating...
+[2025-02-05 10:08:28,124][09941] Waiting for process learner_proc0 to stop...
+[2025-02-05 10:08:28,981][09941] Waiting for process inference_proc0-0 to join...
+[2025-02-05 10:08:28,981][09941] Waiting for process rollout_proc0 to join...
+[2025-02-05 10:08:28,981][09941] Waiting for process rollout_proc1 to join...
+[2025-02-05 10:08:28,981][09941] Waiting for process rollout_proc2 to join...
+[2025-02-05 10:08:28,981][09941] Waiting for process rollout_proc3 to join...
+[2025-02-05 10:08:28,981][09941] Waiting for process rollout_proc4 to join...
+[2025-02-05 10:08:28,981][09941] Waiting for process rollout_proc5 to join...
+[2025-02-05 10:08:28,981][09941] Waiting for process rollout_proc6 to join...
+[2025-02-05 10:08:28,981][09941] Waiting for process rollout_proc7 to join...
+[2025-02-05 10:08:28,981][09941] Batcher 0 profile tree view:
+batching: 0.0145, releasing_batches: 0.0081
+[2025-02-05 10:08:28,982][09941] InferenceWorker_p0-w0 profile tree view:
+wait_policy: 0.0052
+  wait_policy_total: 1.8395
+update_model: 0.0823
+  weight_update: 0.0004
+one_step: 0.0005
+  handle_policy_step: 3.3782
+    deserialize: 0.1223, stack: 0.0348, obs_to_device_normalize: 0.6031, forward: 1.7071, send_messages: 0.3273
+    prepare_outputs: 0.3558
+      to_cpu: 0.0518
+[2025-02-05 10:08:28,982][09941] Learner 0 profile tree view:
+misc: 0.0000, prepare_batch: 0.0461
+train: 0.3729
+  epoch_init: 0.0001, minibatch_init: 0.0049, losses_postprocess: 0.0066, kl_divergence: 0.0018, after_optimizer: 0.0038
+  calculate_losses: 0.1444
+    losses_init: 0.0003, forward_head: 0.0541, bptt_initial: 0.0005, bptt: 0.0006, tail: 0.0431, advantages_returns: 0.0046, losses: 0.0358
+  update: 0.2054
+    clip: 0.0215
+[2025-02-05 10:08:28,982][09941] RolloutWorker_w0 profile tree view:
+wait_for_trajectories: 0.0020, enqueue_policy_requests: 0.1381, env_step: 2.4675, overhead: 0.1876, complete_rollouts: 0.0028
+save_policy_outputs: 0.3139
+  split_output_tensors: 0.1004
+[2025-02-05 10:08:28,982][09941] RolloutWorker_w7 profile tree view:
+wait_for_trajectories: 0.0019, enqueue_policy_requests: 0.1402, env_step: 2.4354, overhead: 0.1861, complete_rollouts: 0.0028
+save_policy_outputs: 0.3104
+  split_output_tensors: 0.0985
+[2025-02-05 10:08:28,982][09941] Loop Runner_EvtLoop terminating...
+[2025-02-05 10:08:28,982][09941] Runner profile tree view:
+main_loop: 10.1530
+[2025-02-05 10:08:28,982][09941] Collected {0: 57344}, FPS: 5648.0
+[2025-02-05 10:08:28,982][09941] Environment mujoco_hopper already registered, overwriting...
+[2025-02-05 10:08:28,982][09941] Environment mujoco_halfcheetah already registered, overwriting...
+[2025-02-05 10:08:28,982][09941] Environment mujoco_humanoid already registered, overwriting...
+[2025-02-05 10:08:28,982][09941] Environment mujoco_ant already registered, overwriting...
+[2025-02-05 10:08:28,982][09941] Environment mujoco_standup already registered, overwriting...
+[2025-02-05 10:08:28,983][09941] Environment mujoco_doublependulum already registered, overwriting...
+[2025-02-05 10:08:28,983][09941] Environment mujoco_pendulum already registered, overwriting...
+[2025-02-05 10:08:28,983][09941] Environment mujoco_reacher already registered, overwriting...
+[2025-02-05 10:08:28,983][09941] Environment mujoco_walker already registered, overwriting...
+[2025-02-05 10:08:28,983][09941] Environment mujoco_pusher already registered, overwriting...
+[2025-02-05 10:08:28,983][09941] Environment mujoco_swimmer already registered, overwriting...
+[2025-02-05 10:08:28,984][09941] Loading existing experiment configuration from experiments_LibrariesRL/results/samplefactory/execution1/config.json
+[2025-02-05 10:08:30,533][09941] Environment var CUDA_VISIBLE_DEVICES is 
+[2025-02-05 10:08:30,533][09941] Rollout worker 0 uses device cpu
+[2025-02-05 10:08:30,534][09941] Rollout worker 1 uses device cpu
+[2025-02-05 10:08:30,534][09941] Rollout worker 2 uses device cpu
+[2025-02-05 10:08:30,534][09941] Rollout worker 3 uses device cpu
+[2025-02-05 10:08:30,534][09941] Rollout worker 4 uses device cpu
+[2025-02-05 10:08:30,534][09941] Rollout worker 5 uses device cpu
+[2025-02-05 10:08:30,534][09941] Rollout worker 6 uses device cpu
+[2025-02-05 10:08:30,534][09941] Rollout worker 7 uses device cpu
+[2025-02-05 10:08:30,534][09941] In synchronous mode, we only accumulate one batch. Setting num_batches_to_accumulate to 1
+[2025-02-05 10:08:30,539][09941] Setting fixed seed 1
+[2025-02-05 10:08:30,540][09941] Initializing actor-critic model on device cpu
+[2025-02-05 10:08:30,540][09941] RunningMeanStd input shape: (27,)
+[2025-02-05 10:08:30,540][09941] RunningMeanStd input shape: (1,)
+[2025-02-05 10:08:30,582][09941] Created Actor Critic model with architecture:
+[2025-02-05 10:08:30,582][09941] ActorCriticSharedWeights(
+  (obs_normalizer): ObservationNormalizer(
+    (running_mean_std): RunningMeanStdDictInPlace(
+      (running_mean_std): ModuleDict(
+        (obs): RunningMeanStdInPlace()
+      )
+    )
+  )
+  (returns_normalizer): RecursiveScriptModule(original_name=RunningMeanStdInPlace)
+  (encoder): MultiInputEncoder(
+    (encoders): ModuleDict(
+      (obs): MlpEncoder(
+        (mlp_head): RecursiveScriptModule(
+          original_name=Sequential
+          (0): RecursiveScriptModule(original_name=Linear)
+          (1): RecursiveScriptModule(original_name=Tanh)
+          (2): RecursiveScriptModule(original_name=Linear)
+          (3): RecursiveScriptModule(original_name=Tanh)
+        )
+      )
+    )
+  )
+  (core): ModelCoreIdentity()
+  (decoder): MlpDecoder(
+    (mlp): Identity()
+  )
+  (critic_linear): Linear(in_features=64, out_features=1, bias=True)
+  (action_parameterization): ActionParameterizationContinuousNonAdaptiveStddev(
+    (distribution_linear): Linear(in_features=64, out_features=8, bias=True)
+  )
+)
+[2025-02-05 10:08:30,583][09941] Using optimizer <class 'torch.optim.adam.Adam'>
+[2025-02-05 10:08:31,074][09941] Loading state from checkpoint experiments_LibrariesRL/results/samplefactory/execution1/checkpoint_p0/checkpoint_000000152_57344.pth...
+[2025-02-05 10:08:31,075][09941] Loading model from checkpoint
+[2025-02-05 10:08:31,076][09941] Loaded experiment state at self.train_step=152, self.env_steps=57344
+[2025-02-05 10:08:31,076][09941] Initialized policy 0 weights for model version 152
+[2025-02-05 10:08:31,078][09941] Environment var CUDA_VISIBLE_DEVICES is 
+[2025-02-05 10:08:31,080][09941] InferenceWorker_p0-w0: min num requests: 2
+[2025-02-05 10:08:31,096][09941] Before event loop...
+[2025-02-05 10:08:31,096][09941] SamplingLoop: waiting for sampler to be ready...
+[2025-02-05 10:08:31,096][09941] Starting all processes...
+[2025-02-05 10:08:31,098][09941] Starting process inference_proc0-0
+[2025-02-05 10:08:31,098][09941] Starting process rollout_proc0
+[2025-02-05 10:08:31,098][09941] Starting process rollout_proc1
+[2025-02-05 10:08:31,098][09941] Starting process rollout_proc2
+[2025-02-05 10:08:31,098][09941] Starting process rollout_proc3
+[2025-02-05 10:08:31,098][09941] Starting process rollout_proc4
+[2025-02-05 10:08:31,098][09941] Starting process rollout_proc5
+[2025-02-05 10:08:31,099][09941] Starting process rollout_proc6
+[2025-02-05 10:08:31,099][09941] Starting process rollout_proc7
+[2025-02-05 10:08:32,598][09941] Episodes collected: 0, Samples collected: 0, throughput: 0.0 FPS
+[2025-02-05 10:08:32,598][09941] Progress: 0/100 episodes sampled
+[2025-02-05 10:08:33,057][10378] Worker 1 uses CPU cores [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[2025-02-05 10:08:33,598][09941] Episodes collected: 0, Samples collected: 0, throughput: 0.0 FPS
+[2025-02-05 10:08:33,599][09941] Progress: 0/100 episodes sampled
+[2025-02-05 10:08:33,843][10375] Worker 0 uses CPU cores [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[2025-02-05 10:08:34,116][10382] Worker 4 uses CPU cores [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[2025-02-05 10:08:34,434][10377] Worker 2 uses CPU cores [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[2025-02-05 10:08:34,489][10381] Worker 7 uses CPU cores [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[2025-02-05 10:08:34,538][10383] Worker 5 uses CPU cores [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[2025-02-05 10:08:34,548][10380] Worker 6 uses CPU cores [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[2025-02-05 10:08:34,571][10379] Worker 3 uses CPU cores [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[2025-02-05 10:08:34,599][09941] Episodes collected: 0, Samples collected: 0, throughput: 0.0 FPS
+[2025-02-05 10:08:34,599][09941] Progress: 0/100 episodes sampled
+[2025-02-05 10:08:35,276][10376] RunningMeanStd input shape: (27,)
+[2025-02-05 10:08:35,276][10376] RunningMeanStd input shape: (1,)
+[2025-02-05 10:08:35,338][09941] Inference worker 0-0 is ready!
+[2025-02-05 10:08:35,344][09941] All inference workers are ready! Signal rollout workers to start!
+[2025-02-05 10:08:35,354][09941] SamplingLoop: sampler fully initialized!
+[2025-02-05 10:08:35,538][09941] Episode ended after 13.0 steps. Return: -22.8. True objective -22.8
+[2025-02-05 10:08:35,544][09941] Episode ended after 14.0 steps. Return: -49.0. True objective -49.0
+[2025-02-05 10:08:35,555][09941] Episode ended after 11.0 steps. Return: -36.5. True objective -36.5
+[2025-02-05 10:08:35,560][09941] Episode ended after 17.0 steps. Return: -35.9. True objective -35.9
+[2025-02-05 10:08:35,566][09941] Episode ended after 12.0 steps. Return: -32.0. True objective -32.0
+[2025-02-05 10:08:35,580][09941] Episode ended after 20.0 steps. Return: -51.4. True objective -51.4
+[2025-02-05 10:08:35,585][09941] Episode ended after 18.0 steps. Return: -37.9. True objective -37.9
+[2025-02-05 10:08:35,591][09941] Episode ended after 15.0 steps. Return: -45.8. True objective -45.8
+[2025-02-05 10:08:35,596][09941] Episode ended after 19.0 steps. Return: -55.2. True objective -55.2
+[2025-02-05 10:08:35,599][09941] Episodes collected: 8, Samples collected: 0, throughput: 0.0 FPS
+[2025-02-05 10:08:35,599][09941] Episode ended after 17.0 steps. Return: -26.1. True objective -26.1
+[2025-02-05 10:08:35,599][09941] Progress: 8/100 episodes sampled
+[2025-02-05 10:08:35,614][09941] Episode ended after 26.0 steps. Return: -45.6. True objective -45.6
+[2025-02-05 10:08:35,625][09941] Episode ended after 19.0 steps. Return: -35.0. True objective -35.0
+[2025-02-05 10:08:35,631][09941] Episode ended after 20.0 steps. Return: -47.2. True objective -47.2
+[2025-02-05 10:08:35,636][09941] Episode ended after 20.0 steps. Return: -84.9. True objective -84.9
+[2025-02-05 10:08:35,647][09941] Episode ended after 21.0 steps. Return: -70.8. True objective -70.8
+[2025-02-05 10:08:35,652][09941] Episode ended after 22.0 steps. Return: -25.3. True objective -25.3
+[2025-02-05 10:08:35,653][09941] Episode ended after 26.0 steps. Return: -74.4. True objective -74.4
+[2025-02-05 10:08:35,664][09941] Episode ended after 20.0 steps. Return: -41.3. True objective -41.3
+[2025-02-05 10:08:35,670][09941] Episode ended after 24.0 steps. Return: -63.3. True objective -63.3
+[2025-02-05 10:08:35,680][09941] Episode ended after 28.0 steps. Return: -106.7. True objective -106.7
+[2025-02-05 10:08:35,685][09941] Episode ended after 25.0 steps. Return: -58.8. True objective -58.8
+[2025-02-05 10:08:35,686][09941] Episode ended after 25.0 steps. Return: -76.3. True objective -76.3
+[2025-02-05 10:08:35,686][09941] Episode ended after 29.0 steps. Return: -97.1. True objective -97.1
+[2025-02-05 10:08:35,686][09941] Episode ended after 27.0 steps. Return: -61.0. True objective -61.0
+[2025-02-05 10:08:35,686][09941] Episode ended after 34.0 steps. Return: -79.6. True objective -79.6
+[2025-02-05 10:08:35,687][09941] Episode ended after 28.0 steps. Return: -103.8. True objective -103.8
+[2025-02-05 10:08:35,687][09941] Episode ended after 29.0 steps. Return: -60.7. True objective -60.7
+[2025-02-05 10:08:35,692][09941] Episode ended after 22.0 steps. Return: -56.6. True objective -56.6
+[2025-02-05 10:08:35,703][09941] Episode ended after 32.0 steps. Return: -70.0. True objective -70.0
+[2025-02-05 10:08:35,709][09941] Episode ended after 19.0 steps. Return: -35.4. True objective -35.4
+[2025-02-05 10:08:35,730][09941] Episode ended after 16.0 steps. Return: -50.5. True objective -50.5
+[2025-02-05 10:08:35,741][09941] Episode ended after 22.0 steps. Return: -60.8. True objective -60.8
+[2025-02-05 10:08:35,751][09941] Episode ended after 38.0 steps. Return: -103.0. True objective -103.0
+[2025-02-05 10:08:35,781][09941] Episode ended after 19.0 steps. Return: -50.3. True objective -50.3
+[2025-02-05 10:08:35,792][09941] Episode ended after 43.0 steps. Return: -121.5. True objective -121.5
+[2025-02-05 10:08:35,803][09941] Episode ended after 43.0 steps. Return: -148.7. True objective -148.7
+[2025-02-05 10:08:35,813][09941] Episode ended after 27.0 steps. Return: -90.8. True objective -90.8
+[2025-02-05 10:08:35,819][09941] Episode ended after 34.0 steps. Return: -106.1. True objective -106.1
+[2025-02-05 10:08:35,819][09941] Episode ended after 45.0 steps. Return: -105.9. True objective -105.9
+[2025-02-05 10:08:35,819][09941] Episode ended after 51.0 steps. Return: -111.5. True objective -111.5
+[2025-02-05 10:08:35,837][09941] Episode ended after 24.0 steps. Return: -56.9. True objective -56.9
+[2025-02-05 10:08:35,847][09941] Episode ended after 56.0 steps. Return: -135.4. True objective -135.4
+[2025-02-05 10:08:35,862][09941] Episode ended after 32.0 steps. Return: -67.5. True objective -67.5
+[2025-02-05 10:08:36,035][09941] Episode ended after 64.0 steps. Return: -153.3. True objective -153.3
+[2025-02-05 10:08:36,138][09941] Episode ended after 57.0 steps. Return: -145.6. True objective -145.6
+[2025-02-05 10:08:36,149][09941] Episode ended after 38.0 steps. Return: -105.5. True objective -105.5
+[2025-02-05 10:08:36,160][09941] Episode ended after 57.0 steps. Return: -135.9. True objective -135.9
+[2025-02-05 10:08:36,165][09941] Episode ended after 58.0 steps. Return: -120.2. True objective -120.2
+[2025-02-05 10:08:36,165][09941] Episode ended after 11.0 steps. Return: -48.9. True objective -48.9
+[2025-02-05 10:08:36,166][09941] Episode ended after 59.0 steps. Return: -189.2. True objective -189.2
+[2025-02-05 10:08:36,166][09941] Episode ended after 14.0 steps. Return: -32.3. True objective -32.3
+[2025-02-05 10:08:36,166][09941] Episode ended after 63.0 steps. Return: -165.6. True objective -165.6
+[2025-02-05 10:08:36,168][09941] Episode ended after 60.0 steps. Return: -197.1. True objective -197.1
+[2025-02-05 10:08:36,229][09941] Episode ended after 37.0 steps. Return: -58.9. True objective -58.9
+[2025-02-05 10:08:36,262][09941] Episode ended after 67.0 steps. Return: -151.3. True objective -151.3
+[2025-02-05 10:08:36,262][09941] Episode ended after 67.0 steps. Return: -120.5. True objective -120.5
+[2025-02-05 10:08:36,280][09941] Episode ended after 74.0 steps. Return: -204.3. True objective -204.3
+[2025-02-05 10:08:36,281][09941] Episode ended after 42.0 steps. Return: -90.5. True objective -90.5
+[2025-02-05 10:08:36,283][09941] Episode ended after 50.0 steps. Return: -126.6. True objective -126.6
+[2025-02-05 10:08:36,292][09941] Episode ended after 30.0 steps. Return: -97.5. True objective -97.5
+[2025-02-05 10:08:36,297][09941] Episode ended after 52.0 steps. Return: -113.7. True objective -113.7
+[2025-02-05 10:08:36,298][09941] Episode ended after 82.0 steps. Return: -261.0. True objective -261.0
+[2025-02-05 10:08:36,298][09941] Episode ended after 82.0 steps. Return: -189.0. True objective -189.0
+[2025-02-05 10:08:36,298][09941] Episode ended after 17.0 steps. Return: -26.5. True objective -26.5
+[2025-02-05 10:08:36,298][09941] Episode ended after 82.0 steps. Return: -216.2. True objective -216.2
+[2025-02-05 10:08:36,304][09941] Episode ended after 74.0 steps. Return: -171.4. True objective -171.4
+[2025-02-05 10:08:36,315][09941] Episode ended after 85.0 steps. Return: -174.1. True objective -174.1
+[2025-02-05 10:08:36,326][09941] Episode ended after 93.0 steps. Return: -261.7. True objective -261.7
+[2025-02-05 10:08:36,331][09941] Episode ended after 20.0 steps. Return: -57.2. True objective -57.2
+[2025-02-05 10:08:36,332][09941] Episode ended after 58.0 steps. Return: -151.8. True objective -151.8
+[2025-02-05 10:08:36,332][09941] Episode ended after 15.0 steps. Return: -42.4. True objective -42.4
+[2025-02-05 10:08:36,332][09941] Episode ended after 61.0 steps. Return: -164.3. True objective -164.3
+[2025-02-05 10:08:36,338][09941] Episode ended after 68.0 steps. Return: -164.8. True objective -164.8
+[2025-02-05 10:08:36,349][09941] Episode ended after 93.0 steps. Return: -187.4. True objective -187.4
+[2025-02-05 10:08:36,354][09941] Episode ended after 63.0 steps. Return: -209.3. True objective -209.3
+[2025-02-05 10:08:36,365][09941] Episode ended after 78.0 steps. Return: -200.2. True objective -200.2
+[2025-02-05 10:08:36,370][09941] Episode ended after 19.0 steps. Return: -47.6. True objective -47.6
+[2025-02-05 10:08:36,371][09941] Episode ended after 32.0 steps. Return: -95.9. True objective -95.9
+[2025-02-05 10:08:36,381][09941] Episode ended after 99.0 steps. Return: -296.0. True objective -296.0
+[2025-02-05 10:08:36,387][09941] Episode ended after 18.0 steps. Return: -68.6. True objective -68.6
+[2025-02-05 10:08:36,387][09941] Episode ended after 52.0 steps. Return: -149.4. True objective -149.4
+[2025-02-05 10:08:36,400][09941] Episode ended after 78.0 steps. Return: -218.8. True objective -218.8
+[2025-02-05 10:08:36,411][09941] Episode ended after 51.0 steps. Return: -134.3. True objective -134.3
+[2025-02-05 10:08:36,424][09941] Episode ended after 102.0 steps. Return: -321.6. True objective -321.6
+[2025-02-05 10:08:36,435][09941] Episode ended after 79.0 steps. Return: -170.7. True objective -170.7
+[2025-02-05 10:08:36,445][09941] Episode ended after 43.0 steps. Return: -129.3. True objective -129.3
+[2025-02-05 10:08:36,451][09941] Episode ended after 17.0 steps. Return: -35.2. True objective -35.2
+[2025-02-05 10:08:36,461][09941] Episode ended after 120.0 steps. Return: -303.0. True objective -303.0
+[2025-02-05 10:08:36,472][09941] Episode ended after 92.0 steps. Return: -257.3. True objective -257.3
+[2025-02-05 10:08:36,482][09941] Episode ended after 121.0 steps. Return: -284.3. True objective -284.3
+[2025-02-05 10:08:36,580][09941] Episode ended after 68.0 steps. Return: -222.8. True objective -222.8
+[2025-02-05 10:08:36,591][09941] Episode ended after 121.0 steps. Return: -336.2. True objective -336.2
+[2025-02-05 10:08:36,600][09941] Episodes collected: 91, Samples collected: 4352, throughput: 870.2 FPS
+[2025-02-05 10:08:36,601][09941] Progress: 91/100 episodes sampled
+[2025-02-05 10:08:36,633][09941] Episode ended after 51.0 steps. Return: -91.4. True objective -91.4
+[2025-02-05 10:08:36,640][09941] Episode ended after 35.0 steps. Return: -108.1. True objective -108.1
+[2025-02-05 10:08:36,735][09941] Episode ended after 128.0 steps. Return: -358.5. True objective -358.5
+[2025-02-05 10:08:36,841][09941] Episode ended after 91.0 steps. Return: -215.1. True objective -215.1
+[2025-02-05 10:08:36,847][09941] Episode ended after 136.0 steps. Return: -261.6. True objective -261.6
+[2025-02-05 10:08:36,854][09941] Episode ended after 107.0 steps. Return: -228.0. True objective -228.0
+[2025-02-05 10:08:36,871][09941] Episode ended after 13.0 steps. Return: -36.9. True objective -36.9
+[2025-02-05 10:08:36,877][09941] Episode ended after 124.0 steps. Return: -292.6. True objective -292.6
+[2025-02-05 10:08:37,190][09941] Episode ended after 20.0 steps. Return: -48.7. True objective -48.7
+[2025-02-05 10:08:37,509][09941] Episode ended after 24.0 steps. Return: -41.7. True objective -41.7
+[2025-02-05 10:08:37,601][09941] Episodes collected: 102, Samples collected: 7936, throughput: 1322.0 FPS
+[2025-02-05 10:08:37,601][09941] Progress: 102/100 episodes sampled
+[2025-02-05 10:08:37,602][10377] Stopping RolloutWorker_w2...
+[2025-02-05 10:08:37,602][10382] Stopping RolloutWorker_w4...
+[2025-02-05 10:08:37,602][10383] Stopping RolloutWorker_w5...
+[2025-02-05 10:08:37,602][10380] Stopping RolloutWorker_w6...
+[2025-02-05 10:08:37,602][10381] Stopping RolloutWorker_w7...
+[2025-02-05 10:08:37,602][10379] Stopping RolloutWorker_w3...
+[2025-02-05 10:08:37,602][10375] Stopping RolloutWorker_w0...
+[2025-02-05 10:08:37,602][10378] Stopping RolloutWorker_w1...
+[2025-02-05 10:08:37,602][10377] Loop rollout_proc2_evt_loop terminating...
+[2025-02-05 10:08:37,602][10382] Loop rollout_proc4_evt_loop terminating...
+[2025-02-05 10:08:37,602][10383] Loop rollout_proc5_evt_loop terminating...
+[2025-02-05 10:08:37,602][10380] Loop rollout_proc6_evt_loop terminating...
+[2025-02-05 10:08:37,602][10381] Loop rollout_proc7_evt_loop terminating...
+[2025-02-05 10:08:37,602][10379] Loop rollout_proc3_evt_loop terminating...
+[2025-02-05 10:08:37,602][10375] Loop rollout_proc0_evt_loop terminating...
+[2025-02-05 10:08:37,602][10378] Loop rollout_proc1_evt_loop terminating...
+[2025-02-05 10:08:37,605][09941] Episode ended after 18.0 steps. Return: -50.6. True objective -50.6
+[2025-02-05 10:08:37,605][09941] Episode ended after 134.0 steps. Return: -380.4. True objective -380.4
+[2025-02-05 10:08:37,607][09941] Episode ended after 32.0 steps. Return: -84.3. True objective -84.3
+[2025-02-05 10:08:37,607][09941] Episode ended after 96.0 steps. Return: -191.9. True objective -191.9
+[2025-02-05 10:08:37,607][09941] Episode ended after 15.0 steps. Return: -37.3. True objective -37.3
+[2025-02-05 10:08:37,608][09941] Episode ended after 160.0 steps. Return: -442.9. True objective -442.9
+[2025-02-05 10:08:37,608][09941] Episode ended after 55.0 steps. Return: -147.2. True objective -147.2
+[2025-02-05 10:08:37,608][09941] Episode ended after 87.0 steps. Return: -185.8. True objective -185.8
+[2025-02-05 10:08:37,608][09941] Episode ended after 79.0 steps. Return: -196.7. True objective -196.7
+[2025-02-05 10:08:37,608][09941] Episode ended after 99.0 steps. Return: -255.3. True objective -255.3
+[2025-02-05 10:08:37,609][09941] Episode ended after 50.0 steps. Return: -151.5. True objective -151.5
+[2025-02-05 10:08:37,624][09941] Episode ended after 211.0 steps. Return: -652.4. True objective -652.4
+[2025-02-05 10:08:37,627][09941] Episode ended after 153.0 steps. Return: -399.2. True objective -399.2
+[2025-02-05 10:08:37,630][09941] Episode ended after 40.0 steps. Return: -125.3. True objective -125.3
+[2025-02-05 10:08:37,635][09941] Episode ended after 174.0 steps. Return: -479.5. True objective -479.5
+[2025-02-05 10:08:37,640][09941] Loop SamplingLoop_EvtLoop terminating...
+[2025-02-05 10:08:37,641][09941] SamplingLoop finished with self.status=0
+[2025-02-05 10:08:37,641][09941] {
+    "reward/reward": -138.1462946050989,
+    "reward/reward_min": -652.3989279507135,
+    "reward/reward_max": -22.765967065673905,
+    "len/len": 53.136752136752136,
+    "len/len_min": 11.0,
+    "len/len_max": 211.0,
+    "policy_stats/avg_episode_number": 0.47863247863247865,
+    "policy_stats/avg_true_objective": -138.1462946050989,
+    "policy_stats/avg_true_objective_min": -652.3989279507135,
+    "policy_stats/avg_true_objective_max": -22.765967065673905
+}
+[2025-02-05 10:08:37,653][09941] Environment mujoco_hopper already registered, overwriting...
+[2025-02-05 10:08:37,653][09941] Environment mujoco_halfcheetah already registered, overwriting...
+[2025-02-05 10:08:37,653][09941] Environment mujoco_humanoid already registered, overwriting...
+[2025-02-05 10:08:37,654][09941] Environment mujoco_ant already registered, overwriting...
+[2025-02-05 10:08:37,654][09941] Environment mujoco_standup already registered, overwriting...
+[2025-02-05 10:08:37,654][09941] Environment mujoco_doublependulum already registered, overwriting...
+[2025-02-05 10:08:37,654][09941] Environment mujoco_pendulum already registered, overwriting...
+[2025-02-05 10:08:37,654][09941] Environment mujoco_reacher already registered, overwriting...
+[2025-02-05 10:08:37,654][09941] Environment mujoco_walker already registered, overwriting...
+[2025-02-05 10:08:37,654][09941] Environment mujoco_pusher already registered, overwriting...
+[2025-02-05 10:08:37,654][09941] Environment mujoco_swimmer already registered, overwriting...
+[2025-02-05 10:08:37,663][10376] Weights refcount: 2 0
+[2025-02-05 10:08:37,663][10376] Stopping InferenceWorker_p0-w0...
+[2025-02-05 10:08:37,664][10376] Loop inference_proc0-0_evt_loop terminating...
+[2025-02-05 10:08:37,683][09941] Saved parameter configuration for experiment execution2 not found!
+[2025-02-05 10:08:37,684][09941] Starting experiment from scratch!
+[2025-02-05 10:08:37,688][09941] Experiment dir experiments_LibrariesRL/results/samplefactory/execution2 already exists!
+[2025-02-05 10:08:37,688][09941] Resuming existing experiment from experiments_LibrariesRL/results/samplefactory/execution2...
+[2025-02-05 10:08:37,688][09941] Weights and Biases integration disabled
+[2025-02-05 10:08:37,690][09941] Environment var CUDA_VISIBLE_DEVICES is 
+[2025-02-05 10:08:39,861][09941] Starting experiment with the following configuration:
+help=False
+algo=APPO
+env=mujoco_ant
+experiment=execution2
+train_dir=experiments_LibrariesRL/results/samplefactory
+restart_behavior=resume
+device=cpu
+seed=1
+num_policies=1
+async_rl=False
+serial_mode=False
+batched_sampling=False
+num_batches_to_accumulate=2
+worker_num_splits=2
+policy_workers_per_policy=1
+max_policy_lag=1000
+num_workers=8
+num_envs_per_worker=8
+batch_size=1024
+num_batches_per_epoch=8
+num_epochs=3
+rollout=64
+recurrence=1
+shuffle_minibatches=False
+gamma=0.99
+reward_scale=1
+reward_clip=1000.0
+value_bootstrap=True
+normalize_returns=True
+exploration_loss_coeff=0.0
+value_loss_coeff=1.3
+kl_loss_coeff=0.1
+exploration_loss=entropy
+gae_lambda=0.95
+ppo_clip_ratio=0.2
+ppo_clip_value=1.0
+with_vtrace=False
+vtrace_rho=1.0
+vtrace_c=1.0
+optimizer=adam
+adam_eps=1e-06
+adam_beta1=0.9
+adam_beta2=0.999
+max_grad_norm=3.5
+learning_rate=0.00295
+lr_schedule=linear_decay
+lr_schedule_kl_threshold=0.008
+lr_adaptive_min=1e-06
+lr_adaptive_max=0.01
+obs_subtract_mean=0.0
+obs_scale=1.0
+normalize_input=True
+normalize_input_keys=None
+decorrelate_experience_max_seconds=0
+decorrelate_envs_on_one_worker=True
+actor_worker_gpus=[]
+set_workers_cpu_affinity=True
+force_envs_single_thread=False
+default_niceness=0
+log_to_file=True
+experiment_summaries_interval=3
+flush_summaries_interval=30
+stats_avg=100
+summaries_use_frameskip=True
+heartbeat_interval=20
+heartbeat_reporting_interval=180
+train_for_env_steps=40960
+train_for_seconds=10000000000
+save_every_sec=15
+keep_checkpoints=2
+load_checkpoint_kind=latest
+save_milestones_sec=-1
+save_best_every_sec=5
+save_best_metric=reward
+save_best_after=100000
+benchmark=False
+encoder_mlp_layers=[64, 64]
+encoder_conv_architecture=convnet_simple
+encoder_conv_mlp_layers=[512]
+use_rnn=False
+rnn_size=512
+rnn_type=gru
+rnn_num_layers=1
+decoder_mlp_layers=[]
+nonlinearity=tanh
+policy_initialization=torch_default
+policy_init_gain=1.0
+actor_critic_share_weights=True
+adaptive_stddev=False
+continuous_tanh_scale=0.0
+initial_stddev=1.0
+use_env_info_cache=False
+env_gpu_actions=False
+env_gpu_observations=True
+env_frameskip=1
+env_framestack=1
+pixel_format=CHW
+use_record_episode_statistics=False
+episode_counter=False
+with_wandb=False
+wandb_user=None
+wandb_project=sample_factory
+wandb_group=None
+wandb_job_type=SF
+wandb_tags=[]
+with_pbt=False
+pbt_mix_policies_in_one_env=True
+pbt_period_env_steps=5000000
+pbt_start_mutation=20000000
+pbt_replace_fraction=0.3
+pbt_mutation_rate=0.15
+pbt_replace_reward_gap=0.1
+pbt_replace_reward_gap_absolute=1e-06
+pbt_optimize_gamma=False
+pbt_target_objective=true_objective
+pbt_perturb_min=1.1
+pbt_perturb_max=1.5
+command_line=--algo=APPO --env=mujoco_ant --seed=1 --train_for_env_steps=40960 --experiment=execution2 --train_dir=experiments_LibrariesRL/results/samplefactory --device=cpu --rollout=64 --num_workers=8 --num_envs_per_worker=8 --batch_size=1024 --num_batches_per_epoch=8 --num_epoch=3
+cli_args={'algo': 'APPO', 'env': 'mujoco_ant', 'experiment': 'execution2', 'train_dir': 'experiments_LibrariesRL/results/samplefactory', 'device': 'cpu', 'seed': 1, 'num_workers': 8, 'num_envs_per_worker': 8, 'batch_size': 1024, 'num_batches_per_epoch': 8, 'num_epochs': 3, 'rollout': 64, 'train_for_env_steps': 40960}
+git_hash=43016c7aa04bc7ef033e8a092f1483526c725c03
+git_repo_name=https://github.com/JudithEtxebarrieta/OptimalResourceAllocation_RL.git
+[2025-02-05 10:08:39,861][09941] Saving configuration to experiments_LibrariesRL/results/samplefactory/execution2/config.json...
+[2025-02-05 10:08:40,868][09941] Rollout worker 0 uses device cpu
+[2025-02-05 10:08:40,868][09941] Rollout worker 1 uses device cpu
+[2025-02-05 10:08:40,868][09941] Rollout worker 2 uses device cpu
+[2025-02-05 10:08:40,868][09941] Rollout worker 3 uses device cpu
+[2025-02-05 10:08:40,868][09941] Rollout worker 4 uses device cpu
+[2025-02-05 10:08:40,868][09941] Rollout worker 5 uses device cpu
+[2025-02-05 10:08:40,868][09941] Rollout worker 6 uses device cpu
+[2025-02-05 10:08:40,868][09941] Rollout worker 7 uses device cpu
+[2025-02-05 10:08:40,868][09941] In synchronous mode, we only accumulate one batch. Setting num_batches_to_accumulate to 1
+[2025-02-05 10:08:40,877][09941] InferenceWorker_p0-w0: min num requests: 2
+[2025-02-05 10:08:40,893][09941] Starting all processes...
+[2025-02-05 10:08:40,894][09941] Starting process learner_proc0
+[2025-02-05 10:08:40,896][09941] Starting all processes...
+[2025-02-05 10:08:40,897][09941] Starting process inference_proc0-0
+[2025-02-05 10:08:40,898][09941] Starting process rollout_proc0
+[2025-02-05 10:08:40,898][09941] Starting process rollout_proc1
+[2025-02-05 10:08:40,898][09941] Starting process rollout_proc2
+[2025-02-05 10:08:40,898][09941] Starting process rollout_proc3
+[2025-02-05 10:08:40,899][09941] Starting process rollout_proc4
+[2025-02-05 10:08:40,899][09941] Starting process rollout_proc5
+[2025-02-05 10:08:40,899][09941] Starting process rollout_proc6
+[2025-02-05 10:08:40,900][09941] Starting process rollout_proc7
+[2025-02-05 10:08:45,951][09941] Inference worker 0-0 is ready!
+[2025-02-05 10:08:45,951][09941] All inference workers are ready! Signal rollout workers to start!
+[2025-02-05 10:08:47,690][09941] Fps is (10 sec: nan, 60 sec: nan, 300 sec: nan). Total num frames: 0. Throughput: 0: nan. Samples: 0. Policy #0 lag: (min: -1.0, avg: -1.0, max: -1.0)
+[2025-02-05 10:08:47,690][09941] Avg episode reward: [(0, '-108.190')]
+[2025-02-05 10:08:52,690][09941] Fps is (10 sec: 8192.0, 60 sec: 8192.0, 300 sec: 8192.0). Total num frames: 40960. Throughput: 0: 8162.4. Samples: 40812. Policy #0 lag: (min: 6.0, avg: 6.0, max: 6.0)
+[2025-02-05 10:08:52,690][09941] Avg episode reward: [(0, '-254.383')]
+[2025-02-05 10:08:54,025][09941] Component RolloutWorker_w2 stopped!
+[2025-02-05 10:08:54,026][09941] Component RolloutWorker_w4 stopped!
+[2025-02-05 10:08:54,029][09941] Component RolloutWorker_w6 stopped!
+[2025-02-05 10:08:54,029][09941] Component RolloutWorker_w1 stopped!
+[2025-02-05 10:08:54,029][09941] Component RolloutWorker_w5 stopped!
+[2025-02-05 10:08:54,029][09941] Component RolloutWorker_w3 stopped!
+[2025-02-05 10:08:54,029][09941] Component RolloutWorker_w0 stopped!
+[2025-02-05 10:08:54,030][09941] Component RolloutWorker_w7 stopped!
+[2025-02-05 10:08:54,030][09941] Component Batcher_0 stopped!
+[2025-02-05 10:08:54,033][09941] Component LearnerWorker_p0 stopped!
+[2025-02-05 10:08:54,083][09941] Component InferenceWorker_p0-w0 stopped!
+[2025-02-05 10:08:54,084][09941] Waiting for process learner_proc0 to stop...
+[2025-02-05 10:08:55,053][09941] Waiting for process inference_proc0-0 to join...
+[2025-02-05 10:08:55,053][09941] Waiting for process rollout_proc0 to join...
+[2025-02-05 10:08:55,053][09941] Waiting for process rollout_proc1 to join...
+[2025-02-05 10:08:55,053][09941] Waiting for process rollout_proc2 to join...
+[2025-02-05 10:08:55,053][09941] Waiting for process rollout_proc3 to join...
+[2025-02-05 10:08:55,054][09941] Waiting for process rollout_proc4 to join...
+[2025-02-05 10:08:55,054][09941] Waiting for process rollout_proc5 to join...
+[2025-02-05 10:08:55,054][09941] Waiting for process rollout_proc6 to join...
+[2025-02-05 10:08:55,054][09941] Waiting for process rollout_proc7 to join...
+[2025-02-05 10:08:55,054][09941] Batcher 0 profile tree view:
+batching: 0.0174, releasing_batches: 0.0093
+[2025-02-05 10:08:55,054][09941] InferenceWorker_p0-w0 profile tree view:
+wait_policy: 0.0053
+  wait_policy_total: 2.4904
+update_model: 0.1150
+  weight_update: 0.0005
+one_step: 0.0007
+  handle_policy_step: 4.9872
+    deserialize: 0.1869, stack: 0.0521, obs_to_device_normalize: 0.8909, forward: 2.5136, send_messages: 0.4810
+    prepare_outputs: 0.5296
+      to_cpu: 0.0787
+[2025-02-05 10:08:55,055][09941] Learner 0 profile tree view:
+misc: 0.0000, prepare_batch: 0.0582
+train: 0.4994
+  epoch_init: 0.0002, minibatch_init: 0.0068, losses_postprocess: 0.0083, kl_divergence: 0.0022, after_optimizer: 0.0047
+  calculate_losses: 0.1929
+    losses_init: 0.0003, forward_head: 0.0746, bptt_initial: 0.0008, bptt: 0.0009, tail: 0.0563, advantages_returns: 0.0058, losses: 0.0467
+  update: 0.2761
+    clip: 0.0293
+[2025-02-05 10:08:55,055][09941] RolloutWorker_w0 profile tree view:
+wait_for_trajectories: 0.0026, enqueue_policy_requests: 0.1833, env_step: 3.4547, overhead: 0.2560, complete_rollouts: 0.0038
+save_policy_outputs: 0.4266
+  split_output_tensors: 0.1359
+[2025-02-05 10:08:55,055][09941] RolloutWorker_w7 profile tree view:
+wait_for_trajectories: 0.0026, enqueue_policy_requests: 0.1876, env_step: 3.5545, overhead: 0.2645, complete_rollouts: 0.0037
+save_policy_outputs: 0.4284
+  split_output_tensors: 0.1366
+[2025-02-05 10:08:55,055][09941] Loop Runner_EvtLoop terminating...
+[2025-02-05 10:08:55,055][09941] Runner profile tree view:
+main_loop: 14.1619
+[2025-02-05 10:08:55,055][09941] Collected {0: 57344}, FPS: 4049.2
+[2025-02-05 10:08:55,056][09941] Environment mujoco_hopper already registered, overwriting...
+[2025-02-05 10:08:55,056][09941] Environment mujoco_halfcheetah already registered, overwriting...
+[2025-02-05 10:08:55,056][09941] Environment mujoco_humanoid already registered, overwriting...
+[2025-02-05 10:08:55,056][09941] Environment mujoco_ant already registered, overwriting...
+[2025-02-05 10:08:55,056][09941] Environment mujoco_standup already registered, overwriting...
+[2025-02-05 10:08:55,056][09941] Environment mujoco_doublependulum already registered, overwriting...
+[2025-02-05 10:08:55,056][09941] Environment mujoco_pendulum already registered, overwriting...
+[2025-02-05 10:08:55,056][09941] Environment mujoco_reacher already registered, overwriting...
+[2025-02-05 10:08:55,056][09941] Environment mujoco_walker already registered, overwriting...
+[2025-02-05 10:08:55,056][09941] Environment mujoco_pusher already registered, overwriting...
+[2025-02-05 10:08:55,056][09941] Environment mujoco_swimmer already registered, overwriting...
+[2025-02-05 10:08:55,058][09941] Loading existing experiment configuration from experiments_LibrariesRL/results/samplefactory/execution2/config.json
+[2025-02-05 10:08:56,763][09941] Environment var CUDA_VISIBLE_DEVICES is 
+[2025-02-05 10:08:56,763][09941] Rollout worker 0 uses device cpu
+[2025-02-05 10:08:56,763][09941] Rollout worker 1 uses device cpu
+[2025-02-05 10:08:56,763][09941] Rollout worker 2 uses device cpu
+[2025-02-05 10:08:56,764][09941] Rollout worker 3 uses device cpu
+[2025-02-05 10:08:56,764][09941] Rollout worker 4 uses device cpu
+[2025-02-05 10:08:56,764][09941] Rollout worker 5 uses device cpu
+[2025-02-05 10:08:56,764][09941] Rollout worker 6 uses device cpu
+[2025-02-05 10:08:56,764][09941] Rollout worker 7 uses device cpu
+[2025-02-05 10:08:56,764][09941] In synchronous mode, we only accumulate one batch. Setting num_batches_to_accumulate to 1
+[2025-02-05 10:08:56,768][09941] Setting fixed seed 1
+[2025-02-05 10:08:56,769][09941] Initializing actor-critic model on device cpu
+[2025-02-05 10:08:56,769][09941] RunningMeanStd input shape: (27,)
+[2025-02-05 10:08:56,770][09941] RunningMeanStd input shape: (1,)
+[2025-02-05 10:08:56,786][09941] Created Actor Critic model with architecture:
+[2025-02-05 10:08:56,787][09941] ActorCriticSharedWeights(
+  (obs_normalizer): ObservationNormalizer(
+    (running_mean_std): RunningMeanStdDictInPlace(
+      (running_mean_std): ModuleDict(
+        (obs): RunningMeanStdInPlace()
+      )
+    )
+  )
+  (returns_normalizer): RecursiveScriptModule(original_name=RunningMeanStdInPlace)
+  (encoder): MultiInputEncoder(
+    (encoders): ModuleDict(
+      (obs): MlpEncoder(
+        (mlp_head): RecursiveScriptModule(
+          original_name=Sequential
+          (0): RecursiveScriptModule(original_name=Linear)
+          (1): RecursiveScriptModule(original_name=Tanh)
+          (2): RecursiveScriptModule(original_name=Linear)
+          (3): RecursiveScriptModule(original_name=Tanh)
+        )
+      )
+    )
+  )
+  (core): ModelCoreIdentity()
+  (decoder): MlpDecoder(
+    (mlp): Identity()
+  )
+  (critic_linear): Linear(in_features=64, out_features=1, bias=True)
+  (action_parameterization): ActionParameterizationContinuousNonAdaptiveStddev(
+    (distribution_linear): Linear(in_features=64, out_features=8, bias=True)
+  )
+)
+[2025-02-05 10:08:56,788][09941] Using optimizer <class 'torch.optim.adam.Adam'>
+[2025-02-05 10:08:56,789][09941] Loading state from checkpoint experiments_LibrariesRL/results/samplefactory/execution2/checkpoint_p0/checkpoint_000000152_57344.pth...
+[2025-02-05 10:08:56,791][09941] Loading model from checkpoint
+[2025-02-05 10:08:56,791][09941] Loaded experiment state at self.train_step=152, self.env_steps=57344
+[2025-02-05 10:08:56,792][09941] Initialized policy 0 weights for model version 152
+[2025-02-05 10:08:56,794][09941] Environment var CUDA_VISIBLE_DEVICES is 
+[2025-02-05 10:08:56,797][09941] InferenceWorker_p0-w0: min num requests: 2
+[2025-02-05 10:08:56,826][09941] Before event loop...
+[2025-02-05 10:08:56,826][09941] SamplingLoop: waiting for sampler to be ready...
+[2025-02-05 10:08:56,826][09941] Starting all processes...
+[2025-02-05 10:08:56,828][09941] Starting process inference_proc0-0
+[2025-02-05 10:08:56,828][09941] Starting process rollout_proc0
+[2025-02-05 10:08:56,829][09941] Starting process rollout_proc1
+[2025-02-05 10:08:56,830][09941] Starting process rollout_proc2
+[2025-02-05 10:08:56,831][09941] Starting process rollout_proc3
+[2025-02-05 10:08:56,831][09941] Starting process rollout_proc4
+[2025-02-05 10:08:56,832][09941] Starting process rollout_proc5
+[2025-02-05 10:08:56,833][09941] Starting process rollout_proc6
+[2025-02-05 10:08:56,834][09941] Starting process rollout_proc7
+[2025-02-05 10:08:58,328][09941] Episodes collected: 0, Samples collected: 0, throughput: 0.0 FPS
+[2025-02-05 10:08:58,328][09941] Progress: 0/100 episodes sampled
+[2025-02-05 10:08:59,328][09941] Episodes collected: 0, Samples collected: 0, throughput: 0.0 FPS
+[2025-02-05 10:08:59,329][09941] Progress: 0/100 episodes sampled
+[2025-02-05 10:09:00,329][09941] Episodes collected: 0, Samples collected: 0, throughput: 0.0 FPS
+[2025-02-05 10:09:00,329][09941] Progress: 0/100 episodes sampled
+[2025-02-05 10:09:01,329][09941] Episodes collected: 0, Samples collected: 0, throughput: 0.0 FPS
+[2025-02-05 10:09:01,329][09941] Progress: 0/100 episodes sampled
+[2025-02-05 10:09:01,396][09941] Inference worker 0-0 is ready!
+[2025-02-05 10:09:01,407][09941] All inference workers are ready! Signal rollout workers to start!
+[2025-02-05 10:09:01,438][09941] SamplingLoop: sampler fully initialized!
+[2025-02-05 10:09:01,609][09941] Episode ended after 11.0 steps. Return: -34.2. True objective -34.2
+[2025-02-05 10:09:01,619][09941] Episode ended after 10.0 steps. Return: -29.5. True objective -29.5
+[2025-02-05 10:09:01,631][09941] Episode ended after 13.0 steps. Return: -34.3. True objective -34.3
+[2025-02-05 10:09:01,641][09941] Episode ended after 14.0 steps. Return: -43.7. True objective -43.7
+[2025-02-05 10:09:01,652][09941] Episode ended after 14.0 steps. Return: -52.9. True objective -52.9
+[2025-02-05 10:09:01,662][09941] Episode ended after 16.0 steps. Return: -54.9. True objective -54.9
+[2025-02-05 10:09:01,673][09941] Episode ended after 11.0 steps. Return: -20.4. True objective -20.4
+[2025-02-05 10:09:01,683][09941] Episode ended after 15.0 steps. Return: -61.2. True objective -61.2
+[2025-02-05 10:09:01,694][09941] Episode ended after 18.0 steps. Return: -63.2. True objective -63.2
+[2025-02-05 10:09:01,705][09941] Episode ended after 13.0 steps. Return: -23.4. True objective -23.4
+[2025-02-05 10:09:01,710][09941] Episode ended after 14.0 steps. Return: -31.4. True objective -31.4
+[2025-02-05 10:09:01,711][09941] Episode ended after 13.0 steps. Return: -22.8. True objective -22.8
+[2025-02-05 10:09:01,711][09941] Episode ended after 21.0 steps. Return: -30.4. True objective -30.4
+[2025-02-05 10:09:01,711][09941] Episode ended after 16.0 steps. Return: -28.8. True objective -28.8
+[2025-02-05 10:09:01,711][09941] Episode ended after 17.0 steps. Return: -45.1. True objective -45.1
+[2025-02-05 10:09:01,712][09941] Episode ended after 20.0 steps. Return: -29.9. True objective -29.9
+[2025-02-05 10:09:01,712][09941] Episode ended after 17.0 steps. Return: -39.4. True objective -39.4
+[2025-02-05 10:09:01,712][09941] Episode ended after 24.0 steps. Return: -36.5. True objective -36.5
+[2025-02-05 10:09:01,723][09941] Episode ended after 29.0 steps. Return: -38.9. True objective -38.9
+[2025-02-05 10:09:01,731][09941] Episode ended after 32.0 steps. Return: -91.2. True objective -91.2
+[2025-02-05 10:09:01,742][09941] Episode ended after 29.0 steps. Return: -111.2. True objective -111.2
+[2025-02-05 10:09:01,770][09941] Episode ended after 11.0 steps. Return: -28.7. True objective -28.7
+[2025-02-05 10:09:01,783][09941] Episode ended after 28.0 steps. Return: -84.3. True objective -84.3
+[2025-02-05 10:09:01,788][09941] Episode ended after 36.0 steps. Return: -93.2. True objective -93.2
+[2025-02-05 10:09:01,801][09941] Episode ended after 40.0 steps. Return: -113.3. True objective -113.3
+[2025-02-05 10:09:01,814][09941] Episode ended after 15.0 steps. Return: -50.2. True objective -50.2
+[2025-02-05 10:09:01,819][09941] Episode ended after 36.0 steps. Return: -63.9. True objective -63.9
+[2025-02-05 10:09:01,832][09941] Episode ended after 34.0 steps. Return: -81.8. True objective -81.8
+[2025-02-05 10:09:01,837][09941] Episode ended after 39.0 steps. Return: -115.4. True objective -115.4
+[2025-02-05 10:09:01,845][09941] Episode ended after 31.0 steps. Return: -108.3. True objective -108.3
+[2025-02-05 10:09:01,855][09941] Episode ended after 42.0 steps. Return: -101.3. True objective -101.3
+[2025-02-05 10:09:01,866][09941] Episode ended after 43.0 steps. Return: -151.5. True objective -151.5
+[2025-02-05 10:09:01,877][09941] Episode ended after 40.0 steps. Return: -140.4. True objective -140.4
+[2025-02-05 10:09:01,887][09941] Episode ended after 44.0 steps. Return: -140.9. True objective -140.9
+[2025-02-05 10:09:01,893][09941] Episode ended after 25.0 steps. Return: -69.6. True objective -69.6
+[2025-02-05 10:09:01,894][09941] Episode ended after 20.0 steps. Return: -50.9. True objective -50.9
+[2025-02-05 10:09:01,902][09941] Episode ended after 20.0 steps. Return: -23.5. True objective -23.5
+[2025-02-05 10:09:01,916][09941] Episode ended after 40.0 steps. Return: -95.3. True objective -95.3
+[2025-02-05 10:09:01,927][09941] Episode ended after 33.0 steps. Return: -79.6. True objective -79.6
+[2025-02-05 10:09:01,933][09941] Episode ended after 18.0 steps. Return: -50.7. True objective -50.7
+[2025-02-05 10:09:01,943][09941] Episode ended after 43.0 steps. Return: -126.5. True objective -126.5
+[2025-02-05 10:09:01,954][09941] Episode ended after 44.0 steps. Return: -115.3. True objective -115.3
+[2025-02-05 10:09:01,959][09941] Episode ended after 57.0 steps. Return: -170.6. True objective -170.6
+[2025-02-05 10:09:01,960][09941] Episode ended after 58.0 steps. Return: -125.9. True objective -125.9
+[2025-02-05 10:09:01,973][09941] Episode ended after 48.0 steps. Return: -156.8. True objective -156.8
+[2025-02-05 10:09:01,979][09941] Episode ended after 15.0 steps. Return: -20.1. True objective -20.1
+[2025-02-05 10:09:01,985][09941] Episode ended after 49.0 steps. Return: -118.0. True objective -118.0
+[2025-02-05 10:09:02,024][09941] Episode ended after 33.0 steps. Return: -62.3. True objective -62.3
+[2025-02-05 10:09:02,025][09941] Episode ended after 19.0 steps. Return: -46.9. True objective -46.9
+[2025-02-05 10:09:02,059][09941] Episode ended after 64.0 steps. Return: -160.9. True objective -160.9
+[2025-02-05 10:09:02,082][09941] Episode ended after 47.0 steps. Return: -85.6. True objective -85.6
+[2025-02-05 10:09:02,200][09941] Episode ended after 66.0 steps. Return: -174.4. True objective -174.4
+[2025-02-05 10:09:02,329][09941] Episodes collected: 52, Samples collected: 3008, throughput: 601.5 FPS
+[2025-02-05 10:09:02,330][09941] Episode ended after 65.0 steps. Return: -176.3. True objective -176.3
+[2025-02-05 10:09:02,330][09941] Progress: 52/100 episodes sampled
+[2025-02-05 10:09:02,330][09941] Episode ended after 58.0 steps. Return: -171.7. True objective -171.7
+[2025-02-05 10:09:02,342][09941] Episode ended after 71.0 steps. Return: -218.7. True objective -218.7
+[2025-02-05 10:09:02,349][09941] Episode ended after 72.0 steps. Return: -153.8. True objective -153.8
+[2025-02-05 10:09:02,350][09941] Episode ended after 77.0 steps. Return: -147.7. True objective -147.7
+[2025-02-05 10:09:02,480][09941] Episode ended after 76.0 steps. Return: -226.4. True objective -226.4
+[2025-02-05 10:09:02,490][09941] Episode ended after 75.0 steps. Return: -157.0. True objective -157.0
+[2025-02-05 10:09:02,492][09941] Episode ended after 81.0 steps. Return: -189.3. True objective -189.3
+[2025-02-05 10:09:02,492][09941] Episode ended after 71.0 steps. Return: -178.0. True objective -178.0
+[2025-02-05 10:09:02,492][09941] Episode ended after 20.0 steps. Return: -63.9. True objective -63.9
+[2025-02-05 10:09:02,493][09941] Episode ended after 20.0 steps. Return: -41.7. True objective -41.7
+[2025-02-05 10:09:02,493][09941] Episode ended after 74.0 steps. Return: -173.2. True objective -173.2
+[2025-02-05 10:09:02,498][09941] Episode ended after 75.0 steps. Return: -208.5. True objective -208.5
+[2025-02-05 10:09:02,499][09941] Episode ended after 89.0 steps. Return: -250.3. True objective -250.3
+[2025-02-05 10:09:02,509][09941] Episode ended after 13.0 steps. Return: -37.7. True objective -37.7
+[2025-02-05 10:09:02,520][09941] Episode ended after 85.0 steps. Return: -193.7. True objective -193.7
+[2025-02-05 10:09:02,530][09941] Episode ended after 49.0 steps. Return: -64.5. True objective -64.5
+[2025-02-05 10:09:02,541][09941] Episode ended after 52.0 steps. Return: -128.4. True objective -128.4
+[2025-02-05 10:09:02,551][09941] Episode ended after 67.0 steps. Return: -212.4. True objective -212.4
+[2025-02-05 10:09:02,557][09941] Episode ended after 80.0 steps. Return: -229.1. True objective -229.1
+[2025-02-05 10:09:02,557][09941] Episode ended after 87.0 steps. Return: -203.4. True objective -203.4
+[2025-02-05 10:09:02,557][09941] Episode ended after 56.0 steps. Return: -143.3. True objective -143.3
+[2025-02-05 10:09:02,563][09941] Episode ended after 77.0 steps. Return: -199.2. True objective -199.2
+[2025-02-05 10:09:02,563][09941] Episode ended after 81.0 steps. Return: -242.6. True objective -242.6
+[2025-02-05 10:09:02,564][09941] Episode ended after 101.0 steps. Return: -236.4. True objective -236.4
+[2025-02-05 10:09:02,564][09941] Episode ended after 102.0 steps. Return: -205.7. True objective -205.7
+[2025-02-05 10:09:02,564][09941] Episode ended after 10.0 steps. Return: -18.1. True objective -18.1
+[2025-02-05 10:09:02,566][09941] Episode ended after 52.0 steps. Return: -142.0. True objective -142.0
+[2025-02-05 10:09:02,566][09941] Episode ended after 112.0 steps. Return: -276.6. True objective -276.6
+[2025-02-05 10:09:02,566][09941] Episode ended after 37.0 steps. Return: -135.1. True objective -135.1
+[2025-02-05 10:09:02,567][09941] Episode ended after 94.0 steps. Return: -238.7. True objective -238.7
+[2025-02-05 10:09:02,572][09941] Episode ended after 90.0 steps. Return: -174.6. True objective -174.6
+[2025-02-05 10:09:02,583][09941] Episode ended after 25.0 steps. Return: -45.5. True objective -45.5
+[2025-02-05 10:09:02,594][09941] Episode ended after 63.0 steps. Return: -153.8. True objective -153.8
+[2025-02-05 10:09:02,600][09941] Episode ended after 39.0 steps. Return: -109.5. True objective -109.5
+[2025-02-05 10:09:02,605][09941] Episode ended after 33.0 steps. Return: -89.9. True objective -89.9
+[2025-02-05 10:09:02,611][09941] Episode ended after 116.0 steps. Return: -288.2. True objective -288.2
+[2025-02-05 10:09:02,611][09941] Episode ended after 68.0 steps. Return: -209.1. True objective -209.1
+[2025-02-05 10:09:02,616][09941] Episode ended after 123.0 steps. Return: -378.8. True objective -378.8
+[2025-02-05 10:09:02,627][09941] Episode ended after 28.0 steps. Return: -65.2. True objective -65.2
+[2025-02-05 10:09:02,646][09941] Episode ended after 73.0 steps. Return: -168.6. True objective -168.6
+[2025-02-05 10:09:02,653][09941] Episode ended after 49.0 steps. Return: -152.9. True objective -152.9
+[2025-02-05 10:09:02,654][09941] Episode ended after 16.0 steps. Return: -46.8. True objective -46.8
+[2025-02-05 10:09:02,655][09941] Episode ended after 76.0 steps. Return: -246.2. True objective -246.2
+[2025-02-05 10:09:02,655][09941] Episode ended after 31.0 steps. Return: -92.3. True objective -92.3
+[2025-02-05 10:09:02,656][09941] Episode ended after 60.0 steps. Return: -137.9. True objective -137.9
+[2025-02-05 10:09:02,663][09941] Episode ended after 40.0 steps. Return: -137.3. True objective -137.3
+[2025-02-05 10:09:02,664][09941] Episode ended after 22.0 steps. Return: -52.0. True objective -52.0
+[2025-02-05 10:09:02,784][09941] Episode ended after 52.0 steps. Return: -140.6. True objective -140.6
+[2025-02-05 10:09:02,903][09941] Episode ended after 142.0 steps. Return: -382.2. True objective -382.2
+[2025-02-05 10:09:02,913][09941] Episode ended after 54.0 steps. Return: -148.9. True objective -148.9
+[2025-02-05 10:09:02,924][09941] Episode ended after 77.0 steps. Return: -159.7. True objective -159.7
+[2025-02-05 10:09:03,106][09941] Episode ended after 25.0 steps. Return: -66.8. True objective -66.8
+[2025-02-05 10:09:03,117][09941] Episode ended after 135.0 steps. Return: -342.7. True objective -342.7
+[2025-02-05 10:09:03,122][09941] Episode ended after 43.0 steps. Return: -68.1. True objective -68.1
+[2025-02-05 10:09:03,134][09941] Episode ended after 12.0 steps. Return: -27.9. True objective -27.9
+[2025-02-05 10:09:03,144][09941] Episode ended after 60.0 steps. Return: -152.5. True objective -152.5
+[2025-02-05 10:09:03,155][09941] Episode ended after 136.0 steps. Return: -313.1. True objective -313.1
+[2025-02-05 10:09:03,166][09941] Episode ended after 80.0 steps. Return: -156.8. True objective -156.8
+[2025-02-05 10:09:03,171][09941] Episode ended after 147.0 steps. Return: -401.2. True objective -401.2
+[2025-02-05 10:09:03,176][09941] Episode ended after 143.0 steps. Return: -394.4. True objective -394.4
+[2025-02-05 10:09:03,330][09941] Episodes collected: 113, Samples collected: 8704, throughput: 1450.3 FPS
+[2025-02-05 10:09:03,330][09941] Episode ended after 112.0 steps. Return: -262.2. True objective -262.2
+[2025-02-05 10:09:03,330][09941] Progress: 113/100 episodes sampled
+[2025-02-05 10:09:03,344][09941] Episode ended after 188.0 steps. Return: -539.2. True objective -539.2
+[2025-02-05 10:09:03,356][09941] Episode ended after 77.0 steps. Return: -210.5. True objective -210.5
+[2025-02-05 10:09:03,356][09941] Episode ended after 114.0 steps. Return: -293.4. True objective -293.4
+[2025-02-05 10:09:03,357][09941] Loop SamplingLoop_EvtLoop terminating...
+[2025-02-05 10:09:03,358][09941] SamplingLoop finished with self.status=0
+[2025-02-05 10:09:03,360][09941] {
+    "reward/reward": -135.05738138161314,
+    "reward/reward_min": -539.2197944001788,
+    "reward/reward_max": -18.089432371981033,
+    "len/len": 52.41880341880342,
+    "len/len_min": 10.0,
+    "len/len_max": 188.0,
+    "policy_stats/avg_episode_number": 0.4700854700854701,
+    "policy_stats/avg_true_objective": -135.05738138161314,
+    "policy_stats/avg_true_objective_min": -539.2197944001788,
+    "policy_stats/avg_true_objective_max": -18.089432371981033
+}
