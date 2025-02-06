@@ -21,3 +21,11 @@ pip install stable-baselines3[extra]
 # conda virtual environment for arlbench (https://github.com/automl/arlbench/tree/main)
 conda create -n arlbench python=3.10
 conda activate arlbench
+
+# virtual environment with the same version of Hipatia virtual environment
+sudo apt install python3.9
+sudo apt install python3.9-venv
+python3.9 -m venv py39venv
+source py39venv/bin/activate
+pip install stable-baselines3[extra]
+pip install gymnasium[mujoco]
