@@ -40,6 +40,7 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 import seaborn as sns
 import matplotlib.colors as mcolors
+import matplotlib.cm as cm
 
 
 # Cargar csv-s de cluster y juntarlos para formar el df_test
@@ -88,8 +89,40 @@ def load_from_cluster_interesting_policies(env_name,seed):
         command = ["rsync", "-r", "-avHPe", "sshpass -p R5ShrSjIxLHX ssh -p6556", f"jechevarrieta@hpc.bcamath.org:{cluster_path}", pc_path]
         subprocess.run(command)
 
+def load_from_cluster_representative_policy_subsequence(env_name,seed):
+
+    # Leer bases de datos.
+    df_test=pd.read_parquet('checking/results/validation_ep_set/'+str(env_name)+'/df_test_'+str(env_name)+'_seed'+str(seed)+'.parquet')
+    df_test['std_reward']=[np.std(UtilsDataFrame.compress_decompress_list(i,compress=False)) for i in list(df_test['ep_test_rewards'])]
+
+    # Subsecuencia 1: 10 politicas equidistantes de la secuencia completa.
+    indx_seq1=[round(i) for i in np.arange(1,df_test['n_policy'].max(),(df_test['n_policy'].max()-1)/10)]
+
+    id_policies=pd.DataFrame({'policy_type':np.arange(1,11),'id_policy':indx_seq1,'ep_test_rewards':[None]*10})
+    pd.DataFrame(id_policies).to_csv('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/id_policies_subseq1.csv')
+
+    # Subsecuencia 2: 10 politicas equidistantes de la subsecuencia formada por la mejor polica "on the fly".
+    all_indx_seq=[]
+    for i in range(df_test.shape[0]):
+        indx_max=df_test['mean_reward'][df_test['n_policy']<=i+1].idxmax()
+        if df_test['n_policy'][indx_max] not in all_indx_seq:
+            all_indx_seq.append(df_test['n_policy'][indx_max])
+
+    if len(all_indx_seq)>10:
+        indx_seq2=[all_indx_seq[round(i)] for i in np.arange(0,len(all_indx_seq),len(all_indx_seq)/10)]
+
+    id_policies=pd.DataFrame({'policy_type':np.arange(1,11),'id_policy':indx_seq2,'ep_test_rewards':[None]*10})
+    pd.DataFrame(id_policies).to_csv('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/id_policies_subseq2.csv')
+
+    # Cargar del cluster unicamente las politicas de interes.
+    for id_policy in indx_seq1+indx_seq2:
+        cluster_path = f"/home/jechevarrieta/results_fakeHome/policies_{env_name}_seed{seed}/policy{id_policy}.zip"
+        pc_path="checking/results/validation_ep_set/"+env_name+"/policies_seed"+str(seed)+'/'
+        command = ["rsync", "-r", "-avHPe", "sshpass -p R5ShrSjIxLHX ssh -p6556", f"jechevarrieta@hpc.bcamath.org:{cluster_path}", pc_path]
+        subprocess.run(command)
+        
 # Conseguir conjunto de validacion de las politicas de interes.
-def validate_policies(env_name,seed,n_eval_episodes,n_processes):
+def validate_policies(env_name,seed,id_policies_csv,n_eval_episodes,n_processes):
 
     '''
     Para ejecutar esta funcion hay que hacerlo desde el entorno vistual py39venv, porque al guardar la politica en el cluster 
@@ -97,9 +130,9 @@ def validate_policies(env_name,seed,n_eval_episodes,n_processes):
     mismas versiones de ciertas librerias para guardar y cargar la politica.
     '''
 
-    id_policies=pd.read_csv('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/id_policies.csv')
+    id_policies=pd.read_csv('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/'+id_policies_csv+'.csv')
 
-    for i in [1]:#id_policies.shape[0]
+    for i in range(id_policies.shape[0]):
         id_policy=id_policies['id_policy'][i]
 
         # Cargar politica actual
@@ -110,9 +143,9 @@ def validate_policies(env_name,seed,n_eval_episodes,n_processes):
 
         id_policies['ep_test_rewards'][i]=UtilsDataFrame.compress_decompress_list(all_ep_reward)
     
-    id_policies.to_csv('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/id_policies.csv')
+    id_policies.to_csv('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/'+id_policies_csv+'.csv')
 
-# Grafica 1: anaizando numero de episodios necesarios para maxima precison de validacion.
+# Grafica 1: analizando numero de episodios necesarios para maxima precison de validacion.
 def boostrap_validation_accuracy(ep_test_rewards,policy_type,pos,sample_sizes):
 
     # Boostrap para cada tamaño de conjunto de validacion.
@@ -182,15 +215,25 @@ def boostrap_comparison_accuracy(ep_test_rewards,sample_sizes):
 
     return all_mean, all_q05, all_q95
 
-def extract_data(env_name,seed,list_n_eval_ep):
+def extract_data(env_name,seed,id_policies_csv,list_n_eval_ep):
     # Leer datos necesarios para dibujar las graficas.
-    id_policies=pd.read_csv('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/id_policies.csv')
+    id_policies=pd.read_csv('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/'+id_policies_csv+'.csv')
 
     labels=[]
     list_all_mean=[]
     list_all_q05=[]
     list_all_q95=[]
-    for i in tqdm(range(5,15)):
+
+    if id_policies_csv=='id_policies':
+        rows=range(5,15)
+        output_csv='data_plot'
+    elif id_policies_csv=='id_policies_subseq1':
+        rows=range(id_policies.shape[0])
+        output_csv='data_plot_subseq1'
+    elif id_policies_csv=='id_policies_subseq2':
+        rows=range(id_policies.shape[0])
+        output_csv='data_plot_subseq2'
+    for i in tqdm(rows):
         ep_test_rewards=UtilsDataFrame.compress_decompress_list(id_policies['ep_test_rewards'][i],compress=False)
         all_mean,all_q05,all_q95=boostrap_comparison_accuracy(ep_test_rewards,list_n_eval_ep)
         labels.append(id_policies['policy_type'][i])
@@ -201,13 +244,17 @@ def extract_data(env_name,seed,list_n_eval_ep):
     data_plot={'labels':labels,'all_mean':list_all_mean,'all_q05':list_all_q05,'all_q95':list_all_q95}
     data_plot=pd.DataFrame(data_plot)
     data_plot=data_plot.sort_values(by='labels', ascending=True)
-    data_plot.to_csv('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/data_plot.csv')
+    data_plot.to_csv('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/'+output_csv+'.csv')
 
 
-def plot_comparison_accuracy(env_name,seed,list_n_eval_ep):
+def plot_comparison_accuracy(env_name,seed,data_plot_csv,list_n_eval_ep):
 
-    default_colors=list(mcolors.TABLEAU_COLORS.keys())
-    data_plot=pd.read_csv('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/data_plot.csv')
+    if data_plot_csv=='data_plot':
+        default_colors=list(mcolors.TABLEAU_COLORS.keys())
+    else:
+        default_colors = [cm.get_cmap('Greens')(i / 9) for i in range(10)]
+
+    data_plot=pd.read_csv('checking/results/validation_ep_set/'+env_name+'/policies_seed'+str(seed)+'/'+data_plot_csv+'.csv')
     
     fig=plt.figure(figsize=[10,7])
     plt.subplots_adjust(left=0.07,bottom=0.09,right=0.96,top=0.97,wspace=0.43,hspace=0.2)
@@ -220,7 +267,7 @@ def plot_comparison_accuracy(env_name,seed,list_n_eval_ep):
         all_q05=UtilsDataFrame.compress_decompress_list(data_plot['all_q05'][i],compress=False)
         all_q95=UtilsDataFrame.compress_decompress_list(data_plot['all_q95'][i],compress=False)
         all_mean=UtilsDataFrame.compress_decompress_list(data_plot['all_mean'][i],compress=False)
-        label=data_plot['labels'][i]
+        label=str(data_plot['labels'][i])
 
         mean_matrix.append(all_mean)
         colors.append(default_colors[i])
@@ -250,7 +297,7 @@ def plot_comparison_accuracy(env_name,seed,list_n_eval_ep):
         for j in range(len(argsort)):
             ranking_matrix[i][j]=labels[argsort[j]]
 
-
+    
     ranking_matrix=ranking_matrix.T
 
     # Convertir los valores categóricos a números para visualización
@@ -266,7 +313,14 @@ def plot_comparison_accuracy(env_name,seed,list_n_eval_ep):
     ax.set_xticks([1,21,41,61,81])
     ax.set_xticklabels([100,2100,4100,6100,8100],rotation=0)
 
-    plt.savefig('checking/results/validation_ep_set/'+str(env_name)+str(seed)+'_comparison.pdf')
+
+    if data_plot_csv=='data_plot':
+        pdf_name='comparison'
+    elif data_plot_csv=='data_plot_subseq1':
+        pdf_name='comparison_subseq1'
+    elif data_plot_csv=='data_plot_subseq2':
+        pdf_name='comparison_subseq2'
+    plt.savefig('checking/results/validation_ep_set/'+str(env_name)+str(seed)+'_'+pdf_name+'.pdf')
     plt.show()
 
 
@@ -274,35 +328,86 @@ def plot_comparison_accuracy(env_name,seed,list_n_eval_ep):
 # Programa principal
 #==================================================================================================
 
+'''
+Las lineas de validacion las estoy ejecutando en el cluster Hipatia
+'''
+
 # InvertedDoublePendulum
 #--------------------------------------------------------------------------------------------------
+# Cargar del cluster df_test.
 form_cluster_to_df_test('InvertedDoublePendulum',1,1)
-load_from_cluster_interesting_policies('InvertedDoublePendulum',1)
-validate_policies('InvertedDoublePendulum',1,10000,6) 
 
+# Cargar y validar politicas heterogeneas.
+load_from_cluster_interesting_policies('InvertedDoublePendulum',1)
+validate_policies('InvertedDoublePendulum',1,'id_policies',10000,6) 
+
+# Cargar y validar subsecuencia de politicas.
+load_from_cluster_representative_policy_subsequence('InvertedDoublePendulum',1)
+validate_policies('InvertedDoublePendulum',1,'id_policies_subseq1',10000,6) 
+validate_policies('InvertedDoublePendulum',1,'id_policies_subseq2',10000,6) 
+
+# Analisis grafico.
 plot_validation_accuracy('InvertedDoublePendulum',1,list(range(100,10100,100)))
-extract_data('InvertedDoublePendulum',1,list(range(100,10100,100)))
-plot_comparison_accuracy('InvertedDoublePendulum',1,list(range(100,10100,100)))
+
+extract_data('InvertedDoublePendulum',1,'id_policies',list(range(100,10100,100)))
+plot_comparison_accuracy('InvertedDoublePendulum',1,'data_plot',list(range(100,10100,100)))
+
+extract_data('InvertedDoublePendulum',1,'id_policies_subseq1',list(range(100,10100,100)))
+plot_comparison_accuracy('InvertedDoublePendulum',1,'data_plot_subseq1',list(range(100,10100,100)))
+
+extract_data('InvertedDoublePendulum',1,'id_policies_subseq2',list(range(100,10100,100)))
+plot_comparison_accuracy('InvertedDoublePendulum',1,'data_plot_subseq2',list(range(100,10100,100)))
 
 # Ant
 #--------------------------------------------------------------------------------------------------
+# Cargar del cluster df_test.
 form_cluster_to_df_test('Ant',1,4)
-load_from_cluster_interesting_policies('Ant',1)
-validate_policies('Ant',1,10000,6) 
 
+# Cargar y validar politicas heterogeneas.
+load_from_cluster_interesting_policies('Ant',1)
+validate_policies('Ant',1,'id_policies',10000,6) 
+
+# Cargar y validar subsecuencia de politicas.
+load_from_cluster_representative_policy_subsequence('Ant',1)
+validate_policies('Ant',1,'id_policies_subseq1',10000,6) 
+validate_policies('Ant',1,'id_policies_subseq2',10000,6) 
+
+# Analisis grafico.
 plot_validation_accuracy('Ant',1,list(range(100,10100,100)))
-extract_data('Ant',1,list(range(100,10100,100)))
-plot_comparison_accuracy('Ant',1,list(range(100,10100,100)))
+
+extract_data('Ant',1,'id_policies',list(range(100,10100,100)))
+plot_comparison_accuracy('Ant',1,'data_plot',list(range(100,10100,100)))
+
+extract_data('Ant',1,'id_policies_subseq1',list(range(100,10100,100)))
+plot_comparison_accuracy('Ant',1,'data_plot_subseq1',list(range(100,10100,100)))
+
+extract_data('Ant',1,'id_policies_subseq2',list(range(100,10100,100)))
+plot_comparison_accuracy('Ant',1,'data_plot_subseq2',list(range(100,10100,100)))
 
 # Humanoid
 #--------------------------------------------------------------------------------------------------
+# Cargar del cluster df_test.
 form_cluster_to_df_test('Humanoid',1,30)
-load_from_cluster_interesting_policies('Humanoid',1)
-validate_policies('Humanoid',1,10000,6) # Esta linea la ejecucto en el cluster 
 
+# Cargar y validar politicas heterogeneas.
+load_from_cluster_interesting_policies('Humanoid',1)
+validate_policies('Humanoid',1,'id_policies',10000,6) 
+
+# Cargar y validar subsecuencia de politicas.
+load_from_cluster_representative_policy_subsequence('Humanoid',1)
+validate_policies('Humanoid',1,'id_policies_subseq1',10000,6)
+validate_policies('Humanoid',1,'id_policies_subseq2',10000,6)
+
+# Analisis grafico.
 plot_validation_accuracy('Humanoid',1,list(range(100,10100,100)))
-extract_data('Humanoid',1,list(range(100,10100,100)))
-plot_comparison_accuracy('Humanoid',1,list(range(100,10100,100)))
+
+extract_data('Humanoid',1,'id_policies',list(range(100,10100,100)))
+plot_comparison_accuracy('Humanoid',1,'data_plot',list(range(100,10100,100)))
+
+extract_data('Humanoid',1,'id_policies_subseq2',list(range(100,10100,100)))
+plot_comparison_accuracy('Humanoid',1,'data_plot_subseq2',list(range(100,10100,100)))
+
+
 
 
 
