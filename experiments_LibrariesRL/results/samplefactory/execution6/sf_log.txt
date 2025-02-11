@@ -1,0 +1,124 @@
+[2025-02-11 09:14:41,694][12454] Saving configuration to experiments_LibrariesRL/results/samplefactory/execution6/config.json...
+[2025-02-11 09:14:41,759][12454] Rollout worker 0 uses device cpu
+[2025-02-11 09:14:41,759][12454] Rollout worker 1 uses device cpu
+[2025-02-11 09:14:41,759][12454] In synchronous mode, we only accumulate one batch. Setting num_batches_to_accumulate to 1
+[2025-02-11 09:14:41,787][12454] InferenceWorker_p0-w0: min num requests: 1
+[2025-02-11 09:14:41,794][12454] Starting all processes...
+[2025-02-11 09:14:41,794][12454] Starting process learner_proc0
+[2025-02-11 09:14:41,798][12454] Starting all processes...
+[2025-02-11 09:14:41,800][12454] Starting process inference_proc0-0
+[2025-02-11 09:14:41,800][12454] Starting process rollout_proc0
+[2025-02-11 09:14:41,800][12454] Starting process rollout_proc1
+[2025-02-11 09:14:43,716][12520] Worker 1 uses CPU cores [6, 7, 8, 9, 10, 11]
+[2025-02-11 09:14:44,001][12519] Worker 0 uses CPU cores [0, 1, 2, 3, 4, 5]
+[2025-02-11 09:14:44,061][12511] Setting fixed seed 1
+[2025-02-11 09:14:44,062][12511] Initializing actor-critic model on device cpu
+[2025-02-11 09:14:44,062][12511] RunningMeanStd input shape: (27,)
+[2025-02-11 09:14:44,062][12511] RunningMeanStd input shape: (1,)
+[2025-02-11 09:14:44,113][12511] Created Actor Critic model with architecture:
+[2025-02-11 09:14:44,113][12511] ActorCriticSharedWeights(
+  (obs_normalizer): ObservationNormalizer(
+    (running_mean_std): RunningMeanStdDictInPlace(
+      (running_mean_std): ModuleDict(
+        (obs): RunningMeanStdInPlace()
+      )
+    )
+  )
+  (returns_normalizer): RecursiveScriptModule(original_name=RunningMeanStdInPlace)
+  (encoder): MultiInputEncoder(
+    (encoders): ModuleDict(
+      (obs): MlpEncoder(
+        (mlp_head): RecursiveScriptModule(
+          original_name=Sequential
+          (0): RecursiveScriptModule(original_name=Linear)
+          (1): RecursiveScriptModule(original_name=Tanh)
+          (2): RecursiveScriptModule(original_name=Linear)
+          (3): RecursiveScriptModule(original_name=Tanh)
+        )
+      )
+    )
+  )
+  (core): ModelCoreIdentity()
+  (decoder): MlpDecoder(
+    (mlp): Identity()
+  )
+  (critic_linear): Linear(in_features=64, out_features=1, bias=True)
+  (action_parameterization): ActionParameterizationContinuousNonAdaptiveStddev(
+    (distribution_linear): Linear(in_features=64, out_features=8, bias=True)
+  )
+)
+[2025-02-11 09:14:44,305][12511] Using optimizer <class 'torch.optim.adam.Adam'>
+[2025-02-11 09:14:44,764][12511] No checkpoints found
+[2025-02-11 09:14:44,764][12511] Did not load from checkpoint, starting from scratch!
+[2025-02-11 09:14:44,764][12511] Initialized policy 0 weights for model version 0
+[2025-02-11 09:14:44,764][12511] LearnerWorker_p0 finished initialization!
+[2025-02-11 09:14:44,765][12511] Saving experiments_LibrariesRL/results/samplefactory/execution6/checkpoint_p0/checkpoint_000000000_0.pth...
+[2025-02-11 09:14:44,766][12511] Saving experiments_LibrariesRL/results/samplefactory/execution6/checkpoint_p0/checkpoint_000000000_0.pth...
+[2025-02-11 09:14:44,767][12511] Saving experiments_LibrariesRL/results/samplefactory/execution6/checkpoint_p0/checkpoint_000000000_0.pth...
+[2025-02-11 09:14:44,767][12518] RunningMeanStd input shape: (27,)
+[2025-02-11 09:14:44,768][12518] RunningMeanStd input shape: (1,)
+[2025-02-11 09:14:44,768][12511] Saving experiments_LibrariesRL/results/samplefactory/execution6/checkpoint_p0/checkpoint_000000000_0.pth...
+[2025-02-11 09:14:44,770][12511] Saving experiments_LibrariesRL/results/samplefactory/execution6/checkpoint_p0/checkpoint_000000000_0.pth...
+[2025-02-11 09:14:44,811][12454] Inference worker 0-0 is ready!
+[2025-02-11 09:14:44,811][12454] All inference workers are ready! Signal rollout workers to start!
+[2025-02-11 09:14:44,862][12519] Decorrelating experience for 0 frames...
+[2025-02-11 09:14:44,887][12520] Decorrelating experience for 0 frames...
+[2025-02-11 09:14:45,354][12511] Saving experiments_LibrariesRL/results/samplefactory/execution6/checkpoint_p0/checkpoint_000000001_640.pth...
+[2025-02-11 09:14:46,353][12511] Saving experiments_LibrariesRL/results/samplefactory/execution6/checkpoint_p0/checkpoint_000000003_1920.pth...
+[2025-02-11 09:14:47,353][12511] Saving experiments_LibrariesRL/results/samplefactory/execution6/checkpoint_p0/checkpoint_000000005_3200.pth...
+[2025-02-11 09:14:47,355][12511] Saving new best policy, reward=-344.826!
+[2025-02-11 09:14:47,876][12519] Stopping RolloutWorker_w0...
+[2025-02-11 09:14:47,876][12520] Stopping RolloutWorker_w1...
+[2025-02-11 09:14:47,876][12454] Component RolloutWorker_w1 stopped!
+[2025-02-11 09:14:47,877][12519] Loop rollout_proc0_evt_loop terminating...
+[2025-02-11 09:14:47,877][12520] Loop rollout_proc1_evt_loop terminating...
+[2025-02-11 09:14:47,877][12454] Component RolloutWorker_w0 stopped!
+[2025-02-11 09:14:47,879][12511] Stopping Batcher_0...
+[2025-02-11 09:14:47,879][12454] Component Batcher_0 stopped!
+[2025-02-11 09:14:47,880][12511] Loop batcher_evt_loop terminating...
+[2025-02-11 09:14:47,881][12511] Saving experiments_LibrariesRL/results/samplefactory/execution6/checkpoint_p0/checkpoint_000000007_4480.pth...
+[2025-02-11 09:14:47,883][12511] Saving new best policy, reward=-309.605!
+[2025-02-11 09:14:47,885][12511] Saving experiments_LibrariesRL/results/samplefactory/execution6/checkpoint_p0/checkpoint_000000007_4480.pth...
+[2025-02-11 09:14:47,886][12511] Stopping LearnerWorker_p0...
+[2025-02-11 09:14:47,886][12454] Component LearnerWorker_p0 stopped!
+[2025-02-11 09:14:47,887][12511] Loop learner_proc0_evt_loop terminating...
+[2025-02-11 09:14:47,894][12518] Weights refcount: 2 0
+[2025-02-11 09:14:47,895][12518] Stopping InferenceWorker_p0-w0...
+[2025-02-11 09:14:47,895][12454] Component InferenceWorker_p0-w0 stopped!
+[2025-02-11 09:14:47,895][12518] Loop inference_proc0-0_evt_loop terminating...
+[2025-02-11 09:14:47,896][12454] Waiting for process learner_proc0 to stop...
+[2025-02-11 09:14:48,495][12454] Waiting for process inference_proc0-0 to join...
+[2025-02-11 09:14:48,495][12454] Waiting for process rollout_proc0 to join...
+[2025-02-11 09:14:48,496][12454] Waiting for process rollout_proc1 to join...
+[2025-02-11 09:14:48,496][12454] Batcher 0 profile tree view:
+batching: 0.0045, releasing_batches: 0.0015
+[2025-02-11 09:14:48,496][12454] InferenceWorker_p0-w0 profile tree view:
+wait_policy: 0.0000
+  wait_policy_total: 0.8344
+update_model: 0.0519
+  weight_update: 0.0003
+one_step: 0.0007
+  handle_policy_step: 1.9153
+    deserialize: 0.0741, stack: 0.0220, obs_to_device_normalize: 0.3858, forward: 0.9622, send_messages: 0.1141
+    prepare_outputs: 0.2111
+      to_cpu: 0.0303
+[2025-02-11 09:14:48,496][12454] Learner 0 profile tree view:
+misc: 0.0000, prepare_batch: 0.0448
+train: 0.0365
+  epoch_init: 0.0000, minibatch_init: 0.0000, losses_postprocess: 0.0003, kl_divergence: 0.0001, after_optimizer: 0.0012
+  calculate_losses: 0.0115
+    losses_init: 0.0000, forward_head: 0.0037, bptt_initial: 0.0001, bptt: 0.0001, tail: 0.0037, advantages_returns: 0.0005, losses: 0.0031
+  update: 0.0221
+    clip: 0.0016
+[2025-02-11 09:14:48,496][12454] RolloutWorker_w0 profile tree view:
+wait_for_trajectories: 0.0009, enqueue_policy_requests: 0.0778, env_step: 0.5769, overhead: 0.0478, complete_rollouts: 0.0023
+save_policy_outputs: 0.1090
+  split_output_tensors: 0.0383
+[2025-02-11 09:14:48,496][12454] RolloutWorker_w1 profile tree view:
+wait_for_trajectories: 0.0012, enqueue_policy_requests: 0.1068, env_step: 0.8301, overhead: 0.0687, complete_rollouts: 0.0030
+save_policy_outputs: 0.1466
+  split_output_tensors: 0.0479
+[2025-02-11 09:14:48,497][12454] Loop Runner_EvtLoop terminating...
+[2025-02-11 09:14:48,497][12454] Runner profile tree view:
+main_loop: 6.7029
+[2025-02-11 09:14:48,497][12454] Collected {0: 4480}, FPS: 668.4

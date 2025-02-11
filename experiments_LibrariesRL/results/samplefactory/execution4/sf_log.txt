@@ -1,0 +1,60 @@
+[2025-02-11 08:23:21,356][08012] Setting fixed seed 1
+[2025-02-11 08:23:21,357][08012] Initializing actor-critic model on device cpu
+[2025-02-11 08:23:21,358][08012] RunningMeanStd input shape: (27,)
+[2025-02-11 08:23:21,358][08012] RunningMeanStd input shape: (1,)
+[2025-02-11 08:23:21,422][08012] Created Actor Critic model with architecture:
+[2025-02-11 08:23:21,422][08012] ActorCriticSharedWeights(
+  (obs_normalizer): ObservationNormalizer(
+    (running_mean_std): RunningMeanStdDictInPlace(
+      (running_mean_std): ModuleDict(
+        (obs): RunningMeanStdInPlace()
+      )
+    )
+  )
+  (returns_normalizer): RecursiveScriptModule(original_name=RunningMeanStdInPlace)
+  (encoder): MultiInputEncoder(
+    (encoders): ModuleDict(
+      (obs): MlpEncoder(
+        (mlp_head): RecursiveScriptModule(
+          original_name=Sequential
+          (0): RecursiveScriptModule(original_name=Linear)
+          (1): RecursiveScriptModule(original_name=Tanh)
+          (2): RecursiveScriptModule(original_name=Linear)
+          (3): RecursiveScriptModule(original_name=Tanh)
+        )
+      )
+    )
+  )
+  (core): ModelCoreIdentity()
+  (decoder): MlpDecoder(
+    (mlp): Identity()
+  )
+  (critic_linear): Linear(in_features=64, out_features=1, bias=True)
+  (action_parameterization): ActionParameterizationContinuousNonAdaptiveStddev(
+    (distribution_linear): Linear(in_features=64, out_features=8, bias=True)
+  )
+)
+[2025-02-11 08:23:21,740][08012] Using optimizer <class 'torch.optim.adam.Adam'>
+[2025-02-11 08:23:22,103][08030] Worker 0 uses CPU cores [0, 1, 2, 3, 4, 5]
+[2025-02-11 08:23:22,489][08031] Worker 1 uses CPU cores [6, 7, 8, 9, 10, 11]
+[2025-02-11 08:23:22,567][08012] No checkpoints found
+[2025-02-11 08:23:22,567][08012] Did not load from checkpoint, starting from scratch!
+[2025-02-11 08:23:22,567][08012] Initialized policy 0 weights for model version 0
+[2025-02-11 08:23:22,568][08012] LearnerWorker_p0 finished initialization!
+[2025-02-11 08:23:22,571][08032] RunningMeanStd input shape: (27,)
+[2025-02-11 08:23:22,571][08032] RunningMeanStd input shape: (1,)
+[2025-02-11 08:23:22,724][08031] Decorrelating experience for 0 frames...
+[2025-02-11 08:23:22,724][08030] Decorrelating experience for 0 frames...
+[2025-02-11 08:23:23,499][08030] Stopping RolloutWorker_w0...
+[2025-02-11 08:23:23,499][08031] Stopping RolloutWorker_w1...
+[2025-02-11 08:23:23,499][08030] Loop rollout_proc0_evt_loop terminating...
+[2025-02-11 08:23:23,499][08031] Loop rollout_proc1_evt_loop terminating...
+[2025-02-11 08:23:23,500][08012] Stopping Batcher_0...
+[2025-02-11 08:23:23,501][08012] Loop batcher_evt_loop terminating...
+[2025-02-11 08:23:23,502][08012] Saving experiments_LibrariesRL/results/samplefactory/execution4/checkpoint_p0/checkpoint_000000007_896.pth...
+[2025-02-11 08:23:23,504][08012] Saving experiments_LibrariesRL/results/samplefactory/execution4/checkpoint_p0/checkpoint_000000007_896.pth...
+[2025-02-11 08:23:23,507][08012] Stopping LearnerWorker_p0...
+[2025-02-11 08:23:23,507][08012] Loop learner_proc0_evt_loop terminating...
+[2025-02-11 08:23:23,546][08032] Weights refcount: 2 0
+[2025-02-11 08:23:23,547][08032] Stopping InferenceWorker_p0-w0...
+[2025-02-11 08:23:23,547][08032] Loop inference_proc0-0_evt_loop terminating...

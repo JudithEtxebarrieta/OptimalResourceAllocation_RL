@@ -11,9 +11,13 @@ import sys
 import os
 import gymnasium as gym
 from gymnasium import spaces
-from typing import TypeVar, Any, Callable, Optional, Union
+from typing import TypeVar, Any, Callable, Optional, Union, Tuple
 from joblib import Parallel, delayed
 import warnings
+import time
+from collections import deque
+import runpy
+
 
 # StableBaselines3
 from stable_baselines3.ppo import MlpPolicy, PPO
@@ -24,22 +28,62 @@ from stable_baselines3.common.buffers import RolloutBuffer
 from stable_baselines3.common.callbacks import BaseCallback
 from stable_baselines3.common.vec_env import DummyVecEnv, VecEnv, sync_envs_normalization, VecMonitor, is_vecenv_wrapped
 from stable_baselines3.common.type_aliases import  MaybeCallback
+from stable_baselines3.common.callbacks import EvalCallback
 SelfOnPolicyAlgorithm = TypeVar("SelfOnPolicyAlgorithm", bound="OnPolicyAlgorithm")
-
 
 
 # SampleFactory
 sys.path.insert(0, os.path.abspath("libraries/sample-factory")) # Para usar misma version de sample-factory de GitHub (la que se instala con PyPI no tiene algunos ficheros)
 
 from sample_factory.algo.learning.learner_worker import LearnerWorker
-from sample_factory.cfg.arguments import checkpoint_override_defaults, parse_full_cfg, parse_sf_args
-from sample_factory.eval import do_eval
-from sf_examples.mujoco.mujoco_params import add_mujoco_env_args, mujoco_override_defaults
 from sf_examples.mujoco.train_mujoco import register_mujoco_components, parse_mujoco_cfg, run_rl
-from sample_factory.utils.utils import ensure_dir_exists, experiment_dir
-
+from sample_factory.utils.utils import ensure_dir_exists, experiment_dir, log
+from sample_factory.utils.typing import Config, StatusCode
+from sample_factory.cfg.arguments import load_from_checkpoint
+from sample_factory.algo.utils.make_env import make_env_func_batched
+from sample_factory.utils.attr_dict import AttrDict
+from sample_factory.algo.utils.env_info import extract_env_info
+from sample_factory.model.actor_critic import create_actor_critic
+from sample_factory.algo.learning.learner import Learner
+from sample_factory.model.model_utils import get_rnn_size
+from sample_factory.algo.utils.rl_utils import make_dones, prepare_and_normalize_obs
+from sample_factory.enjoy import visualize_policy_inputs, render_frame
+from sample_factory.algo.utils.action_distributions import argmax_actions
+from sample_factory.algo.utils.tensor_utils import unsqueeze_tensor
+from sample_factory.algo.sampling.batched_sampling import preprocess_actions
+from sample_factory.huggingface.huggingface_utils import generate_model_card, generate_replay_video, push_to_hf
+from sample_factory.algo.runners.runner import AlgoObserver, Runner
+from sample_factory.algo.learning.learner import Learner
 
 class Commun:
+
+    def external_run(run_script_path, run_lines):
+
+        '''
+        run_lines: [una menos que la init en los numeros del script,la misma que la ultima en los numeros del script]
+        '''
+
+        this_script = os.path.abspath(__file__)
+        this_script_copy = this_script.replace('.py', '_copy.py')
+
+        # Crear una copia de este archivo
+        with open(this_script, 'r') as f_b: #Leer
+            content_b = f_b.readlines()
+
+        with open(this_script_copy, 'w') as f_b_copy: # Crear y copiar
+            f_b_copy.writelines(content_b)  
+
+        # Agregar lineas a ejecutar
+        with open(run_script_path, 'r') as f_a: # Leer lineas de interes
+            lines_a = f_a.readlines()
+        lines_to_run = [lines_a[i] for i in run_lines]
+
+        with open(this_script_copy, 'a') as f_b_copy: # Añadir lineas de interes
+            f_b_copy.writelines(lines_to_run)
+
+        # Ejecutar fichero y eliminar
+        runpy.run_path(this_script_copy, run_name='__main__')
+        os.remove(this_script_copy)
 
     def compress_decompress_list(my_list,compress=True):
         if compress:
@@ -64,23 +108,32 @@ class Commun:
             my_list = json.loads(json_str)
 
             return my_list
-        
-    def set_global_random_seed(seed):
-        # Seed python RNG
-        random.seed(seed)
-        # Seed numpy RNG
-        np.random.seed(seed)
-        # seed the RNG for all devices (both CPU and CUDA)
-        th.manual_seed(seed)
+    
+    def training_stats(train_rewards,train_ep_ends,n_timesteps_per_iter,stats_window_size):
+        ep_rw_policy=[]
 
+        for time_steps in n_timesteps_per_iter:
+            current_train_rewards=train_rewards[:time_steps]
+            current_train_ep_ends=train_ep_ends[:time_steps]
 
-        # Deterministic operations for CuDNN, it may impact performances
-        th.backends.cudnn.deterministic = True
-        th.backends.cudnn.benchmark = False
+            ep_rw=[]
+            last_i=0
+            current_i=0
 
+            for i in current_train_ep_ends:
+                current_i+=1
+                if i:
+                    ep_rw.append(sum(current_train_rewards[last_i:current_i]))
+                    last_i=current_i
+                
+                    
 
-from stable_baselines3.common.callbacks import EvalCallback
+            if len(ep_rw)<stats_window_size:
+                ep_rw_policy.append(np.mean(ep_rw))
+            else:
+                ep_rw_policy.append(np.mean(ep_rw[-stats_window_size:]))
 
+        return ep_rw_policy
 class StableBaselines3:
 
     # Funciones modificadas
@@ -270,8 +323,6 @@ class StableBaselines3:
 
         return True
     
-    
-
     def _on_step(self) -> bool:
 
         #####################################
@@ -513,11 +564,11 @@ class StableBaselines3:
     
     # Mis funciones principales
     def learn_process(method,env_name,seed,total_timesteps,experiment_name,library_dir, # Parametros que determinan el proceso
-                      n_steps_per_env=2048,n_envs=1, # Parametros que determinan la interaccion
+                      n_steps_per_env=2048,n_workers=1, # Parametros que determinan la interaccion (aqui siempre n_envs_per_worker=1)
                       n_epoch=10,batch_size=64, # Parametros que determinan la actualizacion de politica
                       device='auto', # Parametros que determinan el tipo de ejecucion (cpu,gpu)
-                      callback=None, n_eval_ep=5, eval_freq=10000, n_eval_envs=1, deterministic_eval=False, # tecnicas de rastreo
-                      ):# TODO: añadir como predefinidas las variables/parametros que especifican la interaccion y la actualizacion de politica
+                      callback=None, n_eval_ep=5, eval_freq=10000, n_eval_envs=1, deterministic_eval=False,stats_window_size=100, # tecnicas de rastreo
+                      ):# Añadidas como predefinidas las variables/parametros que especifican la interaccion y la actualizacion de politica
         # Variables globales
         global df_traj, process_dir, all_initial_states, eval_env_name, make_eval_deterministic
         df_traj=[]
@@ -537,17 +588,17 @@ class StableBaselines3:
             EvalCallback._on_step= StableBaselines3._on_step
 
         # Iniciar proceso de aprendizaje fijando el metodo, el env y la semilla.
-        if n_envs==1:
+        if n_workers==1:
             env=gym.make(env_name)
         else:
-            env = make_vec_env(env_name, n_envs=n_envs)
+            env = make_vec_env(env_name, n_envs=n_workers)
 
         if n_eval_envs==1:
             eval_env=gym.make(env_name)
         else:
             eval_env = make_vec_env(env_name, n_envs=n_eval_envs)
 
-        model = PPO(MlpPolicy, env, seed=seed,n_steps=n_steps_per_env,batch_size=batch_size,n_epochs=n_epoch,verbose=1)# TODO: la primera linea modificarla para otros algortimos
+        model = PPO(MlpPolicy, env, seed=seed,n_steps=n_steps_per_env,batch_size=batch_size,n_epochs=n_epoch,verbose=1,stats_window_size=stats_window_size)# TODO: la primera linea modificarla para otros algoritmos
         model.set_random_seed(seed)
 
         if callback==True:
@@ -611,34 +662,41 @@ class StableBaselines3:
         return eval_metrics
     
 class SampleFactory:
+    
     # Funciones modificadas
+
     def on_new_training_batch(self, batch_idx: int):
 
         ###########################
         def my_save(self,batch_idx):
             global df_traj, total_timesteps
+            last_iter=False
 
-            # Guardar las politicas (inspurada en funciones existentes)
+            # Guardar las politicas (inspirada en funciones existentes)
             checkpoint = self.learner._get_checkpoint_dict()
             process_dir=ensure_dir_exists(join(experiment_dir(cfg=self.cfg), f"process_info"))
             policy_name = f"{"policy"}_{self.training_iteration_since_resume}.pth"
             filepath = join(process_dir, policy_name)
-            print(filepath)
             th.save(checkpoint, filepath)
 
 
             # Guardar las trayectorias (usa parametros identificados de interes)
             n_policy=self.training_iteration_since_resume
             n_timesteps=math.prod(self.batcher.training_batches[batch_idx]['rewards'].shape)*(n_policy+1)
+            # time_seconds=None # TODO: estaria bien añadir esta columna, ya que la freq de checkpointing se mide en segundos
             traj_rewards=Commun.compress_decompress_list(self.batcher.training_batches[batch_idx]['rewards'].tolist())
             traj_ep_end=Commun.compress_decompress_list(self.batcher.training_batches[batch_idx]['dones'].tolist())
             df_traj.append([n_policy,n_timesteps,traj_rewards,traj_ep_end])
             # Comprobar si es la ultima iteracion para guardar la base de datos
             if n_timesteps>total_timesteps:
+                last_iter=True
                 df_traj_csv=pd.DataFrame(df_traj,columns=['n_policy','n_timesteps','traj_rewards','traj_ep_end'])
                 df_traj_csv.to_csv(join(process_dir, f"{"df_traj"}.csv"), index=False)
+                return last_iter
+            
+            return last_iter
 
-        my_save(self,batch_idx)
+        last_iter=my_save(self,batch_idx)
         ########################
 
 
@@ -650,8 +708,240 @@ class SampleFactory:
         if stats is not None:
             self.report_msg.emit(stats)
 
+        ####################################MODIFICADO
+        # Aunque se haya suerado el limite de steps en la interacion, en la ultima iteracion la politica se actualiza
+        if last_iter:
+            checkpoint = self.learner._get_checkpoint_dict()
+            process_dir=ensure_dir_exists(join(experiment_dir(cfg=self.cfg), f"process_info"))
+            policy_name = f"{"policy"}_{self.training_iteration_since_resume}.pth"
+            filepath = join(process_dir, policy_name)
+            th.save(checkpoint, filepath)
+        #####################################
+
+    def my_enjoy(cfg: Config) -> Tuple[StatusCode, float]:
+        verbose = False
+
+        cfg = load_from_checkpoint(cfg)
+
+        eval_env_frameskip: int = cfg.env_frameskip if cfg.eval_env_frameskip is None else cfg.eval_env_frameskip
+        assert (
+            cfg.env_frameskip % eval_env_frameskip == 0
+        ), f"{cfg.env_frameskip=} must be divisible by {eval_env_frameskip=}"
+        render_action_repeat: int = cfg.env_frameskip // eval_env_frameskip
+        cfg.env_frameskip = cfg.eval_env_frameskip = eval_env_frameskip
+        log.debug(f"Using frameskip {cfg.env_frameskip} and {render_action_repeat=} for evaluation")
+
+        cfg.num_envs = 1
+
+        render_mode = "human"
+        if cfg.save_video:
+            render_mode = "rgb_array"
+        elif cfg.no_render:
+            render_mode = None
+
+        env = make_env_func_batched(
+            cfg, env_config=AttrDict(worker_index=0, vector_index=0, env_id=0), render_mode=render_mode
+        )
+        env_info = extract_env_info(env, cfg)
+
+        if hasattr(env.unwrapped, "reset_on_init"):
+            # reset call ruins the demo recording for VizDoom
+            env.unwrapped.reset_on_init = False
+
+        actor_critic = create_actor_critic(cfg, env.observation_space, env.action_space)
+        actor_critic.eval()
+
+        device = th.device("cpu" if cfg.device == "cpu" else "cuda")
+        actor_critic.model_to_device(device)
+
+        policy_id = cfg.policy_index
+
+        global eval_policy_from_checkpointing, eval_checkpoint_id #MODIFICADO
+        if eval_policy_from_checkpointing=='True':#MODIFICADO
+            if eval_checkpoint_id!=None:#MODIFICADO
+                checkpoints=[Learner.checkpoint_dir(cfg, policy_id)+'/checkpoint_'+str(eval_checkpoint_id)+'.pth']
+            else:#MODIFICADO
+                name_prefix = dict(latest="checkpoint", best="best")[cfg.load_checkpoint_kind]
+                checkpoints = Learner.get_checkpoints(Learner.checkpoint_dir(cfg, policy_id), f"{name_prefix}_*")
+            
+
+            
+        else:#MODIFICADO
+            checkpoints=[join(experiment_dir(cfg=cfg), "process_info")+'/policy_'+str(eval_policy_from_checkpointing)+'.pth']
+        checkpoint_dict = Learner.load_checkpoint(checkpoints, device)
+        actor_critic.load_state_dict(checkpoint_dict["model"])
+
+
+        episode_rewards = [deque([], maxlen=100) for _ in range(env.num_agents)]
+        true_objectives = [deque([], maxlen=100) for _ in range(env.num_agents)]
+        num_frames = 0
+
+        last_render_start = time.time()
+
+        def max_frames_reached(frames):
+            return cfg.max_num_frames is not None and frames > cfg.max_num_frames
+
+        reward_list = []
+
+        ######################################MODIFICADO
+        global make_eval_deterministic
+        if make_eval_deterministic:
+
+            env.seed(0)
+        ######################################
+
+        obs, infos = env.reset()
+        action_mask = obs.pop("action_mask").to(device) if "action_mask" in obs else None
+        rnn_states = th.zeros([env.num_agents, get_rnn_size(cfg)], dtype=th.float32, device=device)
+        episode_reward = None
+        finished_episode = [False for _ in range(env.num_agents)]
+
+        video_frames = []
+        num_episodes = 0
+
+        with th.no_grad():
+            while not max_frames_reached(num_frames):
+                normalized_obs = prepare_and_normalize_obs(actor_critic, obs)
+
+                if not cfg.no_render:
+                    visualize_policy_inputs(normalized_obs)
+                policy_outputs = actor_critic(normalized_obs, rnn_states, action_mask=action_mask)
+
+                # sample actions from the distribution by default
+                actions = policy_outputs["actions"]
+
+                if cfg.eval_deterministic:
+                    action_distribution = actor_critic.action_distribution()
+                    actions = argmax_actions(action_distribution)
+
+                # actions shape should be [num_agents, num_actions] even if it's [1, 1]
+                if actions.ndim == 1:
+                    actions = unsqueeze_tensor(actions, dim=-1)
+                actions = preprocess_actions(env_info, actions)
+
+                rnn_states = policy_outputs["new_rnn_states"]
+
+                for _ in range(render_action_repeat):
+                    last_render_start = render_frame(cfg, env, video_frames, num_episodes, last_render_start)
+
+                    obs, rew, terminated, truncated, infos = env.step(actions)
+                    action_mask = obs.pop("action_mask").to(device) if "action_mask" in obs else None
+                    dones = make_dones(terminated, truncated)
+                    infos = [{} for _ in range(env_info.num_agents)] if infos is None else infos
+
+                    if episode_reward is None:
+                        episode_reward = rew.float().clone()
+                    else:
+                        episode_reward += rew.float()
+
+                    num_frames += 1
+                    if num_frames % 100 == 0:
+                        log.debug(f"Num frames {num_frames}...")
+
+                    dones = dones.cpu().numpy()
+                    for agent_i, done_flag in enumerate(dones):
+                        if done_flag:
+                            finished_episode[agent_i] = True
+                            rew = episode_reward[agent_i].item()
+                            episode_rewards[agent_i].append(rew)
+
+                            true_objective = rew
+                            if isinstance(infos, (list, tuple)):
+                                true_objective = infos[agent_i].get("true_objective", rew)
+                            true_objectives[agent_i].append(true_objective)
+
+                            if verbose:
+                                log.info(
+                                    "Episode finished for agent %d at %d frames. Reward: %.3f, true_objective: %.3f",
+                                    agent_i,
+                                    num_frames,
+                                    episode_reward[agent_i],
+                                    true_objectives[agent_i][-1],
+                                )
+                            rnn_states[agent_i] = th.zeros([get_rnn_size(cfg)], dtype=th.float32, device=device)
+                            episode_reward[agent_i] = 0
+
+                            if cfg.use_record_episode_statistics:
+                                # we want the scores from the full episode not a single agent death (due to EpisodicLifeEnv wrapper)
+                                if "episode" in infos[agent_i].keys():
+                                    num_episodes += 1
+                                    reward_list.append(infos[agent_i]["episode"]["r"])
+                            else:
+                                num_episodes += 1
+                                reward_list.append(true_objective)
+
+                    # if episode terminated synchronously for all agents, pause a bit before starting a new one
+                    if all(dones):
+                        render_frame(cfg, env, video_frames, num_episodes, last_render_start)
+                        time.sleep(0.05)
+
+                    if all(finished_episode):
+                        finished_episode = [False] * env.num_agents
+                        avg_episode_rewards_str, avg_true_objective_str = "", ""
+                        for agent_i in range(env.num_agents):
+                            avg_rew = np.mean(episode_rewards[agent_i])
+                            avg_true_obj = np.mean(true_objectives[agent_i])
+
+                            if not np.isnan(avg_rew):
+                                if avg_episode_rewards_str:
+                                    avg_episode_rewards_str += ", "
+                                avg_episode_rewards_str += f"#{agent_i}: {avg_rew:.3f}"
+                            if not np.isnan(avg_true_obj):
+                                if avg_true_objective_str:
+                                    avg_true_objective_str += ", "
+                                avg_true_objective_str += f"#{agent_i}: {avg_true_obj:.3f}"
+
+                        log.info(
+                            "Avg episode rewards: %s, true rewards: %s", avg_episode_rewards_str, avg_true_objective_str
+                        )
+                        log.info(
+                            "Avg episode reward: %.3f, avg true_objective: %.3f",
+                            np.mean([np.mean(episode_rewards[i]) for i in range(env.num_agents)]),
+                            np.mean([np.mean(true_objectives[i]) for i in range(env.num_agents)]),
+                        )
+
+                    # VizDoom multiplayer stuff
+                    # for player in [1, 2, 3, 4, 5, 6, 7, 8]:
+                    #     key = f'PLAYER{player}_FRAGCOUNT'
+                    #     if key in infos[0]:
+                    #         log.debug('Score for player %d: %r', player, infos[0][key])
+
+                if num_episodes >= cfg.max_num_episodes:
+                    break
+
+        env.close()
+
+
+        if cfg.save_video:
+            if cfg.fps > 0:
+                fps = cfg.fps
+            else:
+                fps = 30
+            generate_replay_video(experiment_dir(cfg=cfg), video_frames, fps, cfg)
+
+        if cfg.push_to_hub:
+            generate_model_card(
+                experiment_dir(cfg=cfg),
+                cfg.algo,
+                cfg.env,
+                cfg.hf_repository,
+                reward_list,
+                cfg.enjoy_script,
+                cfg.train_script,
+            )
+            push_to_hf(experiment_dir(cfg=cfg), cfg.hf_repository)
+
+
+        return np.array(episode_rewards)[0],np.mean(np.array(episode_rewards)[0])
+
     # Mis funciones principales
-    def learn_process(method,env,seed,total_timesteps,experiment_name,library_dir):
+    def learn_process(method,env,seed,total_timesteps,experiment_name,library_dir, # Parametros que determinan el proceso
+                      n_steps_per_env=64, n_workers=8,n_envs_per_worker=8, # Interaccion
+                      n_epoch=3,batch_size=1024, n_batches_per_epoch=8, # Actualizacion de politica
+                      device='cpu', # Tipo de ejecucion
+                      save_every_sec=15, keep_checkpoints=2, save_best_every_sec=5,save_best_metric='reward',save_best_after=100000, stats_avg=100 # Para seleccionar politica output
+                      ):
+        
         # Variables globales
         global df_traj
         df_traj=[]
@@ -673,81 +963,61 @@ class SampleFactory:
                 f'--experiment={experiment_name}',f'--train_dir={train_dir}',
 
                 # Para ejecutar en PC (para ejecuciones futuras en el cluster esto quitar)
-                f'--device={'cpu'}',
+                f'--device={device}',
 
                 # Relacionados con la interaccion 
-                f'--rollout={64}',
-                f'--num_workers={8}',
-                f'--num_envs_per_worker={8}',
+                f'--rollout={n_steps_per_env}',
+                f'--num_workers={n_workers}',
+                f'--num_envs_per_worker={n_envs_per_worker}',
+                f'--worker_num_splits={1}',
 
                 # Relacionados con la actualizacion de politica
-                f'--batch_size={1024}',
-                f'--num_batches_per_epoch={8}',
-                f'--num_epoch={3}'#,
+                f'--batch_size={batch_size}',
+                f'--num_batches_per_epoch={n_batches_per_epoch}',
+                f'--num_epoch={n_epoch}',
 
                 # Checkpointing
-                #f'--keep_checkpoints={7}'
+                f'--save_every_sec={save_every_sec}',
+                f'--keep_checkpoints={keep_checkpoints}',
+                f'--save_best_every_sec={save_best_every_sec}',
+                f'--save_best_metric={save_best_metric}',
+                f'--save_best_after={save_best_after}', 
+                f'--stats_avg={stats_avg}'
+                
             ]
             register_mujoco_components()
             cfg = parse_mujoco_cfg(argv=args)
             run_rl(cfg)
 
         if __name__ == "__main__":
-            Commun.set_global_random_seed(seed)
             start_learn(method,env,seed,total_timesteps,experiment_name,library_dir)
 
+    def eval_policy(env,seed,n_eval_ep,experiment_name,library_dir,
+                    policy_id=False,checkpoint_id=None,load_checkpoint_kind='latest',
+                    deterministic_eval=False):
 
-    def eval_output(env,seed,experiment_name,library_dir):
+        global make_eval_deterministic, eval_policy_from_checkpointing, eval_checkpoint_id
+        make_eval_deterministic=deterministic_eval
+        eval_policy_from_checkpointing= 'True' if str(policy_id)=='False' or checkpoint_id!=None else policy_id
+        eval_checkpoint_id=checkpoint_id
+
         def start_eval(env,seed,experiment_name,train_dir):
-            # Parametros para evaluacion (use `sample_env_episodes` >= `num_workers` * `num_envs_per_worker`)
             args = [
                     f'--env={env}',
                     f'--experiment={experiment_name}',f'--train_dir={train_dir}',
-                    f'--sample_env_episodes={100}',
-                    f'--seed={seed}'
+                    f'--max_num_episodes={n_eval_ep}',
+                    '--no_render',
+                    f'--load_checkpoint_kind={load_checkpoint_kind}'
+
                 ]
-
-            # Cargar parametros y modelo
             register_mujoco_components()
-            parser, cfg = parse_sf_args(argv=args,evaluation=True)
-            add_mujoco_env_args(cfg.env, parser)
-            mujoco_override_defaults(cfg.env, parser)
-            checkpoint_override_defaults(cfg, parser)
-            cfg = parse_full_cfg(parser,argv=args)
-
-            # Evaluar modelo
-            status = do_eval(cfg)
+            cfg = parse_mujoco_cfg(argv=args,evaluation=True)
+            status = SampleFactory.my_enjoy(cfg)
             return status
 
         if __name__ == "__main__":
-            Commun.set_global_random_seed(seed)
-            start_eval(env,seed,experiment_name,library_dir)
+            return start_eval(env,seed,experiment_name,library_dir)
 
 
-    
-
-    # TODO: def eval_policy_with_test(env,policy,n_eval_ep):
 
 
-    # TODO: def eval_policy_with_train(env,policy_id,process_info_dir,metric='reward'):
-
-'''
-TODO: en la clase SampleFactory
-
-De momento tengo que ejecutar las funciones de la clase SampleFactory desde aqui, porque necesitan el __main__,
-y no consigo ejecutarlas de manera externa.
-
-Además, ninguna de las dos funciones principales es determinista. La semilla que se especifica se fija para
-torch, numpy y el env de gym. No se que es lo que hace que las ejecuciones no sean deterministas.
-'''
-method='APPO'
-env='mujoco_ant'
-seed=1
-total_timesteps=1024*8*5 # batch_size*num_batches_per_epoch*(numero de iteraciones)
-library_dir='experiments_LibrariesRL/results/samplefactory'
-
-SampleFactory.learn_process(method,env,seed,total_timesteps,'execution1',library_dir)
-SampleFactory.eval_output(env,seed,'execution1',library_dir)
-
-SampleFactory.learn_process(method,env,1,total_timesteps,'execution2',library_dir)
-SampleFactory.eval_output(env,seed,'execution2',library_dir)

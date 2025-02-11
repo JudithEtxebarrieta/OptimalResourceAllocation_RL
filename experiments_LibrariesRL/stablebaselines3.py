@@ -18,7 +18,6 @@ Se hacen ciertas comprobaciones, y se observa que:
 
 '''
 from main import StableBaselines3, Commun
-from main_checking import library_functions_det
 import pandas as pd
 import numpy as np
 
@@ -59,7 +58,7 @@ for i in range(len(eval_list)):
     if eval_list[i]==eval_output1:
         print('Without callback policy_output is the policy '+str(i+1)+'/'+str(len(eval_list))+' of the sequence')
 
-# Entendienco herramienta EvalCallback
+# Entendiendo herramienta EvalCallback
 total_timesteps=2048*10 # por defecto eval_freq=10000, de esta forma deberia de hacer 2 callbacks
 StableBaselines3.learn_process(method,env,seed,total_timesteps,'execution3',library_dir)
 StableBaselines3.learn_process(method,env,seed,total_timesteps,'execution4',library_dir,callback=True)
