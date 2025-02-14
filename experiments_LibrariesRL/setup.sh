@@ -32,8 +32,11 @@ poetry run pip install numpy==1.25.0
 poetry run pip install jax==0.4.13
 poetry run pip install jaxlib==0.4.13
 poetry install -E atari
+poetry run pip install pandas
+poetry run pip install joblib
 
-
+pip install torchvision==0.15.1 # Para que funcione el torch.load al cargar las politicas (https://github.com/rhasspy/piper/issues/718)
+pip install torch==2.0.0 # Para que funcione el torch.load al cargar las politicas
 
 
 
