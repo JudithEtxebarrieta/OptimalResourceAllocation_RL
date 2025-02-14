@@ -1,106 +1,59 @@
+
 '''
-Copiado de runner.py. Hacer como en sample-factory para poner a mi gusto este fichero.
+- El proceso de aprendizaje y la evaluacion son deterministas.
+- La metrica a partir de los datos train asignada a cada politica: el cumulative reward del ultimo 
+episodio completado en la secuencia continua de trajectorias (el episodio no tiene porque haberse completado 
+en su totalidad por la politica a la que se le esta asignando la metrica).
+- La politica output es la que menor valor de la metrica tiene entre las almacenadas con frecuencias constante
+como checkpoint.
 
-
-poetry install -E brax
-poetry run pip install --upgrade "jax[cuda]==0.3.13" -f https://storage.googleapis.com/jax-releases/jax_releases.html
-poetry run python runner.py --train --file rl_games/configs/brax/ppo_ant.yaml
-poetry run python runner.py --play --file rl_games/configs/brax/ppo_ant.yaml --checkpoint runs/Ant_brax/nn/Ant_brax.pth
+TODO: tengo que mirar a ver esta misma metrica como se interpreta cuando se ejecutan multiples entornos en paralelo.
 '''
 
-from distutils.util import strtobool
-import argparse, os, yaml
-import torch
+from libraries.rlgames import Options
+from libraries.commun import compress_decompress_list, training_stats
+import pandas as pd
+import numpy as np
 
-os.environ["XLA_PYTHON_CLIENT_PREALLOCATE"] = "false"
+# Ejecutando proceso
+method='a2c_discrete'
+env='PongNoFrameskip-v4'
+seed=1
+total_timesteps=128*16*10
+experiment_name='execution1'
+experiment_param= 'ppo_pong.yaml'
+library_dir='/home/jesusangel/Dropbox/PhD/Mi trabajo/Codigo/OptimalResourceAllocation_RL/experiments_LibrariesRL/results/rlgames'
+Options.learn_process(method,env,seed,total_timesteps,experiment_name,experiment_param,library_dir)
+Options.learn_process(method,env,seed,200*1*10,'execution2',experiment_param,library_dir,
+                      n_steps_per_env=200,n_workers=1,batch_size=50,save_best_after=1,save_frequency=1)
+Options.learn_process(method,env,seed,200*1*10,'execution3',experiment_param,library_dir,
+                      n_steps_per_env=200,n_workers=1,batch_size=50,save_best_after=1,save_frequency=1)
 
-def learn_process(file):
+# Evaluando politicas
+policy_id='nn/PongNoFrameskip_ray.pth'
+Options.eval_policy(seed,5,experiment_name,experiment_param,library_dir,policy_id)
+policy_id='process_info/policy9.pth'
+Options.eval_policy(seed,5,experiment_name,experiment_param,library_dir,policy_id)
+policy_id='process_info/policy7.pth'
+Options.eval_policy(seed,5,experiment_name,experiment_param,library_dir,policy_id)
 
-    # Setting de los parametros
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--seed", type=int, default=0, required=False, 
-                    help="random seed, if larger than 0 will overwrite the value in yaml config")
-    ap.add_argument("-tf", "--tf", required=False, help="run tensorflow runner", action='store_true')
-    ap.add_argument("-t", "--train", required=False, help="train network", action='store_true')
-    ap.add_argument("-p", "--play", required=False, help="play(test) network", action='store_true')
-    ap.add_argument("-c", "--checkpoint", required=False, help="path to checkpoint")
-    ap.add_argument("-f", "--file", required=True, help="path to config")
-    ap.add_argument("-na", "--num_actors", type=int, default=0, required=False,
-                    help="number of envs running in parallel, if larger than 0 will overwrite the value in yaml config")
-    ap.add_argument("-s", "--sigma", type=float, required=False, help="sets new sigma value in case if 'fixed_sigma: True' in yaml config")
-    ap.add_argument("--track", type=lambda x: bool(strtobool(x)), default=False, nargs="?", const=True,
-        help="if toggled, this experiment will be tracked with Weights and Biases")
-    ap.add_argument("--wandb-project-name", type=str, default="rl_games",
-        help="the wandb's project name")
-    ap.add_argument("--wandb-entity", type=str, default=None,
-        help="the entity (team) of wandb's project")
-    os.makedirs("nn", exist_ok=True)
-    os.makedirs("runs", exist_ok=True)
-
-    # Para añadir los indicados explicitamente
-    my_args = [  
-                '--train', # Para entrenar/aprender
-                f'--file={file}'
-    ]
-
-    args = vars(ap.parse_args(args=my_args))
-    config_name = args['file']
-
-    # Cargar parametros del fichero
-    print('Loading config: ', config_name)
-    with open(config_name, 'r') as stream:
-        config = yaml.safe_load(stream)
-
-        if args['num_actors'] > 0:
-            config['params']['config']['num_actors'] = args['num_actors']
-
-        if args['seed'] > 0:
-            config['params']['seed'] = args['seed']
-            config['params']['config']['env_config']['seed'] = args['seed']
-
-        from rl_games.torch_runner import Runner
-
-        try:
-            import ray
-        except ImportError:
-            pass
-        else:
-            ray.init(object_store_memory=1024*1024*1000)
-
-        runner = Runner()
-        try:
-            runner.load(config)
-        except yaml.YAMLError as exc:
-            print(exc)
-
-    global_rank = int(os.getenv("RANK", "0"))
-    if args["track"] and global_rank == 0:
-        import wandb
-        wandb.init(
-            project=args["wandb_project_name"],
-            entity=args["wandb_entity"],
-            sync_tensorboard=True,
-            config=config,
-            monitor_gym=True,
-            save_code=True,
-        )
-
-    runner.run(args)
-
-    try:
-        import ray
-    except ImportError:
-        pass
-    else:
-        ray.shutdown()
-
-    if args["track"] and global_rank == 0:
-        wandb.finish()
+# Entendiendo output
+df_traj=pd.read_csv('experiments_LibrariesRL/results/rlgames/execution3/process_info/df_traj.csv')
+df_traj['traj_rewards']=[np.array(compress_decompress_list(i,compress=False)) for i in list(df_traj['traj_rewards'])]
+df_traj['traj_ep_end']=[np.array(compress_decompress_list(i,compress=False)) for i in list(df_traj['traj_ep_end'])]
 
 
-if __name__ == '__main__':
-    #torch.device("cpu")
-    file='/home/jesusangel/Dropbox/PhD/Mi trabajo/Codigo/OptimalResourceAllocation_RL/experiments_LibrariesRL/results/rlgames/ppo_pong.yaml'
-    learn_process(file)
+all_traj_rw=[]
+all_traj_ep_end=[]
+for k in range(10):
+    all_traj_rw+=[j[0]for i in list(df_traj[df_traj['n_policy']==k+1]['traj_rewards'])[0] for j in i]
+    all_traj_ep_end+=[i[0] for i in list(df_traj[df_traj['n_policy']==k+1]['traj_ep_end'])[0]]
+
+print(training_stats(all_traj_rw,all_traj_ep_end,range(200,200*11,200),1))
+
+        
+
+
+
 
 
