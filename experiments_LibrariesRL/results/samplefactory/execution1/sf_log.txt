@@ -1,19 +1,19 @@
-[2025-02-11 08:22:59,608][07529] Saving configuration to experiments_LibrariesRL/results/samplefactory/execution1/config.json...
-[2025-02-11 08:22:59,672][07529] Rollout worker 0 uses device cpu
-[2025-02-11 08:22:59,672][07529] In synchronous mode, we only accumulate one batch. Setting num_batches_to_accumulate to 1
-[2025-02-11 08:22:59,695][07529] InferenceWorker_p0-w0: min num requests: 1
-[2025-02-11 08:22:59,697][07529] Starting all processes...
-[2025-02-11 08:22:59,697][07529] Starting process learner_proc0
-[2025-02-11 08:22:59,747][07529] Starting all processes...
-[2025-02-11 08:22:59,749][07529] Starting process inference_proc0-0
-[2025-02-11 08:22:59,749][07529] Starting process rollout_proc0
-[2025-02-11 08:23:01,584][07580] Setting fixed seed 1
-[2025-02-11 08:23:01,586][07580] Initializing actor-critic model on device cpu
-[2025-02-11 08:23:01,586][07580] RunningMeanStd input shape: (27,)
-[2025-02-11 08:23:01,587][07580] RunningMeanStd input shape: (1,)
-[2025-02-11 08:23:01,628][07587] Worker 0 uses CPU cores [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-[2025-02-11 08:23:01,639][07580] Created Actor Critic model with architecture:
-[2025-02-11 08:23:01,639][07580] ActorCriticSharedWeights(
+[2025-02-14 08:40:22,343][06968] Saving configuration to experiments_LibrariesRL/results/samplefactory/execution1/config.json...
+[2025-02-14 08:40:23,345][06968] Rollout worker 0 uses device cpu
+[2025-02-14 08:40:23,346][06968] In synchronous mode, we only accumulate one batch. Setting num_batches_to_accumulate to 1
+[2025-02-14 08:40:23,361][06968] InferenceWorker_p0-w0: min num requests: 1
+[2025-02-14 08:40:23,366][06968] Starting all processes...
+[2025-02-14 08:40:23,366][06968] Starting process learner_proc0
+[2025-02-14 08:40:23,368][06968] Starting all processes...
+[2025-02-14 08:40:23,372][06968] Starting process inference_proc0-0
+[2025-02-14 08:40:23,372][06968] Starting process rollout_proc0
+[2025-02-14 08:40:25,184][07023] Worker 0 uses CPU cores [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[2025-02-14 08:40:25,574][07016] Setting fixed seed 1
+[2025-02-14 08:40:25,575][07016] Initializing actor-critic model on device cpu
+[2025-02-14 08:40:25,575][07016] RunningMeanStd input shape: (27,)
+[2025-02-14 08:40:25,576][07016] RunningMeanStd input shape: (1,)
+[2025-02-14 08:40:25,627][07016] Created Actor Critic model with architecture:
+[2025-02-14 08:40:25,627][07016] ActorCriticSharedWeights(
   (obs_normalizer): ObservationNormalizer(
     (running_mean_std): RunningMeanStdDictInPlace(
       (running_mean_std): ModuleDict(
@@ -44,80 +44,80 @@
     (distribution_linear): Linear(in_features=64, out_features=8, bias=True)
   )
 )
-[2025-02-11 08:23:01,854][07580] Using optimizer <class 'torch.optim.adam.Adam'>
-[2025-02-11 08:23:02,660][07580] No checkpoints found
-[2025-02-11 08:23:02,660][07580] Did not load from checkpoint, starting from scratch!
-[2025-02-11 08:23:02,661][07580] Initialized policy 0 weights for model version 0
-[2025-02-11 08:23:02,662][07580] LearnerWorker_p0 finished initialization!
-[2025-02-11 08:23:02,663][07586] RunningMeanStd input shape: (27,)
-[2025-02-11 08:23:02,663][07586] RunningMeanStd input shape: (1,)
-[2025-02-11 08:23:02,705][07529] Inference worker 0-0 is ready!
-[2025-02-11 08:23:02,705][07529] All inference workers are ready! Signal rollout workers to start!
-[2025-02-11 08:23:02,769][07587] Decorrelating experience for 0 frames...
-[2025-02-11 08:23:03,930][07587] Stopping RolloutWorker_w0...
-[2025-02-11 08:23:03,930][07529] Component RolloutWorker_w0 stopped!
-[2025-02-11 08:23:03,930][07587] Loop rollout_proc0_evt_loop terminating...
-[2025-02-11 08:23:03,931][07580] Stopping Batcher_0...
-[2025-02-11 08:23:03,931][07529] Component Batcher_0 stopped!
-[2025-02-11 08:23:03,931][07580] Loop batcher_evt_loop terminating...
-[2025-02-11 08:23:03,932][07580] Saving experiments_LibrariesRL/results/samplefactory/execution1/checkpoint_p0/checkpoint_000000007_896.pth...
-[2025-02-11 08:23:03,934][07580] Saving experiments_LibrariesRL/results/samplefactory/execution1/checkpoint_p0/checkpoint_000000007_896.pth...
-[2025-02-11 08:23:03,936][07580] Stopping LearnerWorker_p0...
-[2025-02-11 08:23:03,936][07580] Loop learner_proc0_evt_loop terminating...
-[2025-02-11 08:23:03,936][07529] Component LearnerWorker_p0 stopped!
-[2025-02-11 08:23:03,975][07586] Weights refcount: 2 0
-[2025-02-11 08:23:03,976][07586] Stopping InferenceWorker_p0-w0...
-[2025-02-11 08:23:03,976][07586] Loop inference_proc0-0_evt_loop terminating...
-[2025-02-11 08:23:03,977][07529] Component InferenceWorker_p0-w0 stopped!
-[2025-02-11 08:23:03,978][07529] Waiting for process learner_proc0 to stop...
-[2025-02-11 08:23:04,569][07529] Waiting for process inference_proc0-0 to join...
-[2025-02-11 08:23:04,569][07529] Waiting for process rollout_proc0 to join...
-[2025-02-11 08:23:04,570][07529] Batcher 0 profile tree view:
-batching: 0.0027, releasing_batches: 0.0008
-[2025-02-11 08:23:04,570][07529] InferenceWorker_p0-w0 profile tree view:
+[2025-02-14 08:40:25,840][07016] Using optimizer <class 'torch.optim.adam.Adam'>
+[2025-02-14 08:40:26,376][07016] No checkpoints found
+[2025-02-14 08:40:26,376][07016] Did not load from checkpoint, starting from scratch!
+[2025-02-14 08:40:26,376][07016] Initialized policy 0 weights for model version 0
+[2025-02-14 08:40:26,377][07016] LearnerWorker_p0 finished initialization!
+[2025-02-14 08:40:26,379][07022] RunningMeanStd input shape: (27,)
+[2025-02-14 08:40:26,380][07022] RunningMeanStd input shape: (1,)
+[2025-02-14 08:40:26,435][06968] Inference worker 0-0 is ready!
+[2025-02-14 08:40:26,435][06968] All inference workers are ready! Signal rollout workers to start!
+[2025-02-14 08:40:26,500][07023] Decorrelating experience for 0 frames...
+[2025-02-14 08:40:27,639][07023] Stopping RolloutWorker_w0...
+[2025-02-14 08:40:27,640][07023] Loop rollout_proc0_evt_loop terminating...
+[2025-02-14 08:40:27,640][06968] Component RolloutWorker_w0 stopped!
+[2025-02-14 08:40:27,641][06968] Component Batcher_0 stopped!
+[2025-02-14 08:40:27,641][07016] Stopping Batcher_0...
+[2025-02-14 08:40:27,641][07016] Loop batcher_evt_loop terminating...
+[2025-02-14 08:40:27,642][07016] Saving experiments_LibrariesRL/results/samplefactory/execution1/checkpoint_p0/checkpoint_000000007_896.pth...
+[2025-02-14 08:40:27,643][07016] Saving experiments_LibrariesRL/results/samplefactory/execution1/checkpoint_p0/checkpoint_000000007_896.pth...
+[2025-02-14 08:40:27,645][07016] Stopping LearnerWorker_p0...
+[2025-02-14 08:40:27,645][07016] Loop learner_proc0_evt_loop terminating...
+[2025-02-14 08:40:27,645][06968] Component LearnerWorker_p0 stopped!
+[2025-02-14 08:40:27,681][07022] Weights refcount: 2 0
+[2025-02-14 08:40:27,682][07022] Stopping InferenceWorker_p0-w0...
+[2025-02-14 08:40:27,682][06968] Component InferenceWorker_p0-w0 stopped!
+[2025-02-14 08:40:27,682][07022] Loop inference_proc0-0_evt_loop terminating...
+[2025-02-14 08:40:27,683][06968] Waiting for process learner_proc0 to stop...
+[2025-02-14 08:40:28,171][06968] Waiting for process inference_proc0-0 to join...
+[2025-02-14 08:40:28,172][06968] Waiting for process rollout_proc0 to join...
+[2025-02-14 08:40:28,172][06968] Batcher 0 profile tree view:
+batching: 0.0020, releasing_batches: 0.0010
+[2025-02-14 08:40:28,172][06968] InferenceWorker_p0-w0 profile tree view:
 wait_policy: 0.0051
-  wait_policy_total: 0.6793
-update_model: 0.0184
-  weight_update: 0.0003
-one_step: 0.0020
-  handle_policy_step: 0.4885
-    deserialize: 0.0206, stack: 0.0060, obs_to_device_normalize: 0.1043, forward: 0.2432, send_messages: 0.0281
-    prepare_outputs: 0.0504
-      to_cpu: 0.0072
-[2025-02-11 08:23:04,570][07529] Learner 0 profile tree view:
-misc: 0.0000, prepare_batch: 0.0368
-train: 0.0355
-  epoch_init: 0.0000, minibatch_init: 0.0000, losses_postprocess: 0.0003, kl_divergence: 0.0001, after_optimizer: 0.0010
-  calculate_losses: 0.0108
-    losses_init: 0.0000, forward_head: 0.0036, bptt_initial: 0.0000, bptt: 0.0000, tail: 0.0035, advantages_returns: 0.0005, losses: 0.0028
-  update: 0.0221
-    clip: 0.0029
-[2025-02-11 08:23:04,570][07529] RolloutWorker_w0 profile tree view:
-wait_for_trajectories: 0.0005, enqueue_policy_requests: 0.0331, env_step: 0.2496, overhead: 0.0205, complete_rollouts: 0.0009
-save_policy_outputs: 0.0469
-  split_output_tensors: 0.0166
-[2025-02-11 08:23:04,570][07529] Loop Runner_EvtLoop terminating...
-[2025-02-11 08:23:04,571][07529] Runner profile tree view:
-main_loop: 4.8737
-[2025-02-11 08:23:04,571][07529] Collected {0: 896}, FPS: 183.8
-[2025-02-11 08:23:04,571][07529] Environment mujoco_hopper already registered, overwriting...
-[2025-02-11 08:23:04,571][07529] Environment mujoco_halfcheetah already registered, overwriting...
-[2025-02-11 08:23:04,571][07529] Environment mujoco_humanoid already registered, overwriting...
-[2025-02-11 08:23:04,571][07529] Environment mujoco_ant already registered, overwriting...
-[2025-02-11 08:23:04,571][07529] Environment mujoco_standup already registered, overwriting...
-[2025-02-11 08:23:04,571][07529] Environment mujoco_doublependulum already registered, overwriting...
-[2025-02-11 08:23:04,571][07529] Environment mujoco_pendulum already registered, overwriting...
-[2025-02-11 08:23:04,571][07529] Environment mujoco_reacher already registered, overwriting...
-[2025-02-11 08:23:04,571][07529] Environment mujoco_walker already registered, overwriting...
-[2025-02-11 08:23:04,571][07529] Environment mujoco_pusher already registered, overwriting...
-[2025-02-11 08:23:04,571][07529] Environment mujoco_swimmer already registered, overwriting...
-[2025-02-11 08:23:04,577][07529] Saved parameter configuration for experiment execution2 not found!
-[2025-02-11 08:23:04,577][07529] Starting experiment from scratch!
-[2025-02-11 08:23:04,580][07529] Experiment dir experiments_LibrariesRL/results/samplefactory/execution2 already exists!
-[2025-02-11 08:23:04,580][07529] Resuming existing experiment from experiments_LibrariesRL/results/samplefactory/execution2...
-[2025-02-11 08:23:04,580][07529] Weights and Biases integration disabled
-[2025-02-11 08:23:04,581][07529] Environment var CUDA_VISIBLE_DEVICES is 
-[2025-02-11 08:23:06,425][07529] Starting experiment with the following configuration:
+  wait_policy_total: 0.6935
+update_model: 0.0178
+  weight_update: 0.0004
+one_step: 0.0011
+  handle_policy_step: 0.4554
+    deserialize: 0.0205, stack: 0.0056, obs_to_device_normalize: 0.0956, forward: 0.2237, send_messages: 0.0271
+    prepare_outputs: 0.0474
+      to_cpu: 0.0066
+[2025-02-14 08:40:28,172][06968] Learner 0 profile tree view:
+misc: 0.0000, prepare_batch: 0.0369
+train: 0.0314
+  epoch_init: 0.0000, minibatch_init: 0.0000, losses_postprocess: 0.0003, kl_divergence: 0.0001, after_optimizer: 0.0007
+  calculate_losses: 0.0087
+    losses_init: 0.0000, forward_head: 0.0016, bptt_initial: 0.0001, bptt: 0.0000, tail: 0.0032, advantages_returns: 0.0004, losses: 0.0029
+  update: 0.0202
+    clip: 0.0019
+[2025-02-14 08:40:28,172][06968] RolloutWorker_w0 profile tree view:
+wait_for_trajectories: 0.0006, enqueue_policy_requests: 0.0325, env_step: 0.2439, overhead: 0.0194, complete_rollouts: 0.0009
+save_policy_outputs: 0.0445
+  split_output_tensors: 0.0154
+[2025-02-14 08:40:28,172][06968] Loop Runner_EvtLoop terminating...
+[2025-02-14 08:40:28,173][06968] Runner profile tree view:
+main_loop: 4.8074
+[2025-02-14 08:40:28,173][06968] Collected {0: 896}, FPS: 186.4
+[2025-02-14 08:40:28,173][06968] Environment mujoco_hopper already registered, overwriting...
+[2025-02-14 08:40:28,173][06968] Environment mujoco_halfcheetah already registered, overwriting...
+[2025-02-14 08:40:28,173][06968] Environment mujoco_humanoid already registered, overwriting...
+[2025-02-14 08:40:28,173][06968] Environment mujoco_ant already registered, overwriting...
+[2025-02-14 08:40:28,173][06968] Environment mujoco_standup already registered, overwriting...
+[2025-02-14 08:40:28,173][06968] Environment mujoco_doublependulum already registered, overwriting...
+[2025-02-14 08:40:28,173][06968] Environment mujoco_pendulum already registered, overwriting...
+[2025-02-14 08:40:28,173][06968] Environment mujoco_reacher already registered, overwriting...
+[2025-02-14 08:40:28,173][06968] Environment mujoco_walker already registered, overwriting...
+[2025-02-14 08:40:28,173][06968] Environment mujoco_pusher already registered, overwriting...
+[2025-02-14 08:40:28,173][06968] Environment mujoco_swimmer already registered, overwriting...
+[2025-02-14 08:40:28,179][06968] Saved parameter configuration for experiment execution2 not found!
+[2025-02-14 08:40:28,180][06968] Starting experiment from scratch!
+[2025-02-14 08:40:28,183][06968] Experiment dir experiments_LibrariesRL/results/samplefactory/execution2 already exists!
+[2025-02-14 08:40:28,184][06968] Resuming existing experiment from experiments_LibrariesRL/results/samplefactory/execution2...
+[2025-02-14 08:40:28,184][06968] Weights and Biases integration disabled
+[2025-02-14 08:40:28,185][06968] Environment var CUDA_VISIBLE_DEVICES is 
+[2025-02-14 08:40:29,809][06968] Starting experiment with the following configuration:
 help=False
 algo=APPO
 env=mujoco_ant
@@ -237,74 +237,72 @@ pbt_perturb_min=1.1
 pbt_perturb_max=1.5
 command_line=--algo=APPO --env=mujoco_ant --seed=1 --train_for_env_steps=640 --experiment=execution2 --train_dir=experiments_LibrariesRL/results/samplefactory --device=cpu --rollout=64 --num_workers=1 --num_envs_per_worker=1 --worker_num_splits=1 --batch_size=128 --num_batches_per_epoch=1 --num_epoch=1 --save_every_sec=15 --keep_checkpoints=2 --save_best_every_sec=5 --save_best_metric=reward --save_best_after=100000 --stats_avg=100
 cli_args={'algo': 'APPO', 'env': 'mujoco_ant', 'experiment': 'execution2', 'train_dir': 'experiments_LibrariesRL/results/samplefactory', 'device': 'cpu', 'seed': 1, 'worker_num_splits': 1, 'num_workers': 1, 'num_envs_per_worker': 1, 'batch_size': 128, 'num_batches_per_epoch': 1, 'num_epochs': 1, 'rollout': 64, 'stats_avg': 100, 'train_for_env_steps': 640, 'save_every_sec': 15, 'keep_checkpoints': 2, 'save_best_every_sec': 5, 'save_best_metric': 'reward', 'save_best_after': 100000}
-git_hash=4df1bb5bc37eecd8a442a21f0e1a6db08ba9ffe2
+git_hash=493d5e649dcbaaa5d278a4301c8b752bc928605c
 git_repo_name=https://github.com/JudithEtxebarrieta/OptimalResourceAllocation_RL.git
-[2025-02-11 08:23:06,425][07529] Saving configuration to experiments_LibrariesRL/results/samplefactory/execution2/config.json...
-[2025-02-11 08:23:06,490][07529] Rollout worker 0 uses device cpu
-[2025-02-11 08:23:06,490][07529] In synchronous mode, we only accumulate one batch. Setting num_batches_to_accumulate to 1
-[2025-02-11 08:23:06,499][07529] InferenceWorker_p0-w0: min num requests: 1
-[2025-02-11 08:23:06,501][07529] Starting all processes...
-[2025-02-11 08:23:06,501][07529] Starting process learner_proc0
-[2025-02-11 08:23:06,551][07529] Starting all processes...
-[2025-02-11 08:23:06,552][07529] Starting process inference_proc0-0
-[2025-02-11 08:23:06,553][07529] Starting process rollout_proc0
-[2025-02-11 08:23:09,097][07529] Inference worker 0-0 is ready!
-[2025-02-11 08:23:09,097][07529] All inference workers are ready! Signal rollout workers to start!
-[2025-02-11 08:23:09,581][07529] Fps is (10 sec: nan, 60 sec: nan, 300 sec: nan). Total num frames: 256. Throughput: 0: nan. Samples: 0. Policy #0 lag: (min: 0.0, avg: 0.0, max: 0.0)
-[2025-02-11 08:23:09,582][07529] Avg episode reward: [(0, '-127.540')]
-[2025-02-11 08:23:10,170][07529] Component Batcher_0 stopped!
-[2025-02-11 08:23:10,171][07529] Component RolloutWorker_w0 stopped!
-[2025-02-11 08:23:10,177][07529] Component LearnerWorker_p0 stopped!
-[2025-02-11 08:23:10,214][07529] Component InferenceWorker_p0-w0 stopped!
-[2025-02-11 08:23:10,214][07529] Waiting for process learner_proc0 to stop...
-[2025-02-11 08:23:10,807][07529] Waiting for process inference_proc0-0 to join...
-[2025-02-11 08:23:10,807][07529] Waiting for process rollout_proc0 to join...
-[2025-02-11 08:23:10,807][07529] Batcher 0 profile tree view:
-batching: 0.0025, releasing_batches: 0.0007
-[2025-02-11 08:23:10,808][07529] InferenceWorker_p0-w0 profile tree view:
-wait_policy: 0.0051
-  wait_policy_total: 0.5605
-update_model: 0.0169
+[2025-02-14 08:40:29,809][06968] Saving configuration to experiments_LibrariesRL/results/samplefactory/execution2/config.json...
+[2025-02-14 08:40:30,811][06968] Rollout worker 0 uses device cpu
+[2025-02-14 08:40:30,811][06968] In synchronous mode, we only accumulate one batch. Setting num_batches_to_accumulate to 1
+[2025-02-14 08:40:30,827][06968] InferenceWorker_p0-w0: min num requests: 1
+[2025-02-14 08:40:30,831][06968] Starting all processes...
+[2025-02-14 08:40:30,832][06968] Starting process learner_proc0
+[2025-02-14 08:40:30,881][06968] Starting all processes...
+[2025-02-14 08:40:30,884][06968] Starting process inference_proc0-0
+[2025-02-14 08:40:30,884][06968] Starting process rollout_proc0
+[2025-02-14 08:40:33,660][06968] Inference worker 0-0 is ready!
+[2025-02-14 08:40:33,661][06968] All inference workers are ready! Signal rollout workers to start!
+[2025-02-14 08:40:34,682][06968] Component RolloutWorker_w0 stopped!
+[2025-02-14 08:40:34,683][06968] Component Batcher_0 stopped!
+[2025-02-14 08:40:34,695][06968] Component LearnerWorker_p0 stopped!
+[2025-02-14 08:40:34,734][06968] Component InferenceWorker_p0-w0 stopped!
+[2025-02-14 08:40:34,734][06968] Waiting for process learner_proc0 to stop...
+[2025-02-14 08:40:35,231][06968] Waiting for process inference_proc0-0 to join...
+[2025-02-14 08:40:35,231][06968] Waiting for process rollout_proc0 to join...
+[2025-02-14 08:40:35,231][06968] Batcher 0 profile tree view:
+batching: 0.0025, releasing_batches: 0.0009
+[2025-02-14 08:40:35,231][06968] InferenceWorker_p0-w0 profile tree view:
+wait_policy: 0.0052
+  wait_policy_total: 0.6096
+update_model: 0.0138
   weight_update: 0.0003
-one_step: 0.0008
-  handle_policy_step: 0.4585
-    deserialize: 0.0195, stack: 0.0055, obs_to_device_normalize: 0.0960, forward: 0.2270, send_messages: 0.0284
-    prepare_outputs: 0.0474
-      to_cpu: 0.0065
-[2025-02-11 08:23:10,808][07529] Learner 0 profile tree view:
-misc: 0.0000, prepare_batch: 0.0427
-train: 0.0297
-  epoch_init: 0.0000, minibatch_init: 0.0000, losses_postprocess: 0.0003, kl_divergence: 0.0001, after_optimizer: 0.0007
-  calculate_losses: 0.0092
-    losses_init: 0.0000, forward_head: 0.0017, bptt_initial: 0.0000, bptt: 0.0000, tail: 0.0034, advantages_returns: 0.0006, losses: 0.0031
-  update: 0.0181
-    clip: 0.0014
-[2025-02-11 08:23:10,808][07529] RolloutWorker_w0 profile tree view:
-wait_for_trajectories: 0.0006, enqueue_policy_requests: 0.0311, env_step: 0.2341, overhead: 0.0193, complete_rollouts: 0.0009
-save_policy_outputs: 0.0438
-  split_output_tensors: 0.0162
-[2025-02-11 08:23:10,808][07529] Loop Runner_EvtLoop terminating...
-[2025-02-11 08:23:10,808][07529] Runner profile tree view:
-main_loop: 4.3074
-[2025-02-11 08:23:10,808][07529] Collected {0: 896}, FPS: 208.0
-[2025-02-11 08:23:10,809][07529] Environment mujoco_hopper already registered, overwriting...
-[2025-02-11 08:23:10,809][07529] Environment mujoco_halfcheetah already registered, overwriting...
-[2025-02-11 08:23:10,809][07529] Environment mujoco_humanoid already registered, overwriting...
-[2025-02-11 08:23:10,809][07529] Environment mujoco_ant already registered, overwriting...
-[2025-02-11 08:23:10,809][07529] Environment mujoco_standup already registered, overwriting...
-[2025-02-11 08:23:10,809][07529] Environment mujoco_doublependulum already registered, overwriting...
-[2025-02-11 08:23:10,809][07529] Environment mujoco_pendulum already registered, overwriting...
-[2025-02-11 08:23:10,809][07529] Environment mujoco_reacher already registered, overwriting...
-[2025-02-11 08:23:10,809][07529] Environment mujoco_walker already registered, overwriting...
-[2025-02-11 08:23:10,809][07529] Environment mujoco_pusher already registered, overwriting...
-[2025-02-11 08:23:10,809][07529] Environment mujoco_swimmer already registered, overwriting...
-[2025-02-11 08:23:10,815][07529] Saved parameter configuration for experiment execution3 not found!
-[2025-02-11 08:23:10,815][07529] Starting experiment from scratch!
-[2025-02-11 08:23:10,819][07529] Experiment dir experiments_LibrariesRL/results/samplefactory/execution3 already exists!
-[2025-02-11 08:23:10,819][07529] Resuming existing experiment from experiments_LibrariesRL/results/samplefactory/execution3...
-[2025-02-11 08:23:10,819][07529] Weights and Biases integration disabled
-[2025-02-11 08:23:10,820][07529] Environment var CUDA_VISIBLE_DEVICES is 
-[2025-02-11 08:23:12,715][07529] Starting experiment with the following configuration:
+one_step: 0.0004
+  handle_policy_step: 0.3810
+    deserialize: 0.0177, stack: 0.0044, obs_to_device_normalize: 0.0803, forward: 0.1840, send_messages: 0.0244
+    prepare_outputs: 0.0398
+      to_cpu: 0.0056
+[2025-02-14 08:40:35,232][06968] Learner 0 profile tree view:
+misc: 0.0000, prepare_batch: 0.0373
+train: 0.0305
+  epoch_init: 0.0000, minibatch_init: 0.0000, losses_postprocess: 0.0003, kl_divergence: 0.0001, after_optimizer: 0.0006
+  calculate_losses: 0.0085
+    losses_init: 0.0000, forward_head: 0.0016, bptt_initial: 0.0001, bptt: 0.0000, tail: 0.0031, advantages_returns: 0.0005, losses: 0.0029
+  update: 0.0197
+    clip: 0.0017
+[2025-02-14 08:40:35,232][06968] RolloutWorker_w0 profile tree view:
+wait_for_trajectories: 0.0004, enqueue_policy_requests: 0.0265, env_step: 0.2029, overhead: 0.0159, complete_rollouts: 0.0008
+save_policy_outputs: 0.0350
+  split_output_tensors: 0.0124
+[2025-02-14 08:40:35,232][06968] Loop Runner_EvtLoop terminating...
+[2025-02-14 08:40:35,232][06968] Runner profile tree view:
+main_loop: 4.4012
+[2025-02-14 08:40:35,232][06968] Collected {0: 896}, FPS: 203.6
+[2025-02-14 08:40:35,232][06968] Environment mujoco_hopper already registered, overwriting...
+[2025-02-14 08:40:35,232][06968] Environment mujoco_halfcheetah already registered, overwriting...
+[2025-02-14 08:40:35,233][06968] Environment mujoco_humanoid already registered, overwriting...
+[2025-02-14 08:40:35,233][06968] Environment mujoco_ant already registered, overwriting...
+[2025-02-14 08:40:35,233][06968] Environment mujoco_standup already registered, overwriting...
+[2025-02-14 08:40:35,233][06968] Environment mujoco_doublependulum already registered, overwriting...
+[2025-02-14 08:40:35,233][06968] Environment mujoco_pendulum already registered, overwriting...
+[2025-02-14 08:40:35,233][06968] Environment mujoco_reacher already registered, overwriting...
+[2025-02-14 08:40:35,233][06968] Environment mujoco_walker already registered, overwriting...
+[2025-02-14 08:40:35,233][06968] Environment mujoco_pusher already registered, overwriting...
+[2025-02-14 08:40:35,233][06968] Environment mujoco_swimmer already registered, overwriting...
+[2025-02-14 08:40:35,239][06968] Saved parameter configuration for experiment execution3 not found!
+[2025-02-14 08:40:35,240][06968] Starting experiment from scratch!
+[2025-02-14 08:40:35,243][06968] Experiment dir experiments_LibrariesRL/results/samplefactory/execution3 already exists!
+[2025-02-14 08:40:35,244][06968] Resuming existing experiment from experiments_LibrariesRL/results/samplefactory/execution3...
+[2025-02-14 08:40:35,245][06968] Weights and Biases integration disabled
+[2025-02-14 08:40:35,247][06968] Environment var CUDA_VISIBLE_DEVICES is 
+[2025-02-14 08:40:36,916][06968] Starting experiment with the following configuration:
 help=False
 algo=APPO
 env=mujoco_ant
@@ -424,81 +422,80 @@ pbt_perturb_min=1.1
 pbt_perturb_max=1.5
 command_line=--algo=APPO --env=mujoco_ant --seed=1 --train_for_env_steps=640 --experiment=execution3 --train_dir=experiments_LibrariesRL/results/samplefactory --device=cpu --rollout=64 --num_workers=2 --num_envs_per_worker=1 --worker_num_splits=1 --batch_size=128 --num_batches_per_epoch=1 --num_epoch=1 --save_every_sec=15 --keep_checkpoints=2 --save_best_every_sec=5 --save_best_metric=reward --save_best_after=100000 --stats_avg=100
 cli_args={'algo': 'APPO', 'env': 'mujoco_ant', 'experiment': 'execution3', 'train_dir': 'experiments_LibrariesRL/results/samplefactory', 'device': 'cpu', 'seed': 1, 'worker_num_splits': 1, 'num_workers': 2, 'num_envs_per_worker': 1, 'batch_size': 128, 'num_batches_per_epoch': 1, 'num_epochs': 1, 'rollout': 64, 'stats_avg': 100, 'train_for_env_steps': 640, 'save_every_sec': 15, 'keep_checkpoints': 2, 'save_best_every_sec': 5, 'save_best_metric': 'reward', 'save_best_after': 100000}
-git_hash=4df1bb5bc37eecd8a442a21f0e1a6db08ba9ffe2
+git_hash=493d5e649dcbaaa5d278a4301c8b752bc928605c
 git_repo_name=https://github.com/JudithEtxebarrieta/OptimalResourceAllocation_RL.git
-[2025-02-11 08:23:12,716][07529] Saving configuration to experiments_LibrariesRL/results/samplefactory/execution3/config.json...
-[2025-02-11 08:23:12,780][07529] Rollout worker 0 uses device cpu
-[2025-02-11 08:23:12,781][07529] Rollout worker 1 uses device cpu
-[2025-02-11 08:23:12,781][07529] In synchronous mode, we only accumulate one batch. Setting num_batches_to_accumulate to 1
-[2025-02-11 08:23:12,794][07529] InferenceWorker_p0-w0: min num requests: 1
-[2025-02-11 08:23:12,800][07529] Starting all processes...
-[2025-02-11 08:23:12,800][07529] Starting process learner_proc0
-[2025-02-11 08:23:12,850][07529] Starting all processes...
-[2025-02-11 08:23:12,856][07529] Starting process inference_proc0-0
-[2025-02-11 08:23:12,856][07529] Starting process rollout_proc0
-[2025-02-11 08:23:12,856][07529] Starting process rollout_proc1
-[2025-02-11 08:23:15,555][07529] Inference worker 0-0 is ready!
-[2025-02-11 08:23:15,555][07529] All inference workers are ready! Signal rollout workers to start!
-[2025-02-11 08:23:15,820][07529] Fps is (10 sec: nan, 60 sec: nan, 300 sec: nan). Total num frames: 128. Throughput: 0: nan. Samples: 0. Policy #0 lag: (min: 0.0, avg: 0.0, max: 0.0)
-[2025-02-11 08:23:16,348][07529] Component Batcher_0 stopped!
-[2025-02-11 08:23:16,348][07529] Component RolloutWorker_w0 stopped!
-[2025-02-11 08:23:16,349][07529] Component RolloutWorker_w1 stopped!
-[2025-02-11 08:23:16,362][07529] Component LearnerWorker_p0 stopped!
-[2025-02-11 08:23:16,400][07529] Component InferenceWorker_p0-w0 stopped!
-[2025-02-11 08:23:16,401][07529] Waiting for process learner_proc0 to stop...
-[2025-02-11 08:23:17,031][07529] Waiting for process inference_proc0-0 to join...
-[2025-02-11 08:23:17,032][07529] Waiting for process rollout_proc0 to join...
-[2025-02-11 08:23:17,032][07529] Waiting for process rollout_proc1 to join...
-[2025-02-11 08:23:17,032][07529] Batcher 0 profile tree view:
-batching: 0.0025, releasing_batches: 0.0018
-[2025-02-11 08:23:17,032][07529] InferenceWorker_p0-w0 profile tree view:
-wait_policy: 0.0051
-  wait_policy_total: 0.3056
-update_model: 0.0141
-  weight_update: 0.0004
-one_step: 0.0022
-  handle_policy_step: 0.4433
-    deserialize: 0.0164, stack: 0.0050, obs_to_device_normalize: 0.0894, forward: 0.2253, send_messages: 0.0261
-    prepare_outputs: 0.0482
-      to_cpu: 0.0070
-[2025-02-11 08:23:17,032][07529] Learner 0 profile tree view:
+[2025-02-14 08:40:36,917][06968] Saving configuration to experiments_LibrariesRL/results/samplefactory/execution3/config.json...
+[2025-02-14 08:40:37,920][06968] Rollout worker 0 uses device cpu
+[2025-02-14 08:40:37,920][06968] Rollout worker 1 uses device cpu
+[2025-02-14 08:40:37,920][06968] In synchronous mode, we only accumulate one batch. Setting num_batches_to_accumulate to 1
+[2025-02-14 08:40:37,930][06968] InferenceWorker_p0-w0: min num requests: 1
+[2025-02-14 08:40:37,938][06968] Starting all processes...
+[2025-02-14 08:40:37,939][06968] Starting process learner_proc0
+[2025-02-14 08:40:37,988][06968] Starting all processes...
+[2025-02-14 08:40:37,990][06968] Starting process inference_proc0-0
+[2025-02-14 08:40:37,992][06968] Starting process rollout_proc0
+[2025-02-14 08:40:37,993][06968] Starting process rollout_proc1
+[2025-02-14 08:40:41,277][06968] Inference worker 0-0 is ready!
+[2025-02-14 08:40:41,277][06968] All inference workers are ready! Signal rollout workers to start!
+[2025-02-14 08:40:42,137][06968] Component RolloutWorker_w0 stopped!
+[2025-02-14 08:40:42,137][06968] Component RolloutWorker_w1 stopped!
+[2025-02-14 08:40:42,138][06968] Component Batcher_0 stopped!
+[2025-02-14 08:40:42,150][06968] Component LearnerWorker_p0 stopped!
+[2025-02-14 08:40:42,197][06968] Component InferenceWorker_p0-w0 stopped!
+[2025-02-14 08:40:42,197][06968] Waiting for process learner_proc0 to stop...
+[2025-02-14 08:40:42,759][06968] Waiting for process inference_proc0-0 to join...
+[2025-02-14 08:40:42,759][06968] Waiting for process rollout_proc0 to join...
+[2025-02-14 08:40:42,759][06968] Waiting for process rollout_proc1 to join...
+[2025-02-14 08:40:42,760][06968] Batcher 0 profile tree view:
+batching: 0.0015, releasing_batches: 0.0011
+[2025-02-14 08:40:42,760][06968] InferenceWorker_p0-w0 profile tree view:
+wait_policy: 0.0052
+  wait_policy_total: 0.3904
+update_model: 0.0137
+  weight_update: 0.0003
+one_step: 0.0004
+  handle_policy_step: 0.4413
+    deserialize: 0.0180, stack: 0.0049, obs_to_device_normalize: 0.0895, forward: 0.2210, send_messages: 0.0281
+    prepare_outputs: 0.0466
+      to_cpu: 0.0069
+[2025-02-14 08:40:42,760][06968] Learner 0 profile tree view:
 misc: 0.0000, prepare_batch: 0.0339
-train: 0.0292
-  epoch_init: 0.0000, minibatch_init: 0.0000, losses_postprocess: 0.0003, kl_divergence: 0.0001, after_optimizer: 0.0006
-  calculate_losses: 0.0081
-    losses_init: 0.0000, forward_head: 0.0016, bptt_initial: 0.0000, bptt: 0.0000, tail: 0.0032, advantages_returns: 0.0004, losses: 0.0025
-  update: 0.0188
-    clip: 0.0016
-[2025-02-11 08:23:17,033][07529] RolloutWorker_w0 profile tree view:
-wait_for_trajectories: 0.0003, enqueue_policy_requests: 0.0161, env_step: 0.1201, overhead: 0.0097, complete_rollouts: 0.0004
-save_policy_outputs: 0.0221
-  split_output_tensors: 0.0078
-[2025-02-11 08:23:17,033][07529] RolloutWorker_w1 profile tree view:
-wait_for_trajectories: 0.0004, enqueue_policy_requests: 0.0228, env_step: 0.1698, overhead: 0.0145, complete_rollouts: 0.0006
-save_policy_outputs: 0.0309
-  split_output_tensors: 0.0102
-[2025-02-11 08:23:17,033][07529] Loop Runner_EvtLoop terminating...
-[2025-02-11 08:23:17,033][07529] Runner profile tree view:
-main_loop: 4.2331
-[2025-02-11 08:23:17,033][07529] Collected {0: 896}, FPS: 211.7
-[2025-02-11 08:23:17,033][07529] Environment mujoco_hopper already registered, overwriting...
-[2025-02-11 08:23:17,033][07529] Environment mujoco_halfcheetah already registered, overwriting...
-[2025-02-11 08:23:17,033][07529] Environment mujoco_humanoid already registered, overwriting...
-[2025-02-11 08:23:17,034][07529] Environment mujoco_ant already registered, overwriting...
-[2025-02-11 08:23:17,034][07529] Environment mujoco_standup already registered, overwriting...
-[2025-02-11 08:23:17,034][07529] Environment mujoco_doublependulum already registered, overwriting...
-[2025-02-11 08:23:17,034][07529] Environment mujoco_pendulum already registered, overwriting...
-[2025-02-11 08:23:17,034][07529] Environment mujoco_reacher already registered, overwriting...
-[2025-02-11 08:23:17,034][07529] Environment mujoco_walker already registered, overwriting...
-[2025-02-11 08:23:17,034][07529] Environment mujoco_pusher already registered, overwriting...
-[2025-02-11 08:23:17,034][07529] Environment mujoco_swimmer already registered, overwriting...
-[2025-02-11 08:23:17,045][07529] Saved parameter configuration for experiment execution4 not found!
-[2025-02-11 08:23:17,046][07529] Starting experiment from scratch!
-[2025-02-11 08:23:17,046][07529] Experiment dir experiments_LibrariesRL/results/samplefactory/execution4 already exists!
-[2025-02-11 08:23:17,046][07529] Resuming existing experiment from experiments_LibrariesRL/results/samplefactory/execution4...
-[2025-02-11 08:23:17,047][07529] Weights and Biases integration disabled
-[2025-02-11 08:23:17,048][07529] Environment var CUDA_VISIBLE_DEVICES is 
-[2025-02-11 08:23:19,069][07529] Starting experiment with the following configuration:
+train: 0.0280
+  epoch_init: 0.0000, minibatch_init: 0.0000, losses_postprocess: 0.0003, kl_divergence: 0.0001, after_optimizer: 0.0007
+  calculate_losses: 0.0075
+    losses_init: 0.0000, forward_head: 0.0015, bptt_initial: 0.0000, bptt: 0.0000, tail: 0.0027, advantages_returns: 0.0005, losses: 0.0024
+  update: 0.0182
+    clip: 0.0015
+[2025-02-14 08:40:42,760][06968] RolloutWorker_w0 profile tree view:
+wait_for_trajectories: 0.0003, enqueue_policy_requests: 0.0259, env_step: 0.1730, overhead: 0.0142, complete_rollouts: 0.0006
+save_policy_outputs: 0.0310
+  split_output_tensors: 0.0104
+[2025-02-14 08:40:42,761][06968] RolloutWorker_w1 profile tree view:
+wait_for_trajectories: 0.0004, enqueue_policy_requests: 0.0266, env_step: 0.2012, overhead: 0.0170, complete_rollouts: 0.0007
+save_policy_outputs: 0.0364
+  split_output_tensors: 0.0121
+[2025-02-14 08:40:42,761][06968] Loop Runner_EvtLoop terminating...
+[2025-02-14 08:40:42,761][06968] Runner profile tree view:
+main_loop: 4.8228
+[2025-02-14 08:40:42,761][06968] Collected {0: 896}, FPS: 185.8
+[2025-02-14 08:40:42,761][06968] Environment mujoco_hopper already registered, overwriting...
+[2025-02-14 08:40:42,761][06968] Environment mujoco_halfcheetah already registered, overwriting...
+[2025-02-14 08:40:42,762][06968] Environment mujoco_humanoid already registered, overwriting...
+[2025-02-14 08:40:42,762][06968] Environment mujoco_ant already registered, overwriting...
+[2025-02-14 08:40:42,762][06968] Environment mujoco_standup already registered, overwriting...
+[2025-02-14 08:40:42,762][06968] Environment mujoco_doublependulum already registered, overwriting...
+[2025-02-14 08:40:42,762][06968] Environment mujoco_pendulum already registered, overwriting...
+[2025-02-14 08:40:42,762][06968] Environment mujoco_reacher already registered, overwriting...
+[2025-02-14 08:40:42,762][06968] Environment mujoco_walker already registered, overwriting...
+[2025-02-14 08:40:42,762][06968] Environment mujoco_pusher already registered, overwriting...
+[2025-02-14 08:40:42,762][06968] Environment mujoco_swimmer already registered, overwriting...
+[2025-02-14 08:40:42,776][06968] Saved parameter configuration for experiment execution4 not found!
+[2025-02-14 08:40:42,776][06968] Starting experiment from scratch!
+[2025-02-14 08:40:42,777][06968] Experiment dir experiments_LibrariesRL/results/samplefactory/execution4 already exists!
+[2025-02-14 08:40:42,777][06968] Resuming existing experiment from experiments_LibrariesRL/results/samplefactory/execution4...
+[2025-02-14 08:40:42,778][06968] Weights and Biases integration disabled
+[2025-02-14 08:40:42,779][06968] Environment var CUDA_VISIBLE_DEVICES is 
+[2025-02-14 08:40:44,392][06968] Starting experiment with the following configuration:
 help=False
 algo=APPO
 env=mujoco_ant
@@ -618,59 +615,730 @@ pbt_perturb_min=1.1
 pbt_perturb_max=1.5
 command_line=--algo=APPO --env=mujoco_ant --seed=1 --train_for_env_steps=640 --experiment=execution4 --train_dir=experiments_LibrariesRL/results/samplefactory --device=cpu --rollout=64 --num_workers=2 --num_envs_per_worker=1 --worker_num_splits=1 --batch_size=128 --num_batches_per_epoch=1 --num_epoch=1 --save_every_sec=15 --keep_checkpoints=2 --save_best_every_sec=5 --save_best_metric=reward --save_best_after=100000 --stats_avg=100
 cli_args={'algo': 'APPO', 'env': 'mujoco_ant', 'experiment': 'execution4', 'train_dir': 'experiments_LibrariesRL/results/samplefactory', 'device': 'cpu', 'seed': 1, 'worker_num_splits': 1, 'num_workers': 2, 'num_envs_per_worker': 1, 'batch_size': 128, 'num_batches_per_epoch': 1, 'num_epochs': 1, 'rollout': 64, 'stats_avg': 100, 'train_for_env_steps': 640, 'save_every_sec': 15, 'keep_checkpoints': 2, 'save_best_every_sec': 5, 'save_best_metric': 'reward', 'save_best_after': 100000}
-git_hash=4df1bb5bc37eecd8a442a21f0e1a6db08ba9ffe2
+git_hash=493d5e649dcbaaa5d278a4301c8b752bc928605c
 git_repo_name=https://github.com/JudithEtxebarrieta/OptimalResourceAllocation_RL.git
-[2025-02-11 08:23:19,069][07529] Saving configuration to experiments_LibrariesRL/results/samplefactory/execution4/config.json...
-[2025-02-11 08:23:19,134][07529] Rollout worker 0 uses device cpu
-[2025-02-11 08:23:19,134][07529] Rollout worker 1 uses device cpu
-[2025-02-11 08:23:19,134][07529] In synchronous mode, we only accumulate one batch. Setting num_batches_to_accumulate to 1
-[2025-02-11 08:23:19,141][07529] InferenceWorker_p0-w0: min num requests: 1
-[2025-02-11 08:23:19,145][07529] Starting all processes...
-[2025-02-11 08:23:19,145][07529] Starting process learner_proc0
-[2025-02-11 08:23:19,195][07529] Starting all processes...
-[2025-02-11 08:23:19,199][07529] Starting process inference_proc0-0
-[2025-02-11 08:23:19,199][07529] Starting process rollout_proc0
-[2025-02-11 08:23:19,199][07529] Starting process rollout_proc1
-[2025-02-11 08:23:22,624][07529] Inference worker 0-0 is ready!
-[2025-02-11 08:23:22,624][07529] All inference workers are ready! Signal rollout workers to start!
-[2025-02-11 08:23:23,499][07529] Component RolloutWorker_w0 stopped!
-[2025-02-11 08:23:23,499][07529] Component RolloutWorker_w1 stopped!
-[2025-02-11 08:23:23,500][07529] Component Batcher_0 stopped!
-[2025-02-11 08:23:23,507][07529] Component LearnerWorker_p0 stopped!
-[2025-02-11 08:23:23,547][07529] Component InferenceWorker_p0-w0 stopped!
-[2025-02-11 08:23:23,548][07529] Waiting for process learner_proc0 to stop...
-[2025-02-11 08:23:24,168][07529] Waiting for process inference_proc0-0 to join...
-[2025-02-11 08:23:24,169][07529] Waiting for process rollout_proc0 to join...
-[2025-02-11 08:23:24,169][07529] Waiting for process rollout_proc1 to join...
-[2025-02-11 08:23:24,169][07529] Batcher 0 profile tree view:
-batching: 0.0028, releasing_batches: 0.0011
-[2025-02-11 08:23:24,169][07529] InferenceWorker_p0-w0 profile tree view:
-wait_policy: 0.0051
-  wait_policy_total: 0.3925
-update_model: 0.0149
-  weight_update: 0.0003
-one_step: 0.0011
-  handle_policy_step: 0.4362
-    deserialize: 0.0180, stack: 0.0048, obs_to_device_normalize: 0.0895, forward: 0.2165, send_messages: 0.0278
-    prepare_outputs: 0.0467
-      to_cpu: 0.0062
-[2025-02-11 08:23:24,170][07529] Learner 0 profile tree view:
-misc: 0.0000, prepare_batch: 0.0355
-train: 0.0307
+[2025-02-14 08:40:44,392][06968] Saving configuration to experiments_LibrariesRL/results/samplefactory/execution4/config.json...
+[2025-02-14 08:40:45,396][06968] Rollout worker 0 uses device cpu
+[2025-02-14 08:40:45,396][06968] Rollout worker 1 uses device cpu
+[2025-02-14 08:40:45,396][06968] In synchronous mode, we only accumulate one batch. Setting num_batches_to_accumulate to 1
+[2025-02-14 08:40:45,403][06968] InferenceWorker_p0-w0: min num requests: 1
+[2025-02-14 08:40:45,410][06968] Starting all processes...
+[2025-02-14 08:40:45,410][06968] Starting process learner_proc0
+[2025-02-14 08:40:45,460][06968] Starting all processes...
+[2025-02-14 08:40:45,462][06968] Starting process inference_proc0-0
+[2025-02-14 08:40:45,462][06968] Starting process rollout_proc0
+[2025-02-14 08:40:45,462][06968] Starting process rollout_proc1
+[2025-02-14 08:40:48,678][06968] Inference worker 0-0 is ready!
+[2025-02-14 08:40:48,679][06968] All inference workers are ready! Signal rollout workers to start!
+[2025-02-14 08:40:49,539][06968] Component RolloutWorker_w1 stopped!
+[2025-02-14 08:40:49,539][06968] Component RolloutWorker_w0 stopped!
+[2025-02-14 08:40:49,540][06968] Component Batcher_0 stopped!
+[2025-02-14 08:40:49,553][06968] Component LearnerWorker_p0 stopped!
+[2025-02-14 08:40:49,585][06968] Component InferenceWorker_p0-w0 stopped!
+[2025-02-14 08:40:49,586][06968] Waiting for process learner_proc0 to stop...
+[2025-02-14 08:40:50,177][06968] Waiting for process inference_proc0-0 to join...
+[2025-02-14 08:40:50,177][06968] Waiting for process rollout_proc0 to join...
+[2025-02-14 08:40:50,178][06968] Waiting for process rollout_proc1 to join...
+[2025-02-14 08:40:50,178][06968] Batcher 0 profile tree view:
+batching: 0.0025, releasing_batches: 0.0028
+[2025-02-14 08:40:50,178][06968] InferenceWorker_p0-w0 profile tree view:
+wait_policy: 0.0052
+  wait_policy_total: 0.3564
+update_model: 0.0148
+  weight_update: 0.0005
+one_step: 0.0018
+  handle_policy_step: 0.4583
+    deserialize: 0.0177, stack: 0.0053, obs_to_device_normalize: 0.0917, forward: 0.2316, send_messages: 0.0272
+    prepare_outputs: 0.0499
+      to_cpu: 0.0074
+[2025-02-14 08:40:50,178][06968] Learner 0 profile tree view:
+misc: 0.0000, prepare_batch: 0.0335
+train: 0.0274
   epoch_init: 0.0000, minibatch_init: 0.0000, losses_postprocess: 0.0003, kl_divergence: 0.0001, after_optimizer: 0.0007
-  calculate_losses: 0.0082
-    losses_init: 0.0000, forward_head: 0.0016, bptt_initial: 0.0000, bptt: 0.0000, tail: 0.0031, advantages_returns: 0.0005, losses: 0.0027
-  update: 0.0200
-    clip: 0.0017
-[2025-02-11 08:23:24,170][07529] RolloutWorker_w0 profile tree view:
-wait_for_trajectories: 0.0004, enqueue_policy_requests: 0.0200, env_step: 0.1483, overhead: 0.0125, complete_rollouts: 0.0006
-save_policy_outputs: 0.0278
-  split_output_tensors: 0.0096
-[2025-02-11 08:23:24,170][07529] RolloutWorker_w1 profile tree view:
-wait_for_trajectories: 0.0004, enqueue_policy_requests: 0.0271, env_step: 0.2078, overhead: 0.0176, complete_rollouts: 0.0008
-save_policy_outputs: 0.0374
-  split_output_tensors: 0.0120
-[2025-02-11 08:23:24,170][07529] Loop Runner_EvtLoop terminating...
-[2025-02-11 08:23:24,171][07529] Runner profile tree view:
-main_loop: 5.0257
-[2025-02-11 08:23:24,171][07529] Collected {0: 896}, FPS: 178.3
+  calculate_losses: 0.0074
+    losses_init: 0.0000, forward_head: 0.0015, bptt_initial: 0.0000, bptt: 0.0000, tail: 0.0027, advantages_returns: 0.0004, losses: 0.0024
+  update: 0.0178
+    clip: 0.0016
+[2025-02-14 08:40:50,179][06968] RolloutWorker_w0 profile tree view:
+wait_for_trajectories: 0.0004, enqueue_policy_requests: 0.0226, env_step: 0.1797, overhead: 0.0145, complete_rollouts: 0.0006
+save_policy_outputs: 0.0319
+  split_output_tensors: 0.0105
+[2025-02-14 08:40:50,179][06968] RolloutWorker_w1 profile tree view:
+wait_for_trajectories: 0.0004, enqueue_policy_requests: 0.0247, env_step: 0.1944, overhead: 0.0159, complete_rollouts: 0.0007
+save_policy_outputs: 0.0345
+  split_output_tensors: 0.0113
+[2025-02-14 08:40:50,179][06968] Loop Runner_EvtLoop terminating...
+[2025-02-14 08:40:50,179][06968] Runner profile tree view:
+main_loop: 4.7694
+[2025-02-14 08:40:50,179][06968] Collected {0: 896}, FPS: 187.9
+[2025-02-14 08:40:50,198][06968] Environment mujoco_hopper already registered, overwriting...
+[2025-02-14 08:40:50,198][06968] Environment mujoco_halfcheetah already registered, overwriting...
+[2025-02-14 08:40:50,199][06968] Environment mujoco_humanoid already registered, overwriting...
+[2025-02-14 08:40:50,199][06968] Environment mujoco_ant already registered, overwriting...
+[2025-02-14 08:40:50,199][06968] Environment mujoco_standup already registered, overwriting...
+[2025-02-14 08:40:50,199][06968] Environment mujoco_doublependulum already registered, overwriting...
+[2025-02-14 08:40:50,199][06968] Environment mujoco_pendulum already registered, overwriting...
+[2025-02-14 08:40:50,199][06968] Environment mujoco_reacher already registered, overwriting...
+[2025-02-14 08:40:50,199][06968] Environment mujoco_walker already registered, overwriting...
+[2025-02-14 08:40:50,199][06968] Environment mujoco_pusher already registered, overwriting...
+[2025-02-14 08:40:50,199][06968] Environment mujoco_swimmer already registered, overwriting...
+[2025-02-14 08:40:50,210][06968] Loading existing experiment configuration from experiments_LibrariesRL/results/samplefactory/execution1/config.json
+[2025-02-14 08:40:50,210][06968] Adding new argument 'fps'=0 that is not in the saved config file!
+[2025-02-14 08:40:50,210][06968] Adding new argument 'eval_env_frameskip'=None that is not in the saved config file!
+[2025-02-14 08:40:50,211][06968] Adding new argument 'no_render'=True that is not in the saved config file!
+[2025-02-14 08:40:50,211][06968] Adding new argument 'save_video'=False that is not in the saved config file!
+[2025-02-14 08:40:50,211][06968] Adding new argument 'video_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:40:50,211][06968] Adding new argument 'video_name'=None that is not in the saved config file!
+[2025-02-14 08:40:50,211][06968] Adding new argument 'max_num_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:40:50,211][06968] Adding new argument 'max_num_episodes'=3 that is not in the saved config file!
+[2025-02-14 08:40:50,211][06968] Adding new argument 'push_to_hub'=False that is not in the saved config file!
+[2025-02-14 08:40:50,211][06968] Adding new argument 'hf_repository'=None that is not in the saved config file!
+[2025-02-14 08:40:50,212][06968] Adding new argument 'policy_index'=0 that is not in the saved config file!
+[2025-02-14 08:40:50,212][06968] Adding new argument 'eval_deterministic'=False that is not in the saved config file!
+[2025-02-14 08:40:50,212][06968] Adding new argument 'train_script'=None that is not in the saved config file!
+[2025-02-14 08:40:50,212][06968] Adding new argument 'enjoy_script'=None that is not in the saved config file!
+[2025-02-14 08:40:50,212][06968] Adding new argument 'sample_env_episodes'=256 that is not in the saved config file!
+[2025-02-14 08:40:50,212][06968] Adding new argument 'csv_folder_name'=None that is not in the saved config file!
+[2025-02-14 08:40:50,212][06968] Using frameskip 1 and render_action_repeat=1 for evaluation
+[2025-02-14 08:40:50,299][06968] RunningMeanStd input shape: (27,)
+[2025-02-14 08:40:50,299][06968] RunningMeanStd input shape: (1,)
+[2025-02-14 08:40:50,356][06968] Loading state from checkpoint experiments_LibrariesRL/results/samplefactory/execution1/process_info/policy_0.pth...
+[2025-02-14 08:40:50,465][06968] Avg episode rewards: #0: -117.994, true rewards: #0: -117.994
+[2025-02-14 08:40:50,466][06968] Avg episode reward: -117.994, avg true_objective: -117.994
+[2025-02-14 08:40:50,545][06968] Avg episode rewards: #0: -92.706, true rewards: #0: -92.706
+[2025-02-14 08:40:50,546][06968] Avg episode reward: -92.706, avg true_objective: -92.706
+[2025-02-14 08:40:50,620][06968] Avg episode rewards: #0: -70.809, true rewards: #0: -70.809
+[2025-02-14 08:40:50,621][06968] Avg episode reward: -70.809, avg true_objective: -70.809
+[2025-02-14 08:40:50,621][06968] Environment mujoco_hopper already registered, overwriting...
+[2025-02-14 08:40:50,622][06968] Environment mujoco_halfcheetah already registered, overwriting...
+[2025-02-14 08:40:50,622][06968] Environment mujoco_humanoid already registered, overwriting...
+[2025-02-14 08:40:50,622][06968] Environment mujoco_ant already registered, overwriting...
+[2025-02-14 08:40:50,622][06968] Environment mujoco_standup already registered, overwriting...
+[2025-02-14 08:40:50,623][06968] Environment mujoco_doublependulum already registered, overwriting...
+[2025-02-14 08:40:50,623][06968] Environment mujoco_pendulum already registered, overwriting...
+[2025-02-14 08:40:50,623][06968] Environment mujoco_reacher already registered, overwriting...
+[2025-02-14 08:40:50,623][06968] Environment mujoco_walker already registered, overwriting...
+[2025-02-14 08:40:50,623][06968] Environment mujoco_pusher already registered, overwriting...
+[2025-02-14 08:40:50,623][06968] Environment mujoco_swimmer already registered, overwriting...
+[2025-02-14 08:40:50,639][06968] Loading existing experiment configuration from experiments_LibrariesRL/results/samplefactory/execution1/config.json
+[2025-02-14 08:40:50,640][06968] Adding new argument 'fps'=0 that is not in the saved config file!
+[2025-02-14 08:40:50,641][06968] Adding new argument 'eval_env_frameskip'=None that is not in the saved config file!
+[2025-02-14 08:40:50,642][06968] Adding new argument 'no_render'=True that is not in the saved config file!
+[2025-02-14 08:40:50,642][06968] Adding new argument 'save_video'=False that is not in the saved config file!
+[2025-02-14 08:40:50,643][06968] Adding new argument 'video_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:40:50,643][06968] Adding new argument 'video_name'=None that is not in the saved config file!
+[2025-02-14 08:40:50,644][06968] Adding new argument 'max_num_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:40:50,644][06968] Adding new argument 'max_num_episodes'=3 that is not in the saved config file!
+[2025-02-14 08:40:50,644][06968] Adding new argument 'push_to_hub'=False that is not in the saved config file!
+[2025-02-14 08:40:50,647][06968] Adding new argument 'hf_repository'=None that is not in the saved config file!
+[2025-02-14 08:40:50,647][06968] Adding new argument 'policy_index'=0 that is not in the saved config file!
+[2025-02-14 08:40:50,648][06968] Adding new argument 'eval_deterministic'=False that is not in the saved config file!
+[2025-02-14 08:40:50,649][06968] Adding new argument 'train_script'=None that is not in the saved config file!
+[2025-02-14 08:40:50,650][06968] Adding new argument 'enjoy_script'=None that is not in the saved config file!
+[2025-02-14 08:40:50,651][06968] Adding new argument 'sample_env_episodes'=256 that is not in the saved config file!
+[2025-02-14 08:40:50,652][06968] Adding new argument 'csv_folder_name'=None that is not in the saved config file!
+[2025-02-14 08:40:50,653][06968] Using frameskip 1 and render_action_repeat=1 for evaluation
+[2025-02-14 08:40:50,663][06968] RunningMeanStd input shape: (27,)
+[2025-02-14 08:40:50,664][06968] RunningMeanStd input shape: (1,)
+[2025-02-14 08:40:50,685][06968] Loading state from checkpoint experiments_LibrariesRL/results/samplefactory/execution1/process_info/policy_0.pth...
+[2025-02-14 08:40:50,822][06968] Avg episode rewards: #0: -290.361, true rewards: #0: -290.361
+[2025-02-14 08:40:50,823][06968] Avg episode reward: -290.361, avg true_objective: -290.361
+[2025-02-14 08:40:50,845][06968] Num frames 100...
+[2025-02-14 08:40:50,951][06968] Avg episode rewards: #0: -259.322, true rewards: #0: -259.322
+[2025-02-14 08:40:50,952][06968] Avg episode reward: -259.322, avg true_objective: -259.322
+[2025-02-14 08:40:51,070][06968] Avg episode rewards: #0: -220.329, true rewards: #0: -220.329
+[2025-02-14 08:40:51,070][06968] Avg episode reward: -220.329, avg true_objective: -220.329
+[2025-02-14 08:40:51,071][06968] Environment mujoco_hopper already registered, overwriting...
+[2025-02-14 08:40:51,072][06968] Environment mujoco_halfcheetah already registered, overwriting...
+[2025-02-14 08:40:51,072][06968] Environment mujoco_humanoid already registered, overwriting...
+[2025-02-14 08:40:51,072][06968] Environment mujoco_ant already registered, overwriting...
+[2025-02-14 08:40:51,072][06968] Environment mujoco_standup already registered, overwriting...
+[2025-02-14 08:40:51,072][06968] Environment mujoco_doublependulum already registered, overwriting...
+[2025-02-14 08:40:51,072][06968] Environment mujoco_pendulum already registered, overwriting...
+[2025-02-14 08:40:51,072][06968] Environment mujoco_reacher already registered, overwriting...
+[2025-02-14 08:40:51,072][06968] Environment mujoco_walker already registered, overwriting...
+[2025-02-14 08:40:51,073][06968] Environment mujoco_pusher already registered, overwriting...
+[2025-02-14 08:40:51,073][06968] Environment mujoco_swimmer already registered, overwriting...
+[2025-02-14 08:40:51,088][06968] Loading existing experiment configuration from experiments_LibrariesRL/results/samplefactory/execution1/config.json
+[2025-02-14 08:40:51,089][06968] Adding new argument 'fps'=0 that is not in the saved config file!
+[2025-02-14 08:40:51,089][06968] Adding new argument 'eval_env_frameskip'=None that is not in the saved config file!
+[2025-02-14 08:40:51,090][06968] Adding new argument 'no_render'=True that is not in the saved config file!
+[2025-02-14 08:40:51,090][06968] Adding new argument 'save_video'=False that is not in the saved config file!
+[2025-02-14 08:40:51,090][06968] Adding new argument 'video_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:40:51,090][06968] Adding new argument 'video_name'=None that is not in the saved config file!
+[2025-02-14 08:40:51,090][06968] Adding new argument 'max_num_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:40:51,090][06968] Adding new argument 'max_num_episodes'=3 that is not in the saved config file!
+[2025-02-14 08:40:51,091][06968] Adding new argument 'push_to_hub'=False that is not in the saved config file!
+[2025-02-14 08:40:51,091][06968] Adding new argument 'hf_repository'=None that is not in the saved config file!
+[2025-02-14 08:40:51,091][06968] Adding new argument 'policy_index'=0 that is not in the saved config file!
+[2025-02-14 08:40:51,091][06968] Adding new argument 'eval_deterministic'=False that is not in the saved config file!
+[2025-02-14 08:40:51,091][06968] Adding new argument 'train_script'=None that is not in the saved config file!
+[2025-02-14 08:40:51,092][06968] Adding new argument 'enjoy_script'=None that is not in the saved config file!
+[2025-02-14 08:40:51,092][06968] Adding new argument 'sample_env_episodes'=256 that is not in the saved config file!
+[2025-02-14 08:40:51,092][06968] Adding new argument 'csv_folder_name'=None that is not in the saved config file!
+[2025-02-14 08:40:51,092][06968] Using frameskip 1 and render_action_repeat=1 for evaluation
+[2025-02-14 08:40:51,100][06968] RunningMeanStd input shape: (27,)
+[2025-02-14 08:40:51,101][06968] RunningMeanStd input shape: (1,)
+[2025-02-14 08:40:51,123][06968] Loading state from checkpoint experiments_LibrariesRL/results/samplefactory/execution1/process_info/policy_0.pth...
+[2025-02-14 08:40:51,215][06968] Avg episode rewards: #0: -127.540, true rewards: #0: -127.540
+[2025-02-14 08:40:51,215][06968] Avg episode reward: -127.540, avg true_objective: -127.540
+[2025-02-14 08:40:51,276][06968] Num frames 100...
+[2025-02-14 08:40:51,356][06968] Num frames 200...
+[2025-02-14 08:40:51,407][06968] Avg episode rewards: #0: -332.353, true rewards: #0: -332.353
+[2025-02-14 08:40:51,407][06968] Avg episode reward: -332.353, avg true_objective: -332.353
+[2025-02-14 08:40:51,470][06968] Avg episode rewards: #0: -237.507, true rewards: #0: -237.507
+[2025-02-14 08:40:51,470][06968] Avg episode reward: -237.507, avg true_objective: -237.507
+[2025-02-14 08:40:51,471][06968] Environment mujoco_hopper already registered, overwriting...
+[2025-02-14 08:40:51,471][06968] Environment mujoco_halfcheetah already registered, overwriting...
+[2025-02-14 08:40:51,471][06968] Environment mujoco_humanoid already registered, overwriting...
+[2025-02-14 08:40:51,471][06968] Environment mujoco_ant already registered, overwriting...
+[2025-02-14 08:40:51,471][06968] Environment mujoco_standup already registered, overwriting...
+[2025-02-14 08:40:51,471][06968] Environment mujoco_doublependulum already registered, overwriting...
+[2025-02-14 08:40:51,471][06968] Environment mujoco_pendulum already registered, overwriting...
+[2025-02-14 08:40:51,471][06968] Environment mujoco_reacher already registered, overwriting...
+[2025-02-14 08:40:51,471][06968] Environment mujoco_walker already registered, overwriting...
+[2025-02-14 08:40:51,471][06968] Environment mujoco_pusher already registered, overwriting...
+[2025-02-14 08:40:51,471][06968] Environment mujoco_swimmer already registered, overwriting...
+[2025-02-14 08:40:51,479][06968] Loading existing experiment configuration from experiments_LibrariesRL/results/samplefactory/execution1/config.json
+[2025-02-14 08:40:51,479][06968] Adding new argument 'fps'=0 that is not in the saved config file!
+[2025-02-14 08:40:51,479][06968] Adding new argument 'eval_env_frameskip'=None that is not in the saved config file!
+[2025-02-14 08:40:51,480][06968] Adding new argument 'no_render'=True that is not in the saved config file!
+[2025-02-14 08:40:51,480][06968] Adding new argument 'save_video'=False that is not in the saved config file!
+[2025-02-14 08:40:51,480][06968] Adding new argument 'video_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:40:51,480][06968] Adding new argument 'video_name'=None that is not in the saved config file!
+[2025-02-14 08:40:51,480][06968] Adding new argument 'max_num_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:40:51,480][06968] Adding new argument 'max_num_episodes'=3 that is not in the saved config file!
+[2025-02-14 08:40:51,480][06968] Adding new argument 'push_to_hub'=False that is not in the saved config file!
+[2025-02-14 08:40:51,480][06968] Adding new argument 'hf_repository'=None that is not in the saved config file!
+[2025-02-14 08:40:51,480][06968] Adding new argument 'policy_index'=0 that is not in the saved config file!
+[2025-02-14 08:40:51,480][06968] Adding new argument 'eval_deterministic'=False that is not in the saved config file!
+[2025-02-14 08:40:51,481][06968] Adding new argument 'train_script'=None that is not in the saved config file!
+[2025-02-14 08:40:51,481][06968] Adding new argument 'enjoy_script'=None that is not in the saved config file!
+[2025-02-14 08:40:51,481][06968] Adding new argument 'sample_env_episodes'=256 that is not in the saved config file!
+[2025-02-14 08:40:51,481][06968] Adding new argument 'csv_folder_name'=None that is not in the saved config file!
+[2025-02-14 08:40:51,481][06968] Using frameskip 1 and render_action_repeat=1 for evaluation
+[2025-02-14 08:40:51,484][06968] RunningMeanStd input shape: (27,)
+[2025-02-14 08:40:51,484][06968] RunningMeanStd input shape: (1,)
+[2025-02-14 08:40:51,499][06968] Loading state from checkpoint experiments_LibrariesRL/results/samplefactory/execution1/process_info/policy_0.pth...
+[2025-02-14 08:40:51,598][06968] Avg episode rewards: #0: -127.540, true rewards: #0: -127.540
+[2025-02-14 08:40:51,599][06968] Avg episode reward: -127.540, avg true_objective: -127.540
+[2025-02-14 08:40:51,677][06968] Num frames 100...
+[2025-02-14 08:40:51,753][06968] Num frames 200...
+[2025-02-14 08:40:51,804][06968] Avg episode rewards: #0: -332.353, true rewards: #0: -332.353
+[2025-02-14 08:40:51,805][06968] Avg episode reward: -332.353, avg true_objective: -332.353
+[2025-02-14 08:40:51,877][06968] Avg episode rewards: #0: -237.507, true rewards: #0: -237.507
+[2025-02-14 08:40:51,878][06968] Avg episode reward: -237.507, avg true_objective: -237.507
+[2025-02-14 08:40:51,887][06968] Environment mujoco_hopper already registered, overwriting...
+[2025-02-14 08:40:51,888][06968] Environment mujoco_halfcheetah already registered, overwriting...
+[2025-02-14 08:40:51,888][06968] Environment mujoco_humanoid already registered, overwriting...
+[2025-02-14 08:40:51,888][06968] Environment mujoco_ant already registered, overwriting...
+[2025-02-14 08:40:51,888][06968] Environment mujoco_standup already registered, overwriting...
+[2025-02-14 08:40:51,889][06968] Environment mujoco_doublependulum already registered, overwriting...
+[2025-02-14 08:40:51,889][06968] Environment mujoco_pendulum already registered, overwriting...
+[2025-02-14 08:40:51,891][06968] Environment mujoco_reacher already registered, overwriting...
+[2025-02-14 08:40:51,891][06968] Environment mujoco_walker already registered, overwriting...
+[2025-02-14 08:40:51,891][06968] Environment mujoco_pusher already registered, overwriting...
+[2025-02-14 08:40:51,892][06968] Environment mujoco_swimmer already registered, overwriting...
+[2025-02-14 08:40:51,915][06968] Saved parameter configuration for experiment execution5 not found!
+[2025-02-14 08:40:51,916][06968] Starting experiment from scratch!
+[2025-02-14 08:40:51,920][06968] Experiment dir experiments_LibrariesRL/results/samplefactory/execution5 already exists!
+[2025-02-14 08:40:51,921][06968] Resuming existing experiment from experiments_LibrariesRL/results/samplefactory/execution5...
+[2025-02-14 08:40:51,921][06968] Weights and Biases integration disabled
+[2025-02-14 08:40:51,922][06968] Environment var CUDA_VISIBLE_DEVICES is 
+[2025-02-14 08:40:53,541][06968] Starting experiment with the following configuration:
+help=False
+algo=APPO
+env=mujoco_ant
+experiment=execution5
+train_dir=experiments_LibrariesRL/results/samplefactory
+restart_behavior=resume
+device=cpu
+seed=1
+num_policies=1
+async_rl=False
+serial_mode=False
+batched_sampling=False
+num_batches_to_accumulate=2
+worker_num_splits=1
+policy_workers_per_policy=1
+max_policy_lag=1000
+num_workers=1
+num_envs_per_worker=1
+batch_size=640
+num_batches_per_epoch=1
+num_epochs=1
+rollout=64
+recurrence=1
+shuffle_minibatches=False
+gamma=0.99
+reward_scale=1
+reward_clip=1000.0
+value_bootstrap=True
+normalize_returns=True
+exploration_loss_coeff=0.0
+value_loss_coeff=1.3
+kl_loss_coeff=0.1
+exploration_loss=entropy
+gae_lambda=0.95
+ppo_clip_ratio=0.2
+ppo_clip_value=1.0
+with_vtrace=False
+vtrace_rho=1.0
+vtrace_c=1.0
+optimizer=adam
+adam_eps=1e-06
+adam_beta1=0.9
+adam_beta2=0.999
+max_grad_norm=3.5
+learning_rate=0.00295
+lr_schedule=linear_decay
+lr_schedule_kl_threshold=0.008
+lr_adaptive_min=1e-06
+lr_adaptive_max=0.01
+obs_subtract_mean=0.0
+obs_scale=1.0
+normalize_input=True
+normalize_input_keys=None
+decorrelate_experience_max_seconds=0
+decorrelate_envs_on_one_worker=True
+actor_worker_gpus=[]
+set_workers_cpu_affinity=True
+force_envs_single_thread=False
+default_niceness=0
+log_to_file=True
+experiment_summaries_interval=3
+flush_summaries_interval=30
+stats_avg=100
+summaries_use_frameskip=True
+heartbeat_interval=20
+heartbeat_reporting_interval=180
+train_for_env_steps=3200
+train_for_seconds=10000000000
+save_every_sec=1
+keep_checkpoints=8
+load_checkpoint_kind=latest
+save_milestones_sec=-1
+save_best_every_sec=1
+save_best_metric=reward
+save_best_after=3200
+benchmark=False
+encoder_mlp_layers=[64, 64]
+encoder_conv_architecture=convnet_simple
+encoder_conv_mlp_layers=[512]
+use_rnn=False
+rnn_size=512
+rnn_type=gru
+rnn_num_layers=1
+decoder_mlp_layers=[]
+nonlinearity=tanh
+policy_initialization=torch_default
+policy_init_gain=1.0
+actor_critic_share_weights=True
+adaptive_stddev=False
+continuous_tanh_scale=0.0
+initial_stddev=1.0
+use_env_info_cache=False
+env_gpu_actions=False
+env_gpu_observations=True
+env_frameskip=1
+env_framestack=1
+pixel_format=CHW
+use_record_episode_statistics=False
+episode_counter=False
+with_wandb=False
+wandb_user=None
+wandb_project=sample_factory
+wandb_group=None
+wandb_job_type=SF
+wandb_tags=[]
+with_pbt=False
+pbt_mix_policies_in_one_env=True
+pbt_period_env_steps=5000000
+pbt_start_mutation=20000000
+pbt_replace_fraction=0.3
+pbt_mutation_rate=0.15
+pbt_replace_reward_gap=0.1
+pbt_replace_reward_gap_absolute=1e-06
+pbt_optimize_gamma=False
+pbt_target_objective=true_objective
+pbt_perturb_min=1.1
+pbt_perturb_max=1.5
+command_line=--algo=APPO --env=mujoco_ant --seed=1 --train_for_env_steps=3200 --experiment=execution5 --train_dir=experiments_LibrariesRL/results/samplefactory --device=cpu --rollout=64 --num_workers=1 --num_envs_per_worker=1 --worker_num_splits=1 --batch_size=640 --num_batches_per_epoch=1 --num_epoch=1 --save_every_sec=1 --keep_checkpoints=8 --save_best_every_sec=1 --save_best_metric=reward --save_best_after=3200 --stats_avg=100
+cli_args={'algo': 'APPO', 'env': 'mujoco_ant', 'experiment': 'execution5', 'train_dir': 'experiments_LibrariesRL/results/samplefactory', 'device': 'cpu', 'seed': 1, 'worker_num_splits': 1, 'num_workers': 1, 'num_envs_per_worker': 1, 'batch_size': 640, 'num_batches_per_epoch': 1, 'num_epochs': 1, 'rollout': 64, 'stats_avg': 100, 'train_for_env_steps': 3200, 'save_every_sec': 1, 'keep_checkpoints': 8, 'save_best_every_sec': 1, 'save_best_metric': 'reward', 'save_best_after': 3200}
+git_hash=493d5e649dcbaaa5d278a4301c8b752bc928605c
+git_repo_name=https://github.com/JudithEtxebarrieta/OptimalResourceAllocation_RL.git
+[2025-02-14 08:40:53,541][06968] Saving configuration to experiments_LibrariesRL/results/samplefactory/execution5/config.json...
+[2025-02-14 08:40:54,544][06968] Rollout worker 0 uses device cpu
+[2025-02-14 08:40:54,544][06968] In synchronous mode, we only accumulate one batch. Setting num_batches_to_accumulate to 1
+[2025-02-14 08:40:54,560][06968] InferenceWorker_p0-w0: min num requests: 1
+[2025-02-14 08:40:54,565][06968] Starting all processes...
+[2025-02-14 08:40:54,565][06968] Starting process learner_proc0
+[2025-02-14 08:40:54,567][06968] Starting all processes...
+[2025-02-14 08:40:54,568][06968] Starting process inference_proc0-0
+[2025-02-14 08:40:54,570][06968] Starting process rollout_proc0
+[2025-02-14 08:40:58,102][06968] Inference worker 0-0 is ready!
+[2025-02-14 08:40:58,102][06968] All inference workers are ready! Signal rollout workers to start!
+[2025-02-14 08:41:01,922][06968] Fps is (10 sec: nan, 60 sec: nan, 300 sec: nan). Total num frames: 2560. Throughput: 0: nan. Samples: 2288. Policy #0 lag: (min: 0.0, avg: 0.0, max: 0.0)
+[2025-02-14 08:41:01,923][06968] Avg episode reward: [(0, '-343.454')]
+[2025-02-14 08:41:03,655][06968] Component RolloutWorker_w0 stopped!
+[2025-02-14 08:41:03,657][06968] Component Batcher_0 stopped!
+[2025-02-14 08:41:03,665][06968] Component LearnerWorker_p0 stopped!
+[2025-02-14 08:41:03,694][06968] Component InferenceWorker_p0-w0 stopped!
+[2025-02-14 08:41:03,695][06968] Waiting for process learner_proc0 to stop...
+[2025-02-14 08:41:04,259][06968] Waiting for process inference_proc0-0 to join...
+[2025-02-14 08:41:04,259][06968] Waiting for process rollout_proc0 to join...
+[2025-02-14 08:41:04,259][06968] Batcher 0 profile tree view:
+batching: 0.0049, releasing_batches: 0.0012
+[2025-02-14 08:41:04,260][06968] InferenceWorker_p0-w0 profile tree view:
+wait_policy: 0.0051
+  wait_policy_total: 2.6910
+update_model: 0.0795
+  weight_update: 0.0004
+one_step: 0.0015
+  handle_policy_step: 2.4504
+    deserialize: 0.1156, stack: 0.0301, obs_to_device_normalize: 0.5180, forward: 1.1871, send_messages: 0.1514
+    prepare_outputs: 0.2530
+      to_cpu: 0.0355
+[2025-02-14 08:41:04,260][06968] Learner 0 profile tree view:
+misc: 0.0000, prepare_batch: 0.0445
+train: 0.0345
+  epoch_init: 0.0000, minibatch_init: 0.0000, losses_postprocess: 0.0002, kl_divergence: 0.0001, after_optimizer: 0.0019
+  calculate_losses: 0.0103
+    losses_init: 0.0000, forward_head: 0.0035, bptt_initial: 0.0000, bptt: 0.0000, tail: 0.0032, advantages_returns: 0.0004, losses: 0.0027
+  update: 0.0208
+    clip: 0.0016
+[2025-02-14 08:41:04,260][06968] RolloutWorker_w0 profile tree view:
+wait_for_trajectories: 0.0018, enqueue_policy_requests: 0.1681, env_step: 1.2728, overhead: 0.1028, complete_rollouts: 0.0048
+save_policy_outputs: 0.2418
+  split_output_tensors: 0.0875
+[2025-02-14 08:41:04,260][06968] Loop Runner_EvtLoop terminating...
+[2025-02-14 08:41:04,260][06968] Runner profile tree view:
+main_loop: 9.6962
+[2025-02-14 08:41:04,261][06968] Collected {0: 4480}, FPS: 462.0
+[2025-02-14 08:41:04,265][06968] Environment mujoco_hopper already registered, overwriting...
+[2025-02-14 08:41:04,265][06968] Environment mujoco_halfcheetah already registered, overwriting...
+[2025-02-14 08:41:04,265][06968] Environment mujoco_humanoid already registered, overwriting...
+[2025-02-14 08:41:04,265][06968] Environment mujoco_ant already registered, overwriting...
+[2025-02-14 08:41:04,265][06968] Environment mujoco_standup already registered, overwriting...
+[2025-02-14 08:41:04,265][06968] Environment mujoco_doublependulum already registered, overwriting...
+[2025-02-14 08:41:04,265][06968] Environment mujoco_pendulum already registered, overwriting...
+[2025-02-14 08:41:04,265][06968] Environment mujoco_reacher already registered, overwriting...
+[2025-02-14 08:41:04,265][06968] Environment mujoco_walker already registered, overwriting...
+[2025-02-14 08:41:04,265][06968] Environment mujoco_pusher already registered, overwriting...
+[2025-02-14 08:41:04,265][06968] Environment mujoco_swimmer already registered, overwriting...
+[2025-02-14 08:41:04,277][06968] Loading existing experiment configuration from experiments_LibrariesRL/results/samplefactory/execution5/config.json
+[2025-02-14 08:41:04,277][06968] Adding new argument 'fps'=0 that is not in the saved config file!
+[2025-02-14 08:41:04,277][06968] Adding new argument 'eval_env_frameskip'=None that is not in the saved config file!
+[2025-02-14 08:41:04,277][06968] Adding new argument 'no_render'=True that is not in the saved config file!
+[2025-02-14 08:41:04,278][06968] Adding new argument 'save_video'=False that is not in the saved config file!
+[2025-02-14 08:41:04,278][06968] Adding new argument 'video_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:41:04,278][06968] Adding new argument 'video_name'=None that is not in the saved config file!
+[2025-02-14 08:41:04,278][06968] Adding new argument 'max_num_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:41:04,278][06968] Adding new argument 'max_num_episodes'=3 that is not in the saved config file!
+[2025-02-14 08:41:04,278][06968] Adding new argument 'push_to_hub'=False that is not in the saved config file!
+[2025-02-14 08:41:04,278][06968] Adding new argument 'hf_repository'=None that is not in the saved config file!
+[2025-02-14 08:41:04,278][06968] Adding new argument 'policy_index'=0 that is not in the saved config file!
+[2025-02-14 08:41:04,278][06968] Adding new argument 'eval_deterministic'=False that is not in the saved config file!
+[2025-02-14 08:41:04,279][06968] Adding new argument 'train_script'=None that is not in the saved config file!
+[2025-02-14 08:41:04,279][06968] Adding new argument 'enjoy_script'=None that is not in the saved config file!
+[2025-02-14 08:41:04,279][06968] Adding new argument 'sample_env_episodes'=256 that is not in the saved config file!
+[2025-02-14 08:41:04,279][06968] Adding new argument 'csv_folder_name'=None that is not in the saved config file!
+[2025-02-14 08:41:04,279][06968] Using frameskip 1 and render_action_repeat=1 for evaluation
+[2025-02-14 08:41:04,284][06968] RunningMeanStd input shape: (27,)
+[2025-02-14 08:41:04,284][06968] RunningMeanStd input shape: (1,)
+[2025-02-14 08:41:04,308][06968] Loading state from checkpoint experiments_LibrariesRL/results/samplefactory/execution5/process_info/policy_0.pth...
+[2025-02-14 08:41:04,426][06968] Avg episode rewards: #0: -127.540, true rewards: #0: -127.540
+[2025-02-14 08:41:04,427][06968] Avg episode reward: -127.540, avg true_objective: -127.540
+[2025-02-14 08:41:04,506][06968] Num frames 100...
+[2025-02-14 08:41:04,610][06968] Num frames 200...
+[2025-02-14 08:41:04,661][06968] Avg episode rewards: #0: -332.353, true rewards: #0: -332.353
+[2025-02-14 08:41:04,661][06968] Avg episode reward: -332.353, avg true_objective: -332.353
+[2025-02-14 08:41:04,734][06968] Avg episode rewards: #0: -237.507, true rewards: #0: -237.507
+[2025-02-14 08:41:04,734][06968] Avg episode reward: -237.507, avg true_objective: -237.507
+[2025-02-14 08:41:04,735][06968] Environment mujoco_hopper already registered, overwriting...
+[2025-02-14 08:41:04,736][06968] Environment mujoco_halfcheetah already registered, overwriting...
+[2025-02-14 08:41:04,736][06968] Environment mujoco_humanoid already registered, overwriting...
+[2025-02-14 08:41:04,736][06968] Environment mujoco_ant already registered, overwriting...
+[2025-02-14 08:41:04,736][06968] Environment mujoco_standup already registered, overwriting...
+[2025-02-14 08:41:04,736][06968] Environment mujoco_doublependulum already registered, overwriting...
+[2025-02-14 08:41:04,736][06968] Environment mujoco_pendulum already registered, overwriting...
+[2025-02-14 08:41:04,736][06968] Environment mujoco_reacher already registered, overwriting...
+[2025-02-14 08:41:04,737][06968] Environment mujoco_walker already registered, overwriting...
+[2025-02-14 08:41:04,737][06968] Environment mujoco_pusher already registered, overwriting...
+[2025-02-14 08:41:04,737][06968] Environment mujoco_swimmer already registered, overwriting...
+[2025-02-14 08:41:04,754][06968] Loading existing experiment configuration from experiments_LibrariesRL/results/samplefactory/execution5/config.json
+[2025-02-14 08:41:04,754][06968] Adding new argument 'fps'=0 that is not in the saved config file!
+[2025-02-14 08:41:04,755][06968] Adding new argument 'eval_env_frameskip'=None that is not in the saved config file!
+[2025-02-14 08:41:04,755][06968] Adding new argument 'no_render'=True that is not in the saved config file!
+[2025-02-14 08:41:04,755][06968] Adding new argument 'save_video'=False that is not in the saved config file!
+[2025-02-14 08:41:04,756][06968] Adding new argument 'video_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:41:04,756][06968] Adding new argument 'video_name'=None that is not in the saved config file!
+[2025-02-14 08:41:04,756][06968] Adding new argument 'max_num_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:41:04,756][06968] Adding new argument 'max_num_episodes'=3 that is not in the saved config file!
+[2025-02-14 08:41:04,757][06968] Adding new argument 'push_to_hub'=False that is not in the saved config file!
+[2025-02-14 08:41:04,757][06968] Adding new argument 'hf_repository'=None that is not in the saved config file!
+[2025-02-14 08:41:04,757][06968] Adding new argument 'policy_index'=0 that is not in the saved config file!
+[2025-02-14 08:41:04,758][06968] Adding new argument 'eval_deterministic'=False that is not in the saved config file!
+[2025-02-14 08:41:04,758][06968] Adding new argument 'train_script'=None that is not in the saved config file!
+[2025-02-14 08:41:04,758][06968] Adding new argument 'enjoy_script'=None that is not in the saved config file!
+[2025-02-14 08:41:04,759][06968] Adding new argument 'sample_env_episodes'=256 that is not in the saved config file!
+[2025-02-14 08:41:04,759][06968] Adding new argument 'csv_folder_name'=None that is not in the saved config file!
+[2025-02-14 08:41:04,759][06968] Using frameskip 1 and render_action_repeat=1 for evaluation
+[2025-02-14 08:41:04,769][06968] RunningMeanStd input shape: (27,)
+[2025-02-14 08:41:04,770][06968] RunningMeanStd input shape: (1,)
+[2025-02-14 08:41:04,793][06968] Loading state from checkpoint experiments_LibrariesRL/results/samplefactory/execution5/process_info/policy_1.pth...
+[2025-02-14 08:41:04,919][06968] Avg episode rewards: #0: -148.661, true rewards: #0: -148.661
+[2025-02-14 08:41:04,919][06968] Avg episode reward: -148.661, avg true_objective: -148.661
+[2025-02-14 08:41:05,021][06968] Avg episode rewards: #0: -123.005, true rewards: #0: -123.005
+[2025-02-14 08:41:05,022][06968] Avg episode reward: -123.005, avg true_objective: -123.005
+[2025-02-14 08:41:05,124][06968] Avg episode rewards: #0: -100.951, true rewards: #0: -100.951
+[2025-02-14 08:41:05,125][06968] Avg episode reward: -100.951, avg true_objective: -100.951
+[2025-02-14 08:41:05,126][06968] Environment mujoco_hopper already registered, overwriting...
+[2025-02-14 08:41:05,127][06968] Environment mujoco_halfcheetah already registered, overwriting...
+[2025-02-14 08:41:05,127][06968] Environment mujoco_humanoid already registered, overwriting...
+[2025-02-14 08:41:05,127][06968] Environment mujoco_ant already registered, overwriting...
+[2025-02-14 08:41:05,127][06968] Environment mujoco_standup already registered, overwriting...
+[2025-02-14 08:41:05,127][06968] Environment mujoco_doublependulum already registered, overwriting...
+[2025-02-14 08:41:05,127][06968] Environment mujoco_pendulum already registered, overwriting...
+[2025-02-14 08:41:05,127][06968] Environment mujoco_reacher already registered, overwriting...
+[2025-02-14 08:41:05,127][06968] Environment mujoco_walker already registered, overwriting...
+[2025-02-14 08:41:05,128][06968] Environment mujoco_pusher already registered, overwriting...
+[2025-02-14 08:41:05,128][06968] Environment mujoco_swimmer already registered, overwriting...
+[2025-02-14 08:41:05,146][06968] Loading existing experiment configuration from experiments_LibrariesRL/results/samplefactory/execution5/config.json
+[2025-02-14 08:41:05,147][06968] Adding new argument 'fps'=0 that is not in the saved config file!
+[2025-02-14 08:41:05,147][06968] Adding new argument 'eval_env_frameskip'=None that is not in the saved config file!
+[2025-02-14 08:41:05,148][06968] Adding new argument 'no_render'=True that is not in the saved config file!
+[2025-02-14 08:41:05,148][06968] Adding new argument 'save_video'=False that is not in the saved config file!
+[2025-02-14 08:41:05,148][06968] Adding new argument 'video_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:41:05,148][06968] Adding new argument 'video_name'=None that is not in the saved config file!
+[2025-02-14 08:41:05,149][06968] Adding new argument 'max_num_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:41:05,149][06968] Adding new argument 'max_num_episodes'=3 that is not in the saved config file!
+[2025-02-14 08:41:05,149][06968] Adding new argument 'push_to_hub'=False that is not in the saved config file!
+[2025-02-14 08:41:05,149][06968] Adding new argument 'hf_repository'=None that is not in the saved config file!
+[2025-02-14 08:41:05,150][06968] Adding new argument 'policy_index'=0 that is not in the saved config file!
+[2025-02-14 08:41:05,150][06968] Adding new argument 'eval_deterministic'=False that is not in the saved config file!
+[2025-02-14 08:41:05,150][06968] Adding new argument 'train_script'=None that is not in the saved config file!
+[2025-02-14 08:41:05,150][06968] Adding new argument 'enjoy_script'=None that is not in the saved config file!
+[2025-02-14 08:41:05,151][06968] Adding new argument 'sample_env_episodes'=256 that is not in the saved config file!
+[2025-02-14 08:41:05,151][06968] Adding new argument 'csv_folder_name'=None that is not in the saved config file!
+[2025-02-14 08:41:05,151][06968] Using frameskip 1 and render_action_repeat=1 for evaluation
+[2025-02-14 08:41:05,160][06968] RunningMeanStd input shape: (27,)
+[2025-02-14 08:41:05,161][06968] RunningMeanStd input shape: (1,)
+[2025-02-14 08:41:05,188][06968] Loading state from checkpoint experiments_LibrariesRL/results/samplefactory/execution5/process_info/policy_2.pth...
+[2025-02-14 08:41:05,326][06968] Avg episode rewards: #0: -183.603, true rewards: #0: -183.603
+[2025-02-14 08:41:05,326][06968] Avg episode reward: -183.603, avg true_objective: -183.603
+[2025-02-14 08:41:05,369][06968] Num frames 100...
+[2025-02-14 08:41:05,463][06968] Num frames 200...
+[2025-02-14 08:41:05,554][06968] Num frames 300...
+[2025-02-14 08:41:05,658][06968] Num frames 400...
+[2025-02-14 08:41:05,751][06968] Num frames 500...
+[2025-02-14 08:41:05,851][06968] Num frames 600...
+[2025-02-14 08:41:05,937][06968] Num frames 700...
+[2025-02-14 08:41:06,037][06968] Num frames 800...
+[2025-02-14 08:41:06,124][06968] Num frames 900...
+[2025-02-14 08:41:06,222][06968] Num frames 1000...
+[2025-02-14 08:41:06,344][06968] Avg episode rewards: #0: -1628.199, true rewards: #0: -1628.199
+[2025-02-14 08:41:06,345][06968] Avg episode reward: -1628.199, avg true_objective: -1628.199
+[2025-02-14 08:41:06,383][06968] Num frames 1100...
+[2025-02-14 08:41:06,438][06968] Avg episode rewards: #0: -1104.932, true rewards: #0: -1104.932
+[2025-02-14 08:41:06,438][06968] Avg episode reward: -1104.932, avg true_objective: -1104.932
+[2025-02-14 08:41:06,438][06968] Environment mujoco_hopper already registered, overwriting...
+[2025-02-14 08:41:06,439][06968] Environment mujoco_halfcheetah already registered, overwriting...
+[2025-02-14 08:41:06,439][06968] Environment mujoco_humanoid already registered, overwriting...
+[2025-02-14 08:41:06,439][06968] Environment mujoco_ant already registered, overwriting...
+[2025-02-14 08:41:06,439][06968] Environment mujoco_standup already registered, overwriting...
+[2025-02-14 08:41:06,439][06968] Environment mujoco_doublependulum already registered, overwriting...
+[2025-02-14 08:41:06,439][06968] Environment mujoco_pendulum already registered, overwriting...
+[2025-02-14 08:41:06,439][06968] Environment mujoco_reacher already registered, overwriting...
+[2025-02-14 08:41:06,440][06968] Environment mujoco_walker already registered, overwriting...
+[2025-02-14 08:41:06,440][06968] Environment mujoco_pusher already registered, overwriting...
+[2025-02-14 08:41:06,440][06968] Environment mujoco_swimmer already registered, overwriting...
+[2025-02-14 08:41:06,460][06968] Loading existing experiment configuration from experiments_LibrariesRL/results/samplefactory/execution5/config.json
+[2025-02-14 08:41:06,460][06968] Adding new argument 'fps'=0 that is not in the saved config file!
+[2025-02-14 08:41:06,461][06968] Adding new argument 'eval_env_frameskip'=None that is not in the saved config file!
+[2025-02-14 08:41:06,461][06968] Adding new argument 'no_render'=True that is not in the saved config file!
+[2025-02-14 08:41:06,461][06968] Adding new argument 'save_video'=False that is not in the saved config file!
+[2025-02-14 08:41:06,461][06968] Adding new argument 'video_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:41:06,461][06968] Adding new argument 'video_name'=None that is not in the saved config file!
+[2025-02-14 08:41:06,462][06968] Adding new argument 'max_num_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:41:06,462][06968] Adding new argument 'max_num_episodes'=3 that is not in the saved config file!
+[2025-02-14 08:41:06,462][06968] Adding new argument 'push_to_hub'=False that is not in the saved config file!
+[2025-02-14 08:41:06,462][06968] Adding new argument 'hf_repository'=None that is not in the saved config file!
+[2025-02-14 08:41:06,462][06968] Adding new argument 'policy_index'=0 that is not in the saved config file!
+[2025-02-14 08:41:06,463][06968] Adding new argument 'eval_deterministic'=False that is not in the saved config file!
+[2025-02-14 08:41:06,463][06968] Adding new argument 'train_script'=None that is not in the saved config file!
+[2025-02-14 08:41:06,463][06968] Adding new argument 'enjoy_script'=None that is not in the saved config file!
+[2025-02-14 08:41:06,463][06968] Adding new argument 'sample_env_episodes'=256 that is not in the saved config file!
+[2025-02-14 08:41:06,463][06968] Adding new argument 'csv_folder_name'=None that is not in the saved config file!
+[2025-02-14 08:41:06,464][06968] Using frameskip 1 and render_action_repeat=1 for evaluation
+[2025-02-14 08:41:06,470][06968] RunningMeanStd input shape: (27,)
+[2025-02-14 08:41:06,470][06968] RunningMeanStd input shape: (1,)
+[2025-02-14 08:41:06,491][06968] Loading state from checkpoint experiments_LibrariesRL/results/samplefactory/execution5/process_info/policy_3.pth...
+[2025-02-14 08:41:06,620][06968] Avg episode rewards: #0: -136.480, true rewards: #0: -136.480
+[2025-02-14 08:41:06,620][06968] Avg episode reward: -136.480, avg true_objective: -136.480
+[2025-02-14 08:41:06,737][06968] Avg episode rewards: #0: -122.031, true rewards: #0: -122.031
+[2025-02-14 08:41:06,738][06968] Avg episode reward: -122.031, avg true_objective: -122.031
+[2025-02-14 08:41:06,765][06968] Num frames 100...
+[2025-02-14 08:41:06,889][06968] Avg episode rewards: #0: -144.951, true rewards: #0: -144.951
+[2025-02-14 08:41:06,890][06968] Avg episode reward: -144.951, avg true_objective: -144.951
+[2025-02-14 08:41:06,892][06968] Environment mujoco_hopper already registered, overwriting...
+[2025-02-14 08:41:06,893][06968] Environment mujoco_halfcheetah already registered, overwriting...
+[2025-02-14 08:41:06,893][06968] Environment mujoco_humanoid already registered, overwriting...
+[2025-02-14 08:41:06,893][06968] Environment mujoco_ant already registered, overwriting...
+[2025-02-14 08:41:06,893][06968] Environment mujoco_standup already registered, overwriting...
+[2025-02-14 08:41:06,893][06968] Environment mujoco_doublependulum already registered, overwriting...
+[2025-02-14 08:41:06,894][06968] Environment mujoco_pendulum already registered, overwriting...
+[2025-02-14 08:41:06,894][06968] Environment mujoco_reacher already registered, overwriting...
+[2025-02-14 08:41:06,894][06968] Environment mujoco_walker already registered, overwriting...
+[2025-02-14 08:41:06,894][06968] Environment mujoco_pusher already registered, overwriting...
+[2025-02-14 08:41:06,894][06968] Environment mujoco_swimmer already registered, overwriting...
+[2025-02-14 08:41:06,909][06968] Loading existing experiment configuration from experiments_LibrariesRL/results/samplefactory/execution5/config.json
+[2025-02-14 08:41:06,909][06968] Adding new argument 'fps'=0 that is not in the saved config file!
+[2025-02-14 08:41:06,909][06968] Adding new argument 'eval_env_frameskip'=None that is not in the saved config file!
+[2025-02-14 08:41:06,909][06968] Adding new argument 'no_render'=True that is not in the saved config file!
+[2025-02-14 08:41:06,909][06968] Adding new argument 'save_video'=False that is not in the saved config file!
+[2025-02-14 08:41:06,909][06968] Adding new argument 'video_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:41:06,909][06968] Adding new argument 'video_name'=None that is not in the saved config file!
+[2025-02-14 08:41:06,910][06968] Adding new argument 'max_num_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:41:06,910][06968] Adding new argument 'max_num_episodes'=3 that is not in the saved config file!
+[2025-02-14 08:41:06,910][06968] Adding new argument 'push_to_hub'=False that is not in the saved config file!
+[2025-02-14 08:41:06,910][06968] Adding new argument 'hf_repository'=None that is not in the saved config file!
+[2025-02-14 08:41:06,910][06968] Adding new argument 'policy_index'=0 that is not in the saved config file!
+[2025-02-14 08:41:06,910][06968] Adding new argument 'eval_deterministic'=False that is not in the saved config file!
+[2025-02-14 08:41:06,910][06968] Adding new argument 'train_script'=None that is not in the saved config file!
+[2025-02-14 08:41:06,910][06968] Adding new argument 'enjoy_script'=None that is not in the saved config file!
+[2025-02-14 08:41:06,910][06968] Adding new argument 'sample_env_episodes'=256 that is not in the saved config file!
+[2025-02-14 08:41:06,911][06968] Adding new argument 'csv_folder_name'=None that is not in the saved config file!
+[2025-02-14 08:41:06,911][06968] Using frameskip 1 and render_action_repeat=1 for evaluation
+[2025-02-14 08:41:06,915][06968] RunningMeanStd input shape: (27,)
+[2025-02-14 08:41:06,915][06968] RunningMeanStd input shape: (1,)
+[2025-02-14 08:41:06,937][06968] Loading state from checkpoint experiments_LibrariesRL/results/samplefactory/execution5/process_info/policy_4.pth...
+[2025-02-14 08:41:07,041][06968] Avg episode rewards: #0: -68.171, true rewards: #0: -68.171
+[2025-02-14 08:41:07,042][06968] Avg episode reward: -68.171, avg true_objective: -68.171
+[2025-02-14 08:41:07,117][06968] Num frames 100...
+[2025-02-14 08:41:07,225][06968] Avg episode rewards: #0: -237.285, true rewards: #0: -237.285
+[2025-02-14 08:41:07,226][06968] Avg episode reward: -237.285, avg true_objective: -237.285
+[2025-02-14 08:41:07,284][06968] Num frames 200...
+[2025-02-14 08:41:07,380][06968] Num frames 300...
+[2025-02-14 08:41:07,473][06968] Num frames 400...
+[2025-02-14 08:41:07,564][06968] Num frames 500...
+[2025-02-14 08:41:07,656][06968] Num frames 600...
+[2025-02-14 08:41:07,751][06968] Num frames 700...
+[2025-02-14 08:41:07,843][06968] Num frames 800...
+[2025-02-14 08:41:07,932][06968] Num frames 900...
+[2025-02-14 08:41:08,044][06968] Num frames 1000...
+[2025-02-14 08:41:08,144][06968] Num frames 1100...
+[2025-02-14 08:41:08,243][06968] Avg episode rewards: #0: -1166.650, true rewards: #0: -1166.650
+[2025-02-14 08:41:08,244][06968] Avg episode reward: -1166.650, avg true_objective: -1166.650
+[2025-02-14 08:41:08,245][06968] Environment mujoco_hopper already registered, overwriting...
+[2025-02-14 08:41:08,246][06968] Environment mujoco_halfcheetah already registered, overwriting...
+[2025-02-14 08:41:08,246][06968] Environment mujoco_humanoid already registered, overwriting...
+[2025-02-14 08:41:08,246][06968] Environment mujoco_ant already registered, overwriting...
+[2025-02-14 08:41:08,246][06968] Environment mujoco_standup already registered, overwriting...
+[2025-02-14 08:41:08,246][06968] Environment mujoco_doublependulum already registered, overwriting...
+[2025-02-14 08:41:08,246][06968] Environment mujoco_pendulum already registered, overwriting...
+[2025-02-14 08:41:08,247][06968] Environment mujoco_reacher already registered, overwriting...
+[2025-02-14 08:41:08,247][06968] Environment mujoco_walker already registered, overwriting...
+[2025-02-14 08:41:08,247][06968] Environment mujoco_pusher already registered, overwriting...
+[2025-02-14 08:41:08,247][06968] Environment mujoco_swimmer already registered, overwriting...
+[2025-02-14 08:41:08,266][06968] Loading existing experiment configuration from experiments_LibrariesRL/results/samplefactory/execution5/config.json
+[2025-02-14 08:41:08,266][06968] Adding new argument 'fps'=0 that is not in the saved config file!
+[2025-02-14 08:41:08,267][06968] Adding new argument 'eval_env_frameskip'=None that is not in the saved config file!
+[2025-02-14 08:41:08,267][06968] Adding new argument 'no_render'=True that is not in the saved config file!
+[2025-02-14 08:41:08,267][06968] Adding new argument 'save_video'=False that is not in the saved config file!
+[2025-02-14 08:41:08,268][06968] Adding new argument 'video_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:41:08,268][06968] Adding new argument 'video_name'=None that is not in the saved config file!
+[2025-02-14 08:41:08,268][06968] Adding new argument 'max_num_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:41:08,268][06968] Adding new argument 'max_num_episodes'=3 that is not in the saved config file!
+[2025-02-14 08:41:08,269][06968] Adding new argument 'push_to_hub'=False that is not in the saved config file!
+[2025-02-14 08:41:08,269][06968] Adding new argument 'hf_repository'=None that is not in the saved config file!
+[2025-02-14 08:41:08,269][06968] Adding new argument 'policy_index'=0 that is not in the saved config file!
+[2025-02-14 08:41:08,269][06968] Adding new argument 'eval_deterministic'=False that is not in the saved config file!
+[2025-02-14 08:41:08,270][06968] Adding new argument 'train_script'=None that is not in the saved config file!
+[2025-02-14 08:41:08,270][06968] Adding new argument 'enjoy_script'=None that is not in the saved config file!
+[2025-02-14 08:41:08,270][06968] Adding new argument 'sample_env_episodes'=256 that is not in the saved config file!
+[2025-02-14 08:41:08,270][06968] Adding new argument 'csv_folder_name'=None that is not in the saved config file!
+[2025-02-14 08:41:08,271][06968] Using frameskip 1 and render_action_repeat=1 for evaluation
+[2025-02-14 08:41:08,279][06968] RunningMeanStd input shape: (27,)
+[2025-02-14 08:41:08,280][06968] RunningMeanStd input shape: (1,)
+[2025-02-14 08:41:08,307][06968] Loading state from checkpoint experiments_LibrariesRL/results/samplefactory/execution5/process_info/policy_5.pth...
+[2025-02-14 08:41:08,447][06968] Avg episode rewards: #0: -142.872, true rewards: #0: -142.872
+[2025-02-14 08:41:08,448][06968] Avg episode reward: -142.872, avg true_objective: -142.872
+[2025-02-14 08:41:08,553][06968] Avg episode rewards: #0: -130.901, true rewards: #0: -130.901
+[2025-02-14 08:41:08,553][06968] Avg episode reward: -130.901, avg true_objective: -130.901
+[2025-02-14 08:41:08,567][06968] Num frames 100...
+[2025-02-14 08:41:08,675][06968] Avg episode rewards: #0: -129.549, true rewards: #0: -129.549
+[2025-02-14 08:41:08,675][06968] Avg episode reward: -129.549, avg true_objective: -129.549
+[2025-02-14 08:41:08,677][06968] Environment mujoco_hopper already registered, overwriting...
+[2025-02-14 08:41:08,677][06968] Environment mujoco_halfcheetah already registered, overwriting...
+[2025-02-14 08:41:08,677][06968] Environment mujoco_humanoid already registered, overwriting...
+[2025-02-14 08:41:08,677][06968] Environment mujoco_ant already registered, overwriting...
+[2025-02-14 08:41:08,677][06968] Environment mujoco_standup already registered, overwriting...
+[2025-02-14 08:41:08,678][06968] Environment mujoco_doublependulum already registered, overwriting...
+[2025-02-14 08:41:08,678][06968] Environment mujoco_pendulum already registered, overwriting...
+[2025-02-14 08:41:08,678][06968] Environment mujoco_reacher already registered, overwriting...
+[2025-02-14 08:41:08,678][06968] Environment mujoco_walker already registered, overwriting...
+[2025-02-14 08:41:08,678][06968] Environment mujoco_pusher already registered, overwriting...
+[2025-02-14 08:41:08,678][06968] Environment mujoco_swimmer already registered, overwriting...
+[2025-02-14 08:41:08,695][06968] Loading existing experiment configuration from experiments_LibrariesRL/results/samplefactory/execution5/config.json
+[2025-02-14 08:41:08,695][06968] Adding new argument 'fps'=0 that is not in the saved config file!
+[2025-02-14 08:41:08,696][06968] Adding new argument 'eval_env_frameskip'=None that is not in the saved config file!
+[2025-02-14 08:41:08,696][06968] Adding new argument 'no_render'=True that is not in the saved config file!
+[2025-02-14 08:41:08,696][06968] Adding new argument 'save_video'=False that is not in the saved config file!
+[2025-02-14 08:41:08,696][06968] Adding new argument 'video_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:41:08,697][06968] Adding new argument 'video_name'=None that is not in the saved config file!
+[2025-02-14 08:41:08,697][06968] Adding new argument 'max_num_frames'=1000000000.0 that is not in the saved config file!
+[2025-02-14 08:41:08,697][06968] Adding new argument 'max_num_episodes'=3 that is not in the saved config file!
+[2025-02-14 08:41:08,697][06968] Adding new argument 'push_to_hub'=False that is not in the saved config file!
+[2025-02-14 08:41:08,697][06968] Adding new argument 'hf_repository'=None that is not in the saved config file!
+[2025-02-14 08:41:08,697][06968] Adding new argument 'policy_index'=0 that is not in the saved config file!
+[2025-02-14 08:41:08,698][06968] Adding new argument 'eval_deterministic'=False that is not in the saved config file!
+[2025-02-14 08:41:08,698][06968] Adding new argument 'train_script'=None that is not in the saved config file!
+[2025-02-14 08:41:08,698][06968] Adding new argument 'enjoy_script'=None that is not in the saved config file!
+[2025-02-14 08:41:08,698][06968] Adding new argument 'sample_env_episodes'=256 that is not in the saved config file!
+[2025-02-14 08:41:08,698][06968] Adding new argument 'csv_folder_name'=None that is not in the saved config file!
+[2025-02-14 08:41:08,698][06968] Using frameskip 1 and render_action_repeat=1 for evaluation
+[2025-02-14 08:41:08,707][06968] RunningMeanStd input shape: (27,)
+[2025-02-14 08:41:08,707][06968] RunningMeanStd input shape: (1,)
+[2025-02-14 08:41:08,729][06968] Loading state from checkpoint experiments_LibrariesRL/results/samplefactory/execution5/process_info/policy_6.pth...
+[2025-02-14 08:41:08,729][06968] Could not load from checkpoint, attempt 0
+Traceback (most recent call last):
+  File "/home/jesusangel/Dropbox/PhD/Mi trabajo/Codigo/OptimalResourceAllocation_RL/libraries/sample-factory/sample_factory/algo/learning/learner.py", line 283, in load_checkpoint
+    checkpoint_dict = torch.load(latest_checkpoint, map_location=device)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jesusangel/miniconda3/lib/python3.12/site-packages/torch/serialization.py", line 1470, in load
+    raise pickle.UnpicklingError(_get_wo_message(str(e))) from None
+_pickle.UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, [1mdo those steps only if you trust the source of the checkpoint[0m. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL numpy.core.multiarray.scalar was not an allowed global by default. Please use `torch.serialization.add_safe_globals([scalar])` or the `torch.serialization.safe_globals([scalar])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+[2025-02-14 08:41:08,730][06968] Loading state from checkpoint experiments_LibrariesRL/results/samplefactory/execution5/process_info/policy_6.pth...
+[2025-02-14 08:41:08,731][06968] Could not load from checkpoint, attempt 1
+Traceback (most recent call last):
+  File "/home/jesusangel/Dropbox/PhD/Mi trabajo/Codigo/OptimalResourceAllocation_RL/libraries/sample-factory/sample_factory/algo/learning/learner.py", line 283, in load_checkpoint
+    checkpoint_dict = torch.load(latest_checkpoint, map_location=device)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jesusangel/miniconda3/lib/python3.12/site-packages/torch/serialization.py", line 1470, in load
+    raise pickle.UnpicklingError(_get_wo_message(str(e))) from None
+_pickle.UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, [1mdo those steps only if you trust the source of the checkpoint[0m. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL numpy.core.multiarray.scalar was not an allowed global by default. Please use `torch.serialization.add_safe_globals([scalar])` or the `torch.serialization.safe_globals([scalar])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+[2025-02-14 08:41:08,731][06968] Loading state from checkpoint experiments_LibrariesRL/results/samplefactory/execution5/process_info/policy_6.pth...
+[2025-02-14 08:41:08,732][06968] Could not load from checkpoint, attempt 2
+Traceback (most recent call last):
+  File "/home/jesusangel/Dropbox/PhD/Mi trabajo/Codigo/OptimalResourceAllocation_RL/libraries/sample-factory/sample_factory/algo/learning/learner.py", line 283, in load_checkpoint
+    checkpoint_dict = torch.load(latest_checkpoint, map_location=device)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jesusangel/miniconda3/lib/python3.12/site-packages/torch/serialization.py", line 1470, in load
+    raise pickle.UnpicklingError(_get_wo_message(str(e))) from None
+_pickle.UnpicklingError: Weights only load failed. This file can still be loaded, to do so you have two options, [1mdo those steps only if you trust the source of the checkpoint[0m. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL numpy.core.multiarray.scalar was not an allowed global by default. Please use `torch.serialization.add_safe_globals([scalar])` or the `torch.serialization.safe_globals([scalar])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.

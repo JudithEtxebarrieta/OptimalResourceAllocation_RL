@@ -144,6 +144,6 @@
     "save_best_metric": "reward",
     "save_best_after": 3200
   },
-  "git_hash": "4df1bb5bc37eecd8a442a21f0e1a6db08ba9ffe2",
+  "git_hash": "493d5e649dcbaaa5d278a4301c8b752bc928605c",
   "git_repo_name": "https://github.com/JudithEtxebarrieta/OptimalResourceAllocation_RL.git"
 }
